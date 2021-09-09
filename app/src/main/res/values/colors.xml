@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="user_message_color">#B0D0FF</color>
+    <color name="receiving_message_color">#FFFB97</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="darker">#FFD1CDCD</color>
+    <color name="grey">#FF837E7E</color>
+    <color name="light_grey">#FFD3D3D3</color>
+    <color name="light_light_grey">#ECECEC</color>
+    <color name="light_grey_blue">#FFB2EBF2</color>
+    <color name="chat_background">#FF80DEEA</color>
+    <color name="register_background">?attr/colorPrimary</color>
+    <color name="edittext_background">@color/white</color>
+    <color name="edittext_text_color">@color/black</color>
+    <color name="edittext_hint_color">@color/grey</color>
+    <color name="single_chat_button_background">@color/white</color>
+    <color name="single_chat_button">@color/grey</color>
+    <color name="send_button">?attr/colorPrimary</color>
+    <color name="attached_bottom_sheet">?attr/colorPrimary</color>
+    <color name="attached_bottom_sheet_icon">@color/white</color>
+    <color name="colorBackground">#FFE3F2FD</color>
+    <color name="colorPaint">?attr/colorPrimary</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <!--theme color-->
+    <color name="pink">#FF8C489F</color>
+    <color name="violet">#FF443266</color>
+    <color name="blue_pink">#FFC3C3E5</color>
+    <color name="white_pink">#FFF1F0FF</color>
+</resources>

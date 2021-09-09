@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/app_small_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bloc_received_quiz_po"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:minWidth="200dp"
+        android:maxWidth="260dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="10dp"
+        android:background="@drawable/bg_receiving_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/chat_received_quiz_po_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_small_margin"
+            android:layout_marginTop="@dimen/app_small_margin"
+            android:layout_marginEnd="@dimen/app_small_margin"
+            android:textSize="@dimen/normalText"
+            android:textColor="@color/grey"
+            app:layout_constraintBottom_toTopOf="@id/chat_received_quiz_po"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Сколько двоек?" />
+
+        <RadioGroup
+            android:id="@+id/chat_received_quiz_po"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/app_small_margin"
+            app:layout_constraintBottom_toTopOf="@id/chat_received_quiz_po_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_received_quiz_po_title">
+
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/chat_received_quiz_po_number_of_voters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/smallText"
+            android:textColor="@color/grey"
+            android:layout_marginStart="@dimen/app_small_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="0 голосов"/>
+
+        <TextView
+            android:id="@+id/chat_received_quiz_po_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/app_small_margin"
+            android:gravity="end"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/smallText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="21:45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bloc_user_quiz_po"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:minWidth="200dp"
+        android:maxWidth="260dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="10dp"
+        android:background="@drawable/bg_user_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/chat_user_quiz_po_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_small_margin"
+            android:layout_marginTop="@dimen/app_small_margin"
+            android:layout_marginEnd="@dimen/app_small_margin"
+            android:textSize="@dimen/normalText"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/chat_user_quiz_po"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Сколько двоек?" />
+
+        <RadioGroup
+            android:id="@+id/chat_user_quiz_po"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/app_small_margin"
+            app:layout_constraintBottom_toTopOf="@id/chat_user_quiz_po_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_user_quiz_po_title">
+
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/chat_user_quiz_po_number_of_voters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/smallText"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/app_small_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="0 голосов"/>
+
+        <TextView
+            android:id="@+id/chat_user_quiz_po_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/app_small_margin"
+            android:gravity="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/smallText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="21:45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

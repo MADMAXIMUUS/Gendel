@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/app_small_padding"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/create_quiz_answer_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:src="@drawable/ic_list"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/create_quiz_answer_text"
+        android:layout_width="0dp"
+        android:hint="@string/create_quiz_answer_hint"
+        android:textColor="?attr/colorPrimary"
+        android:textColorHint="@color/grey"
+        android:background="@color/white"
+        android:textSize="@dimen/normalText"
+        android:layout_height="wrap_content"
+        tools:ignore="Autofill"
+        android:layout_weight="1"
+        android:padding="@dimen/app_small_padding"
+        android:inputType="text|textCapSentences" />
+
+    <ImageView
+        android:id="@+id/create_quiz_answer_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:src="@drawable/ic_delete_answer"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>

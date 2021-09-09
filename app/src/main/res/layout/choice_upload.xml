@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_choice"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_height"
+    android:background="@color/edittext_background"
+    android:orientation="horizontal"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <ImageView
+        android:id="@+id/button_attach_image"
+        android:layout_width="@dimen/button_sheet_width"
+        android:layout_height="@dimen/button_sheet_height"
+        android:layout_margin="@dimen/app_margin"
+        android:background="@drawable/bg_count_of_unread_message"
+        android:backgroundTint="@color/attached_bottom_sheet"
+        android:padding="@dimen/app_padding"
+        android:src="@drawable/ic_bottom_sheet_image"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/button_attach_file"
+        android:layout_width="@dimen/button_sheet_width"
+        android:layout_height="@dimen/button_sheet_height"
+        android:layout_margin="@dimen/app_margin"
+        android:background="@drawable/bg_count_of_unread_message"
+        android:backgroundTint="@color/attached_bottom_sheet"
+        android:padding="@dimen/app_padding"
+        android:src="@drawable/ic_bottom_sheet_file"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/button_attach_graffiti"
+        android:layout_width="@dimen/button_sheet_width"
+        android:layout_height="@dimen/button_sheet_height"
+        android:layout_margin="@dimen/app_margin"
+        android:background="@drawable/bg_count_of_unread_message"
+        android:backgroundTint="@color/attached_bottom_sheet"
+        android:padding="@dimen/app_padding"
+        android:src="@drawable/graffiti_bottom_sheet"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/button_attach_quiz"
+        android:visibility="gone"
+        android:layout_width="@dimen/button_sheet_width"
+        android:layout_height="@dimen/button_sheet_height"
+        android:layout_margin="@dimen/app_margin"
+        android:background="@drawable/bg_count_of_unread_message"
+        android:backgroundTint="@color/attached_bottom_sheet"
+        android:padding="@dimen/app_padding"
+        android:src="@drawable/ic_bottom_sheet_quiz"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>
