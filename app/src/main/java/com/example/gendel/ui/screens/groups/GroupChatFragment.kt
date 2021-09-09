@@ -337,14 +337,14 @@ class GroupChatFragment(private val group: CommonModel) :
     private fun initInfoToolbar() {
         toolbarInfo.findViewById<CircleImageView>(R.id.toolbar_chat_image)
             .downloadAndSetImage(group.photoUrl, "group")
-        if (receivingUser.fullname.isEmpty()) {
+        if (receivingUser.name.isEmpty()) {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)
                 .text = group.fullname
         } else {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)
-                .text = receivingUser.fullname
+                .text = receivingUser.name
         }
         toolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text = receivingUser.state
     }

@@ -11,8 +11,8 @@
     <dimen name="toolbar_image_height">45dp</dimen>
 
     <!--Settings fragment-->
-    <dimen name="settings_user_photo_width">70dp</dimen>
-    <dimen name="settings_user_photo_height">70dp</dimen>
+    <dimen name="settings_user_photo_width">100dp</dimen>
+    <dimen name="settings_user_photo_height">100dp</dimen>
     <dimen name="settings_user_photo_button_width">60dp</dimen>
     <dimen name="settings_user_photo_button_height">60dp</dimen>
     <dimen name="settings_user_photo_border">2dp</dimen>

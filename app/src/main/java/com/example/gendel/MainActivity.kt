@@ -8,15 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.gendel.database.AUTH
-import com.example.gendel.database.USER
 import com.example.gendel.database.initFirebase
 import com.example.gendel.database.initUser
 import com.example.gendel.databinding.ActivityMainBinding
-import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.contacts.ContactsFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
-import com.example.gendel.ui.screens.single_chat.SingleChatFragment
+import com.example.gendel.ui.screens.settings.ProfileFragment
 import com.example.gendel.utilities.*
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 
@@ -36,6 +33,8 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
             initFields()
             initFunc()
         }
+        binding.bottomNavigationMenu.background = null
+        binding.bottomNavigationMenu.menu.getItem(2).isEnabled = false
     }
 
     private fun initFunc() {
@@ -43,26 +42,15 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         binding.bottomNavigationMenu.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> replaceFragment(MainListFragment(), false)
-                R.id.ic_bookmark -> replaceFragment(
-                    SingleChatFragment(
-                        CommonModel(
-                            id = USER.id,
-                            username = USER.username,
-                            fullname = USER.fullname,
-                            photoUrl = USER.photoUrl
-                        )
-                    )
-                )
-                R.id.ic_contacts -> replaceFragment(ContactsFragment())
-                R.id.ic_profile -> replaceFragment(SettingsFragment())
+                R.id.ic_profile -> replaceFragment(ProfileFragment())
             }
             true
         }
         if (AUTH.currentUser != null) {
-            binding.bottomNavigationMenu.visibility = View.VISIBLE
+            binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
             replaceFragment(MainListFragment(), false)
         } else {
-            binding.bottomNavigationMenu.visibility = View.GONE
+            binding.bottomNavigationMenuRoot.visibility = View.GONE
             replaceFragment(RegisterSignInFragment(), false)
         }
     }
@@ -79,19 +67,6 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
     override fun onStop() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            initContacts()
-        }
     }
 
     override fun onColorSelected(dialogId: Int, color: Int) {

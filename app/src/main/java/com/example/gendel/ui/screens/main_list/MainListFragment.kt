@@ -9,7 +9,6 @@ import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentMainListBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.contacts.ContactsFragment
 import com.example.gendel.ui.screens.groups.AddContactsFragment
 import com.example.gendel.utilities.*
 
@@ -30,6 +29,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
     ): View {
         _binding = FragmentMainListBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.VISIBLE
         return binding.root
     }
 
@@ -41,22 +41,6 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.app_name)
-        binding.buttonNewChat.setOnClickListener {
-            if (binding.buttonNewGroupChat.visibility == View.GONE) {
-                binding.buttonNewGroupChat.visibility = View.VISIBLE
-                binding.buttonNewSingleChat.visibility = View.VISIBLE
-                binding.buttonNewGroupChat.setOnClickListener {
-                    replaceFragment(AddContactsFragment())
-                }
-                binding.buttonNewSingleChat.setOnClickListener {
-                    APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_contacts
-                    replaceFragment(ContactsFragment())
-                }
-            } else {
-                binding.buttonNewGroupChat.visibility = View.GONE
-                binding.buttonNewSingleChat.visibility = View.GONE
-            }
-        }
         hideKeyboard()
         initRecyclerView()
     }

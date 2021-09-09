@@ -42,18 +42,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     @SuppressLint("SetTextI18n")
     private fun initFields() {
-        binding.settingsBio.text = USER.bio
-        binding.settingsFullName.text = USER.fullname
-        binding.settingsPhoneNumber.text = USER.phone
-        binding.settingsStatus.text = USER.state
-        binding.settingsUsername.text = "@" + USER.username
-        binding.settingsButtonChangeUsername.setOnClickListener {
-            replaceFragment(
-                ChangeUsernameFragment()
-            )
-        }
-        binding.settingsButtonChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) }
-        binding.settingsChangePhoto.setOnClickListener { changePhotoUser() }
+        binding.profileTextViewName.text = USER.name
+        binding.profileTextViewEmail.text = USER.email
         binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl, "contact")
     }
 

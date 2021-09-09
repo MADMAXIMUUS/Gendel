@@ -108,7 +108,7 @@ fun initContacts() {
                 val newModel = CommonModel()
                 newModel.fullname = fullname
                 newModel.phone = phone.replace(Regex("[\\s()-]"), "")
-                if (newModel.phone != USER.phone)
+                if (newModel.phone != USER.email)
                     arrayContacts.add(newModel)
             }
         }

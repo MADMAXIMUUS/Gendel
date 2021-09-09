@@ -139,7 +139,7 @@ fun setFullnameToDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
         .setValue(fullname)
         .addOnSuccessListener {
-            USER.fullname = fullname
+            USER.name = fullname
             //APP_ACTIVITY.appDrawer.updateHeader()
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener {

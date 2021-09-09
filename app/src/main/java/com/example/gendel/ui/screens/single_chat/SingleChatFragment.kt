@@ -257,14 +257,14 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initInfoToolbar() {
         toolbarInfo.findViewById<CircleImageView>(R.id.toolbar_chat_image)
             .downloadAndSetImage(receivingUser.photoUrl, "contact")
-        if (receivingUser.fullname.isEmpty()) {
+        if (receivingUser.name.isEmpty()) {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)
                 .text = contact.fullname
         } else {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)
-                .text = receivingUser.fullname
+                .text = receivingUser.name
         }
         toolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text = receivingUser.state
     }
