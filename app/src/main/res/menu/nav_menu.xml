@@ -5,16 +5,16 @@
         android:icon="@drawable/ic_home"
         android:title="@string/bottom_menu_main" />
     <item
-        android:id="@+id/ic_bookmark"
-        android:icon="@drawable/ic_bookmark"
-        android:title="@string/bottom_menu_bookmark" />
+        android:id="@+id/ic_favorite"
+        android:icon="@drawable/ic_bottom_favorite"
+        android:title="@string/bottom_menu_favorite" />
     <item
         android:id="@+id/ic_space"
         android:title="" />
     <item
         android:id="@+id/ic_contacts"
-        android:icon="@drawable/ic_contacts"
-        android:title="@string/bottom_menu_contacts" />
+        android:icon="@drawable/ic_chats"
+        android:title="@string/bottom_menu_chats" />
 
     <item
         android:id="@+id/ic_profile"

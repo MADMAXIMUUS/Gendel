@@ -53,8 +53,8 @@
     <string name="create_quiz_settings_multi">Выбор нескольких условий</string>
     <string name="create_quiz_answer_hint">Ответ</string>
     <string name="bottom_menu_main">Главная</string>
-    <string name="bottom_menu_bookmark">Закладки</string>
-    <string name="bottom_menu_contacts">Контакты</string>
+    <string name="bottom_menu_favorite">Избранное</string>
+    <string name="bottom_menu_chats">Чаты</string>
     <string name="bottom_menu_profile">Профиль</string>
     <string name="button_new_group_chat">Новая группа</string>
     <string name="button_new_single_chat">Новое сообщение</string>
