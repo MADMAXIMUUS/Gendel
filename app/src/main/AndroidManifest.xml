@@ -21,7 +21,7 @@
         -->
 
         <activity android:name="com.example.gendel.MainActivity"
-            android:windowSoftInputMode="stateUnchanged">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,12 +1,9 @@
 package com.example.gendel
 
-import android.Manifest.permission.READ_CONTACTS
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.example.gendel.database.AUTH
 import com.example.gendel.database.initFirebase
 import com.example.gendel.database.initUser
@@ -39,7 +36,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
 
     private fun initFunc() {
         setSupportActionBar(toolbar)
-        binding.bottomNavigationMenu.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> replaceFragment(MainListFragment(), false)
                 R.id.ic_profile -> replaceFragment(ProfileFragment())
@@ -47,6 +44,11 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
             true
         }
         if (AUTH.currentUser != null) {
+            if (AUTH.currentUser!!.isEmailVerified) {
+                binding.verificationText.visibility = View.GONE
+            } else {
+                showToast(AUTH.currentUser?.isEmailVerified.toString())
+            }
             binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
             replaceFragment(MainListFragment(), false)
         } else {

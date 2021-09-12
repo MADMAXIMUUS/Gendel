@@ -28,6 +28,7 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.GONE
+        APP_ACTIVITY.binding.verificationText.visibility = View.GONE
         return binding.root
     }
 

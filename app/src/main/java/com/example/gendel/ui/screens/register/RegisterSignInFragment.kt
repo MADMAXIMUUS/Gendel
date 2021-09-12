@@ -26,6 +26,7 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
     ): View {
         _binding = FragmentSigninBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.GONE
+        APP_ACTIVITY.binding.verificationText.visibility = View.GONE
         return binding.root
     }
 
@@ -58,22 +59,27 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
     private fun createNewAccount() {
         AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val uid = AUTH.currentUser?.uid.toString()
-                val dateMap = mutableMapOf<String, Any>()
-                dateMap[CHILD_ID] = uid
-                dateMap[CHILD_NAME] = name
-                dateMap[CHILD_EMAIL] = email
-                dateMap[CHILD_PASSWORD] = password
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
-                    .addListenerForSingleValueEvent(AppValueEventListener {
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                            .addOnSuccessListener {
-                                showToast("Добро пожаловать")
-                                restartActivity()
-                            }
-                            .addOnFailureListener { showToast("Ошибка входа в аккаунт") }
-                    })
-            } else showToast("Ошибка создания аккаунта")
+                AUTH.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        showToast("Добро пожаловать. Регистрация прошла успешно. Подтвердите email")
+                        val uid = AUTH.currentUser?.uid.toString()
+                        val dateMap = mutableMapOf<String, Any>()
+                        dateMap[CHILD_ID] = uid
+                        dateMap[CHILD_NAME] = name
+                        dateMap[CHILD_EMAIL] = email
+                        dateMap[CHILD_PASSWORD] = password
+                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                            .addListenerForSingleValueEvent(AppValueEventListener {
+                                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                                    .updateChildren(dateMap)
+                                    .addOnSuccessListener {
+                                        restartActivity()
+                                    }
+                                    .addOnFailureListener { showToast("Ошибка входа в аккаунт") }
+                            })
+                    } else showToast(it.exception?.message.toString())
+                }
+            } else showToast(task.exception?.message.toString())
         }
     }
 }

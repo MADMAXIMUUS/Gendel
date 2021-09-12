@@ -5,7 +5,7 @@ import com.example.gendel.database.*
 enum class AppStates(val state: String) {
 
     ONLINE("в сети"),
-    OFFLINE("был недавно"),
+    OFFLINE("был(а) недавно"),
     TYPING("печатает");
 
     companion object {
