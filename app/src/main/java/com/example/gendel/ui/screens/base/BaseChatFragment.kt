@@ -11,6 +11,7 @@ open class BaseChatFragment(layout: Int) : Fragment(layout) {
         super.onStart()
         APP_ACTIVITY.binding.bottomNavigationMenu.visibility = View.GONE
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        APP_ACTIVITY.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backarrow)
         APP_ACTIVITY.toolbar.setNavigationOnClickListener {
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }
