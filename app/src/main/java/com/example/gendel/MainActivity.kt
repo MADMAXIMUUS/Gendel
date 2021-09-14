@@ -8,7 +8,7 @@ import com.example.gendel.database.AUTH
 import com.example.gendel.database.initFirebase
 import com.example.gendel.database.initUser
 import com.example.gendel.databinding.ActivityMainBinding
-import com.example.gendel.ui.bill.NewBillFragment
+import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment

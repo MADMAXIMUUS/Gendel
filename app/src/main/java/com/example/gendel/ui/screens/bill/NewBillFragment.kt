@@ -1,4 +1,4 @@
-package com.example.gendel.ui.bill
+package com.example.gendel.ui.screens.bill
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentNewBillBinding.inflate(inflater, container, false)
-        APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.GONE
+        APP_ACTIVITY.toolbar.title = "Новое объявление"
         return binding.root
     }
 
