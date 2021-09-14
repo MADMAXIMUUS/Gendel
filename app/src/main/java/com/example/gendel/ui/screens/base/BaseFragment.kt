@@ -8,13 +8,13 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
 
     override fun onStart() {
         super.onStart()
-        APP_ACTIVITY.binding.bottomNavigationMenu.visibility = View.GONE
+        APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.GONE
         enableDrawer()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        APP_ACTIVITY.binding.bottomNavigationMenu.visibility = View.VISIBLE
+        APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
         disableDrawer()
     }
 

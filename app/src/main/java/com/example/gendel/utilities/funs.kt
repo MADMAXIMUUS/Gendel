@@ -89,34 +89,6 @@ fun dpInPx(unit: Int, value: Float, metrics: android.util.DisplayMetrics): Int {
     return TypedValue.applyDimension(unit, value, metrics).toInt()
 }
 
-fun initContacts() {
-    if (checkPermission(Manifest.permission.READ_CONTACTS)) {
-        val arrayContacts = arrayListOf<CommonModel>()
-        val cursor = APP_ACTIVITY.contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )
-        cursor?.let {
-            while (it.moveToNext()) {
-                val fullname =
-                    it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone =
-                    it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                val newModel = CommonModel()
-                newModel.fullname = fullname
-                newModel.phone = phone.replace(Regex("[\\s()-]"), "")
-                if (newModel.phone != USER.email)
-                    arrayContacts.add(newModel)
-            }
-        }
-        cursor?.close()
-        updatePhonesToDatabase(arrayContacts)
-    }
-}
-
 fun String.asTime(): String {
     val time = Date(this.toLong())
     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())

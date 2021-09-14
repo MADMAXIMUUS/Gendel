@@ -82,6 +82,10 @@
     <string name="member_count_title">Количество участников</string>
     <string name="shipping_cost_title">Стоимость доставки</string>
     <string name="search">Search</string>
+    <string name="enter_store_name">Введите название магазина</string>
+    <string name="new_bill_cost_title">Стоимость доставки</string>
+    <string name="new_bill_tags_title">Тэги</string>
+    <string name="new_bill_end_date_title">Дата окончания</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

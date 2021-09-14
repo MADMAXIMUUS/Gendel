@@ -8,6 +8,7 @@ import com.example.gendel.database.AUTH
 import com.example.gendel.database.initFirebase
 import com.example.gendel.database.initUser
 import com.example.gendel.databinding.ActivityMainBinding
+import com.example.gendel.ui.bill.NewBillFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
 
     private fun initFunc() {
         setSupportActionBar(toolbar)
+        binding.buttonNewChat.setOnClickListener {
+            replaceFragment(NewBillFragment())
+        }
         binding.bottomNavigationMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> replaceFragment(MainListFragment(), false)
