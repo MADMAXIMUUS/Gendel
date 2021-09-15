@@ -86,6 +86,8 @@
     <string name="new_bill_cost_title">Стоимость доставки</string>
     <string name="new_bill_tags_title">Тэги</string>
     <string name="new_bill_end_date_title">Дата окончания</string>
+    <string name="calendar_button_confirm">Выбрать</string>
+    <string name="calendar_button_cancel">Отмена</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

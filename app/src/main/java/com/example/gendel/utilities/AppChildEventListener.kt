@@ -4,7 +4,6 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 
-/* Модификация класса ValueEventListener */
 
 class AppChildEventListener (val onSuccess:(DataSnapshot) -> Unit) :ChildEventListener{
     override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
