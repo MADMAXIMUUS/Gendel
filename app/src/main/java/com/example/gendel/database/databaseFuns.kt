@@ -52,29 +52,6 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 
-fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
-    if (AUTH.currentUser != null) {
-        REF_DATABASE_ROOT.child(NODE_PHONES)
-            .addListenerForSingleValueEvent(AppValueEventListener { snapshot ->
-                snapshot.children.forEach { dataSnapshot ->
-                    arrayContacts.forEach { contact ->
-                        if (dataSnapshot.key == contact.phone) {
-                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                                .child(dataSnapshot.value.toString()).child(CHILD_ID)
-                                .setValue(dataSnapshot.value.toString())
-                                .addOnFailureListener { showToast(it.message.toString()) }
-
-                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                                .child(dataSnapshot.value.toString()).child(CHILD_NAME)
-                                .setValue(contact.fullname)
-                                .addOnFailureListener { showToast(it.message.toString()) }
-                        }
-                    }
-                }
-            })
-    }
-}
-
 fun DataSnapshot.getCommonModel(): CommonModel =
     this.getValue(CommonModel::class.java) ?: CommonModel()
 
@@ -265,63 +242,23 @@ fun deleteChatForGroupChat(id: String, function: () -> Unit) {
         .addOnSuccessListener { function() }
 }
 
-fun createGroupAndPushToDatabase(
-    nameGroup: String,
-    uri: Uri,
-    listContacts: List<CommonModel>,
+fun createBillAndPushToDatabase(
+    storeName: String,
+    endDate: String,
+    cost: String,
     function: () -> Unit,
 ) {
-    val keyGroup = REF_DATABASE_ROOT.child(NODE_GROUPS).push().key.toString()
-    val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
-    val pathStorage = REF_STORAGE_ROOT.child(FOLDER_GROUPS_IMAGE).child(keyGroup)
-
+    val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
+    val path = REF_DATABASE_ROOT.child(NODE_BILLS).child(keyBill)
     val mapData = hashMapOf<String, Any>()
-    mapData[CHILD_ID] = keyGroup
-    mapData[CHILD_NAME] = nameGroup
-    mapData[CHILD_PHOTO_URL] = "empty"
-    val mapMembers = hashMapOf<String, Any>()
-    listContacts.forEach { commonModel ->
-        mapMembers[commonModel.id] = USER_MEMBER
-    }
-    mapMembers[CURRENT_UID] = USER_CREATOR
-    mapData[NODE_MEMBERS] = mapMembers
-
+    mapData[CHILD_ID] = keyBill
+    mapData[CHILD_STORE_NAME] = storeName
+    mapData[CHILD_END_DATE] = endDate
+    mapData[CHILD_COST] = cost
     path.updateChildren(mapData)
         .addOnSuccessListener {
             function()
-            if (uri != Uri.EMPTY) {
-                putFileToStorage(uri, pathStorage) {
-                    getUrlFromStorage(pathStorage) { group_image_path ->
-                        path.child(CHILD_PHOTO_URL).setValue(group_image_path)
-                        addGroupsToMainList(mapData, listContacts) {
-                            function()
-                        }
-                    }
-                }
-            } else {
-                addGroupsToMainList(mapData, listContacts) {
-                    function()
-                }
-            }
         }
-        .addOnFailureListener { showToast(it.message.toString()) }
-}
-
-fun addGroupsToMainList(
-    mapData: HashMap<String, Any>,
-    listContacts: List<CommonModel>,
-    function: () -> Unit,
-) {
-    val path = REF_DATABASE_ROOT.child(NODE_MAIN_LIST)
-    val map = hashMapOf<String, Any>()
-    map[CHILD_ID] = mapData[CHILD_ID].toString()
-    map[CHILD_TYPE] = TYPE_GROUP
-    listContacts.forEach {
-        path.child(it.id).child(map[CHILD_ID].toString()).updateChildren(map)
-    }
-
-    path.child(CURRENT_UID).child(map[CHILD_ID].toString()).updateChildren(map)
-        .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
@@ -355,13 +292,13 @@ fun uploadFileToStorage(
     typeOfMessage: String,
     filename: String = "",
 ) {
-    val path = REF_STORAGE_ROOT.child(FOLDER_FILES).child(receivedID).child(messageKey)
+    /*val path = REF_STORAGE_ROOT.child(FOLDER_FILES).child(receivedID).child(messageKey)
     putFileToStorage(uri, path) {
         getUrlFromStorage(path) { path ->
             sendMessageAsFile(receivedID, path, messageKey, typeOfMessage, filename)
         }
     }
-    saveToMainList(receivedID, TYPE_CHAT)
+    saveToMainList(receivedID, TYPE_CHAT)*/
 }
 
 fun uploadFileToStorageForGroup(

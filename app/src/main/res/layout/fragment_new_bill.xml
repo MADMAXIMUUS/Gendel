@@ -42,7 +42,8 @@
             android:id="@+id/new_bill_end_date_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:padding="10dp"
             android:text="@string/new_bill_end_date_title"
             android:textColor="@color/pink"
@@ -94,22 +95,24 @@
 
         <EditText
             android:id="@+id/new_bill_cost_edittext"
-            android:layout_width="48dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/transparent"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textAlignment="textEnd"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
             android:textColor="@color/pink"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/new_bill_currency_title"
             app:layout_constraintStart_toEndOf="@id/new_bill_cost_title"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/new_bill_currency"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="10" />
 
         <ImageView
@@ -125,22 +128,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/pink"
             tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/new_bill_currency_title"
-            android:layout_width="20sp"
-            android:layout_height="48dp"
-            android:background="@color/transparent"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/pink"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/new_bill_cost_edittext"
-            app:layout_constraintStart_toEndOf="@id/new_bill_cost_edittext"
-            app:layout_constraintTop_toTopOf="@id/new_bill_cost_edittext"
-            app:layout_constraintEnd_toStartOf="@id/new_bill_currency"
-            tools:text="$" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -188,6 +175,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/new_bill_button_create"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="30dp"

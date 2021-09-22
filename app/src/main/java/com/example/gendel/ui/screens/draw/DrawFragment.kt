@@ -128,7 +128,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
     }
 
     private fun send() {
-        val bitmap = Bitmap.createBitmap(binding.graffitiCanvas.extraBitmap)
+        /*val bitmap = Bitmap.createBitmap(binding.graffitiCanvas.extraBitmap)
         when (type) {
             TYPE_CHAT -> {
                 val messageKey = getMessageKey(dialogId)
@@ -145,7 +145,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
                 )
                 file.delete()
             }
-            TYPE_GROUP -> {
+            TYPE_BILL -> {
                 val messageKey = getMessageKeyForGroup(dialogId)
                 file = File(APP_ACTIVITY.filesDir, messageKey)
                 file.writeBitmap(bitmap, Bitmap.CompressFormat.PNG, 85)
@@ -161,7 +161,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
                 file.delete()
             }
         }
-        backToChat()
+        backToChat()*/
     }
 
     private fun backToChat() {

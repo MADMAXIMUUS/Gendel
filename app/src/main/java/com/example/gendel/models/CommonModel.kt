@@ -8,6 +8,11 @@ data class CommonModel(
     var state: String = "",
     var phone: String = "",
     var photoUrl: String = "empty",
+    var storeName: String = "",
+    var cost: String = "",
+    var endDate: String = "",
+    var startDate: String = "",
+    var members: String = "",
 
     var text: String = "",
     var type: String = "",

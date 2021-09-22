@@ -208,7 +208,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachGraffiti() {
-        replaceFragment(DrawFragment(group.id, TYPE_GROUP))
+        /*replaceFragment(DrawFragment(group.id, TYPE_BILL))*/
     }
 
     private fun attachFile() {

@@ -12,8 +12,4 @@ const val TYPE_MESSAGE_FIlE = "file"
 const val TYPE_MESSAGE_QUIZ = "quiz"
 const val TYPE_MESSAGE_QUIZ_PO = "quiz_po"
 
-const val TYPE_CHAT = "chat"
-const val TYPE_GROUP = "group"
-const val TYPE_CHANNEL = "channel"
-
 const val PICK_FILE_REQUEST_CODE = 301

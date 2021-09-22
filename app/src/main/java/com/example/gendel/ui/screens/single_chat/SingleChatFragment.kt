@@ -131,7 +131,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun attachGraffiti() {
-        replaceFragment(DrawFragment(contact.id, TYPE_CHAT))
+        //replaceFragment(DrawFragment(contact.id, TYPE_CHAT))
     }
 
     private fun attachFile() {
@@ -248,8 +248,8 @@ class SingleChatFragment(private val contact: CommonModel) :
             val message = binding.chatInputMessage.text.toString()
             if (message.isNotEmpty())
                 sendMessage(message, contact.id, TYPE_TEXT) {
-                    saveToMainList(contact.id, TYPE_CHAT)
-                    binding.chatInputMessage.setText("")
+                    /*saveToMainList(contact.id)
+                    binding.chatInputMessage.setText("")*/
                 }
         }
     }

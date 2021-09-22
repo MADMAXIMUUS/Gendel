@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gendel.R
-import com.example.gendel.database.createGroupAndPushToDatabase
+import com.example.gendel.database.createBillAndPushToDatabase
 import com.example.gendel.databinding.FragmentCreateGroupBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.base.BaseFragment
@@ -50,9 +50,9 @@ class CreateGroupFragment(private var listContacts: List<CommonModel>) :
             if (nameGroup.isEmpty()) {
                 showToast("Введите имя")
             } else {
-                createGroupAndPushToDatabase(nameGroup, uri, listContacts) {
+                /*createBillAndPushToDatabase(nameGroup, uri, listContacts) {
                     replaceFragment(MainListFragment())
-                }
+                }*/
             }
         }
         binding.createGroupInputName.requestFocus()

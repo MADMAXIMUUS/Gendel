@@ -16,7 +16,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
     private var _binding: FragmentAddContactsBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: AddContactsAdapter
-    private val refContactsList = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+    //private val refContactsList = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
     private val refUsers = REF_DATABASE_ROOT.child(NODE_USERS)
     private val refMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
     private var listItems = listOf<CommonModel>()
@@ -40,7 +40,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         listContacts.clear()
         APP_ACTIVITY.title = getString(R.string.add_participant)
         hideKeyboard()
-        initRecyclerView()
+        /*initRecyclerView()*/
         binding.addContactsButtonNext.setOnClickListener {
             if (listContacts.isEmpty()) {
                 showToast("Добавьте участников")
@@ -50,7 +50,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         }
     }
 
-    private fun initRecyclerView() {
+    /*private fun initRecyclerView() {
         adapter = AddContactsAdapter()
         refContactsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             listItems = dataSnapshot.children.map { it.getCommonModel() }
@@ -71,7 +71,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         })
 
         binding.addContactsRecycleView.adapter = adapter
-    }
+    }*/
 
     companion object {
         val listContacts = mutableListOf<CommonModel>()
