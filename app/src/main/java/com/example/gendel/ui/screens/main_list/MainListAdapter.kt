@@ -3,11 +3,15 @@ package com.example.gendel.ui.screens.main_list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
+import com.example.gendel.database.*
 import com.example.gendel.models.CommonModel
-import com.example.gendel.utilities.*
+import com.example.gendel.ui.message_recycler_view.views_holders.MessageHolder
+import com.example.gendel.utilities.showToast
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
 
@@ -19,6 +23,11 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         val itemEndDate: TextView = view.findViewById(R.id.main_list_end_date_value)
         val itemCost: TextView = view.findViewById(R.id.main_list_shipping_cost_value)
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
+        val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
+        val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
+        var inFavorites = false
+        var registered = false
+        lateinit var key: String
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
@@ -26,9 +35,6 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
 
         val holder = MainListHolder(view)
-        holder.itemView.setOnClickListener {
-
-        }
         return holder
     }
 
@@ -37,7 +43,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         holder.itemCost.text = listItems[position].cost
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
-        holder.itemMember.text = listItems[position].members
+        holder.itemMember.text = listItems[position].memberCount
     }
 
     fun updateListItems(item: CommonModel) {
@@ -46,4 +52,47 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     }
 
     override fun getItemCount(): Int = listItems.size
+
+    override fun onViewAttachedToWindow(holder: MainListHolder) {
+        holder.itemFavorites.setOnClickListener {
+            if (!holder.inFavorites) {
+                holder.inFavorites = true
+                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
+                holder.key = getFavoritesKey()
+                val mapData = hashMapOf<String, Any>()
+                mapData[CHILD_ID] = holder.key
+                mapData[CHILD_BILL_ID] = listItems[holder.position].id
+                REF_DATABASE_ROOT.child(NODE_FAVORITES).child(CURRENT_UID).child(holder.key)
+                    .setValue(mapData)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful)
+                            showToast("Объявление добавлено в избранное")
+                        else
+                            showToast(it.exception?.message.toString())
+                    }
+            } else {
+                holder.inFavorites = false
+                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
+                REF_DATABASE_ROOT.child(NODE_FAVORITES).child(CURRENT_UID).child(holder.key)
+                    .removeValue().addOnSuccessListener {
+                        showToast("Объявление удалено из избранного")
+                    }
+                    .addOnFailureListener { showToast(it.message.toString()) }
+            }
+        }
+        holder.itemRegister.setOnClickListener {
+            if (!holder.registered){
+
+            }else{
+
+            }
+        }
+        super.onViewAttachedToWindow(holder)
+    }
+
+    override fun onViewDetachedFromWindow(holder: MainListHolder) {
+        holder.itemFavorites.setOnClickListener(null)
+        holder.itemRegister.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
 }

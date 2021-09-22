@@ -1,5 +1,6 @@
 package com.example.gendel.ui.screens.bill
 
+import android.annotation.SuppressLint
 import android.app.Instrumentation
 import android.os.Bundle
 import android.view.*
@@ -17,6 +18,8 @@ import com.example.gendel.utilities.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
 
@@ -24,6 +27,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
     private val binding get() = _binding!!
     private lateinit var customView: View
     private lateinit var popupWindow: PopupWindow
+    private lateinit var calendar: CalendarView
     private var isDateChosen = false
     private lateinit var inst: Instrumentation
 
@@ -44,6 +48,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         _binding = null
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun initFunc() {
         binding.newBillEndDateRoot.setOnClickListener {
             popupWindow = PopupWindow(
@@ -57,7 +62,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                 binding.newBillEndDateRoot, 20, 0,
                 Gravity.CENTER
             )
-            val calendar = customView.findViewById<CalendarView>(R.id.calendar)
+            calendar = customView.findViewById(R.id.calendar)
             var date = calendar.date.toString()
             calendar.minDate = calendar.date
             customView.findViewById<CalendarView>(R.id.calendar)
@@ -86,6 +91,8 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             val storeName = binding.newBillEdittextStoreName.text.toString()
             val date = binding.newBillEndDateTitle.text.toString()
             val cost = binding.newBillCostEdittext.text.toString()
+            val format = SimpleDateFormat("dd.MM.yyyy")
+            val startDate = format.format(Date(calendar.date)).toString()
             if (storeName.isEmpty())
                 showToast("Введите название магазина")
             else if (!isDateChosen)
@@ -93,7 +100,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             else if (cost.isEmpty())
                 showToast("Введите стоимость доставки")
             else {
-                createBillAndPushToDatabase(storeName, date, cost) {
+                createBillAndPushToDatabase(storeName, date, cost, startDate) {
                     CoroutineScope(Dispatchers.IO).launch {
                         inst = Instrumentation()
                         inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)

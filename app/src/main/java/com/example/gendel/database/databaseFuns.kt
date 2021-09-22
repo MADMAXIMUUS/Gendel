@@ -246,6 +246,7 @@ fun createBillAndPushToDatabase(
     storeName: String,
     endDate: String,
     cost: String,
+    startDate: String,
     function: () -> Unit,
 ) {
     val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
@@ -255,6 +256,8 @@ fun createBillAndPushToDatabase(
     mapData[CHILD_STORE_NAME] = storeName
     mapData[CHILD_END_DATE] = endDate
     mapData[CHILD_COST] = cost
+    mapData[CHILD_START_DATE] = startDate
+    mapData[CHILD_MEMBERS] = "1"
     path.updateChildren(mapData)
         .addOnSuccessListener {
             function()
@@ -284,6 +287,9 @@ fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
 
 fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_GROUPS)
     .child(cid).child(NODE_MESSAGES).push().key.toString()
+
+fun getFavoritesKey() = REF_DATABASE_ROOT.child(NODE_FAVORITES)
+    .child(CURRENT_UID).push().key.toString()
 
 fun uploadFileToStorage(
     uri: Uri,

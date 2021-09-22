@@ -12,7 +12,7 @@ data class CommonModel(
     var cost: String = "",
     var endDate: String = "",
     var startDate: String = "",
-    var members: String = "",
+    var memberCount: String = "",
 
     var text: String = "",
     var type: String = "",

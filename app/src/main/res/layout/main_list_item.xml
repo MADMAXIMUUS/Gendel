@@ -41,6 +41,7 @@
             android:background="@drawable/main_list_item_information_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/main_list_end_date">
 
             <TextView
@@ -80,6 +81,7 @@
             android:background="@drawable/main_list_item_information_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/main_list_start_date">
 
             <TextView
