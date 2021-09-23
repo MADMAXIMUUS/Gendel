@@ -288,9 +288,6 @@ fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
 fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_GROUPS)
     .child(cid).child(NODE_MESSAGES).push().key.toString()
 
-fun getFavoritesKey() = REF_DATABASE_ROOT.child(NODE_FAVORITES)
-    .child(CURRENT_UID).push().key.toString()
-
 fun uploadFileToStorage(
     uri: Uri,
     messageKey: String,

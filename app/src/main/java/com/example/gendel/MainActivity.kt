@@ -9,6 +9,7 @@ import com.example.gendel.database.initFirebase
 import com.example.gendel.database.initUser
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
+import com.example.gendel.ui.screens.falovorites_list.FavoritesListFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
             when (it.itemId) {
                 R.id.ic_home -> replaceFragment(MainListFragment(), false)
                 R.id.ic_profile -> replaceFragment(ProfileFragment())
+                R.id.ic_favorite -> replaceFragment(FavoritesListFragment())
             }
             true
         }

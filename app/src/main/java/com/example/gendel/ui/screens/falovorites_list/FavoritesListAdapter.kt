@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.main_list
+package com.example.gendel.ui.screens.falovorites_list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +11,11 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
+class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.FavoritesListHolder>() {
 
     private var listItems = mutableListOf<CommonModel>()
 
-    class MainListHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class FavoritesListHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemStoreName: TextView = view.findViewById(R.id.main_list_store_name)
         val itemStartDate: TextView = view.findViewById(R.id.main_list_start_date_value)
         val itemEndDate: TextView = view.findViewById(R.id.main_list_end_date_value)
@@ -23,29 +23,24 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
         val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
         val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
-        var inFavorites = false
+        var inFavorites = true
         var registered = false
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesListHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
 
-        return MainListHolder(view)
+        return FavoritesListHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MainListHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoritesListHolder, position: Int) {
         holder.itemStoreName.text = listItems[position].storeName
         holder.itemCost.text = listItems[position].cost
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
-        for (i in 0 until USER.favorites.size) {
-            if (listItems[holder.position].id in USER.favorites.keys) {
-                holder.inFavorites = true
-                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
-            }
-        }
+        holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
     }
 
     fun updateListItems(item: CommonModel) {
@@ -55,7 +50,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
 
     override fun getItemCount(): Int = listItems.size
 
-    override fun onViewAttachedToWindow(holder: MainListHolder) {
+    override fun onViewAttachedToWindow(holder: FavoritesListHolder) {
         holder.itemFavorites.setOnClickListener {
             if (!holder.inFavorites) {
                 holder.inFavorites = true
@@ -90,7 +85,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         super.onViewAttachedToWindow(holder)
     }
 
-    override fun onViewDetachedFromWindow(holder: MainListHolder) {
+    override fun onViewDetachedFromWindow(holder: FavoritesListHolder) {
         holder.itemFavorites.setOnClickListener(null)
         holder.itemRegister.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)

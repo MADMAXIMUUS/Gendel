@@ -55,5 +55,6 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
             }
         })
         binding.mainListRecycleView.adapter = adapter
+        binding.mainListRecycleView.addItemDecoration(ListsItemDecoration(55))
     }
 }
