@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.gendel.R
 import com.example.gendel.database.NODE_BILLS
 import com.example.gendel.database.REF_DATABASE_ROOT
+import com.example.gendel.database.USER
 import com.example.gendel.database.getCommonModel
 import com.example.gendel.databinding.FragmentChatsBinding
 import com.example.gendel.models.CommonModel
@@ -21,9 +22,7 @@ class ChatsFragment : BaseChatFragment(R.layout.fragment_chats) {
 
     private var _binding: FragmentChatsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: MainListAdapter
-    private val refMainList = REF_DATABASE_ROOT.child(NODE_BILLS)
-    private var listItems = listOf<CommonModel>()
+    private lateinit var adapter: ChatsListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,18 +48,14 @@ class ChatsFragment : BaseChatFragment(R.layout.fragment_chats) {
     }
 
     private fun initRecyclerView() {
-        adapter = MainListAdapter()
-        refMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-            listItems = dataSnapshot.children.map { it.getCommonModel() }
-            listItems.forEach { model ->
-                REF_DATABASE_ROOT.child(NODE_BILLS).child(model.id)
-                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
-                        val newModel = dataSnapshot1.getCommonModel()
-                        adapter.updateListItems(newModel)
-                    })
-            }
-        })
-        binding.mainListRecycleView.adapter = adapter
-        binding.mainListRecycleView.addItemDecoration(ListsItemDecoration(55))
+        adapter = ChatsListAdapter()
+        USER.registered.forEach { (key, _) ->
+            REF_DATABASE_ROOT.child(NODE_BILLS).child(key)
+                .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
+                    val newModel = dataSnapshot1.getCommonModel()
+                    adapter.updateListItems(newModel)
+                })
+        }
+        binding.chatsListRecycleView.adapter = adapter
     }
 }
