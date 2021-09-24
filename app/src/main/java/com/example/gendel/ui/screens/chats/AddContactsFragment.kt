@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.groups
+package com.example.gendel.ui.screens.chats
 
 import android.os.Bundle
 import android.view.LayoutInflater

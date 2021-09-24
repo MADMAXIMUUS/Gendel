@@ -32,7 +32,7 @@ class FavoritesListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        APP_ACTIVITY.toolbar.title = "Избранное"
+        APP_ACTIVITY.toolbar.title = getString(R.string.bottom_menu_favorite)
         hideKeyboard()
         initRecyclerView()
     }
@@ -47,7 +47,7 @@ class FavoritesListFragment : Fragment() {
                 })
         }
         binding.favoritesListRecycleView.adapter = adapter
-        binding.favoritesListRecycleView.addItemDecoration(ListsItemDecoration(55))
+        binding.favoritesListRecycleView.addItemDecoration(ListsItemDecoration(60))
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.groups
+package com.example.gendel.ui.screens.chats
 
 import android.app.Activity
 import android.content.Intent
@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gendel.R
-import com.example.gendel.database.createBillAndPushToDatabase
 import com.example.gendel.databinding.FragmentCreateGroupBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.base.BaseFragment
-import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

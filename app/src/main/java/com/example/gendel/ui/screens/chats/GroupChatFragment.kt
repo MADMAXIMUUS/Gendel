@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.groups
+package com.example.gendel.ui.screens.chats
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,7 +17,6 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.ui.message_recycler_view.views.AppViewFactory
 import com.example.gendel.ui.screens.base.BaseChatFragment
-import com.example.gendel.ui.screens.draw.DrawFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior

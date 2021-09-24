@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.groups
+package com.example.gendel.ui.screens.chats
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
