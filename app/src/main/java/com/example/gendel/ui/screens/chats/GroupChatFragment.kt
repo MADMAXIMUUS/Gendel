@@ -75,11 +75,11 @@ class GroupChatFragment(private val group: CommonModel) :
         setHasOptionsMenu(true)
         layoutManager = LinearLayoutManager(this.context)
         appVoiceRecorder = AppVoiceRecorder()
-        bottomSheetBehaviour = BottomSheetBehavior
+        /*bottomSheetBehaviour = BottomSheetBehavior
             .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_choice))
         bottomSheetBehaviourQuiz = BottomSheetBehavior
             .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_create_quiz))
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN*/
         binding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val string = binding.chatInputMessage.text.toString()
             if (string.isEmpty() || string == "Запись") {
@@ -124,7 +124,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attach() {
-        binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz).visibility =
+        /*binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz).visibility =
             View.VISIBLE
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_image)
@@ -134,7 +134,7 @@ class GroupChatFragment(private val group: CommonModel) :
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_graffiti)
             .setOnClickListener { attachGraffiti() }
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz)
-            .setOnClickListener { attachQuiz() }
+            .setOnClickListener { attachQuiz() }*/
     }
 
     private fun attachQuiz() {
@@ -339,7 +339,7 @@ class GroupChatFragment(private val group: CommonModel) :
         if (receivingUser.name.isEmpty()) {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)
-                .text = group.fullname
+                .text = group.storeName
         } else {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)

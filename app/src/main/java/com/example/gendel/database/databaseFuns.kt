@@ -247,7 +247,7 @@ fun createBillAndPushToDatabase(
     endDate: String,
     cost: String,
     startDate: String,
-    function: () -> Unit,
+    function: (keyBill: String) -> Unit,
 ) {
     val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
     val path = REF_DATABASE_ROOT.child(NODE_BILLS).child(keyBill)
@@ -260,7 +260,7 @@ fun createBillAndPushToDatabase(
     mapData[CHILD_MEMBERS] = "1"
     path.updateChildren(mapData)
         .addOnSuccessListener {
-            function()
+            function(keyBill)
         }
         .addOnFailureListener { showToast(it.message.toString()) }
 }

@@ -100,11 +100,18 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             else if (cost.isEmpty())
                 showToast("Введите стоимость доставки")
             else {
-                createBillAndPushToDatabase(storeName, date, cost, startDate) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        inst = Instrumentation()
-                        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
-                    }
+                createBillAndPushToDatabase(storeName, date, cost, startDate) { billID ->
+                    val mapData = hashMapOf<String, Any>()
+                    mapData[billID] = "1"
+                    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
+                        .updateChildren(mapData)
+                        .addOnSuccessListener {
+                            USER.registered[billID] = "1"
+                            CoroutineScope(Dispatchers.IO).launch {
+                                inst = Instrumentation()
+                                inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                            }
+                        }.addOnFailureListener { showToast(it.message.toString()) }
                 }
             }
         }

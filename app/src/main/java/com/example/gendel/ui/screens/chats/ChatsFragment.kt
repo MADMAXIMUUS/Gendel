@@ -4,21 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.NODE_BILLS
-import com.example.gendel.database.REF_DATABASE_ROOT
-import com.example.gendel.database.USER
-import com.example.gendel.database.getCommonModel
+import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentChatsBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.base.BaseChatFragment
-import com.example.gendel.ui.screens.main_list.MainListAdapter
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.AppValueEventListener
-import com.example.gendel.utilities.ListsItemDecoration
-import com.example.gendel.utilities.hideKeyboard
+import com.example.gendel.utilities.*
 
-class ChatsFragment : BaseChatFragment(R.layout.fragment_chats) {
+class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     private var _binding: FragmentChatsBinding? = null
     private val binding get() = _binding!!
@@ -53,9 +46,29 @@ class ChatsFragment : BaseChatFragment(R.layout.fragment_chats) {
             REF_DATABASE_ROOT.child(NODE_BILLS).child(key)
                 .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
                     val newModel = dataSnapshot1.getCommonModel()
-                    adapter.updateListItems(newModel)
+                    showGroup(newModel)
                 })
         }
         binding.chatsListRecycleView.adapter = adapter
+        binding.chatsListRecycleView.addItemDecoration(ChatsListsItemDecoration(15))
+    }
+
+    private fun showGroup(model: CommonModel) {
+        REF_DATABASE_ROOT.child(NODE_BILLS).child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
+                val newModel = dataSnapshot1.getCommonModel()
+
+                REF_DATABASE_ROOT.child(NODE_BILLS).child(model.id).child(NODE_MESSAGES)
+                    .limitToLast(1)
+                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
+                        val tempList = dataSnapshot2.children.map { it.getCommonModel() }
+
+                        if (tempList.isNotEmpty())
+                            newModel.lastMessage = tempList[0].text
+
+                        adapter.updateListItems(newModel)
+                    })
+            })
+
     }
 }

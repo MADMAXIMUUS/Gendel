@@ -46,7 +46,6 @@
 
     <ImageView
         android:id="@+id/button_attach_quiz"
-        android:visibility="gone"
         android:layout_width="@dimen/button_sheet_width"
         android:layout_height="@dimen/button_sheet_height"
         android:layout_margin="@dimen/app_margin"

@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         }
         binding.bottomNavigationMenu.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_home -> replaceFragment(MainListFragment(), false)
+                R.id.ic_home -> replaceFragment(MainListFragment())
                 R.id.ic_profile -> replaceFragment(ProfileFragment())
                 R.id.ic_favorite -> replaceFragment(FavoritesListFragment())
                 R.id.ic_chats -> replaceFragment(ChatsFragment())

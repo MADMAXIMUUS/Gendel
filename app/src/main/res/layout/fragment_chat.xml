@@ -98,8 +98,8 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/choice_upload" />
+    <!--<include layout="@layout/choice_upload" />
 
-    <include layout="@layout/create_quiz" />
+    <include layout="@layout/create_quiz" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

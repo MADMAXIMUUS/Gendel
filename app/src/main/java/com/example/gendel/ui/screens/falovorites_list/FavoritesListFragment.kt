@@ -14,7 +14,7 @@ import com.example.gendel.utilities.AppValueEventListener
 import com.example.gendel.utilities.ListsItemDecoration
 import com.example.gendel.utilities.hideKeyboard
 
-class FavoritesListFragment : Fragment() {
+class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
     private var _binding: FragmentFavoritesListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: FavoritesListAdapter
@@ -47,7 +47,7 @@ class FavoritesListFragment : Fragment() {
                 })
         }
         binding.favoritesListRecycleView.adapter = adapter
-        binding.favoritesListRecycleView.addItemDecoration(ListsItemDecoration(60))
+        binding.favoritesListRecycleView.addItemDecoration(ListsItemDecoration(30, 60))
     }
 
 }

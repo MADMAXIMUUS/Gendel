@@ -49,8 +49,8 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     }
 
     fun updateListItems(item: CommonModel) {
-        listItems.add(item)
-        notifyItemInserted(listItems.size)
+        listItems.add(0, item)
+        notifyItemInserted(0)
     }
 
     override fun getItemCount(): Int = listItems.size
@@ -58,23 +58,23 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     override fun onViewAttachedToWindow(holder: MainListHolder) {
         holder.itemFavorites.setOnClickListener {
             if (!holder.inFavorites) {
-                holder.inFavorites = true
-                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
                 val mapData = hashMapOf<String, Any>()
-                mapData[listItems[holder.position].id] = "1"
+                mapData[listItems[holder.adapterPosition].id] = "1"
                 REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FAVORITES)
-                    .setValue(mapData)
+                    .updateChildren(mapData)
                     .addOnSuccessListener {
-                        USER.favorites[listItems[holder.position].id] = "1"
+                        holder.inFavorites = true
+                        holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
+                        USER.favorites[listItems[holder.adapterPosition].id] = "1"
                         showToast("Объявление добавлено в избранное")
                     }.addOnFailureListener { showToast(it.message.toString()) }
             } else {
-                holder.inFavorites = false
-                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
                 REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FAVORITES)
-                    .child(listItems[holder.position].id)
+                    .child(listItems[holder.adapterPosition].id)
                     .removeValue().addOnSuccessListener {
-                        USER.favorites.remove(listItems[holder.position].id)
+                        holder.inFavorites = false
+                        holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
+                        USER.favorites.remove(listItems[holder.adapterPosition].id)
                         showToast("Объявление удалено из избранного")
                     }
                     .addOnFailureListener { showToast(it.message.toString()) }
