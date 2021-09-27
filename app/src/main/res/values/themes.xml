@@ -12,6 +12,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/violet</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:itemBackground">@color/white_pink</item>
+        <item name="android:textColor">@color/pink</item>
     </style>
 
 </resources>
