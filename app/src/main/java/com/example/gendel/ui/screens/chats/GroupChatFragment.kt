@@ -261,7 +261,7 @@ class GroupChatFragment(private val group: CommonModel) :
     private fun initRecycleView() {
         adapter = GroupChatAdapter()
         refMessages = REF_DATABASE_ROOT
-            .child(NODE_GROUPS)
+            .child(NODE_CHATS)
             .child(group.id)
             .child(NODE_MESSAGES)
         binding.chatRecycleView.adapter = adapter

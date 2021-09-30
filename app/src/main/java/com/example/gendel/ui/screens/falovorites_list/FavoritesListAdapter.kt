@@ -41,6 +41,13 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
+        for (i in 0 until USER.registered.size) {
+            if (listItems[holder.position].id in USER.registered.keys) {
+                holder.registered = true
+                holder.itemRegister.setImageResource(R.drawable.ic_unregister)
+                break
+            }
+        }
     }
 
     fun updateListItems(item: CommonModel) {
@@ -77,9 +84,26 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         }
         holder.itemRegister.setOnClickListener {
             if (!holder.registered) {
-
+                val mapData = hashMapOf<String, Any>()
+                mapData[listItems[holder.adapterPosition].id] = "1"
+                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
+                    .updateChildren(mapData)
+                    .addOnSuccessListener {
+                        holder.registered = true
+                        holder.itemRegister.setImageResource(R.drawable.ic_unregister)
+                        USER.registered[listItems[holder.adapterPosition].id] = "1"
+                        showToast("Вы согласились помочь)")
+                    }.addOnFailureListener { showToast(it.message.toString()) }
             } else {
-
+                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
+                    .child(listItems[holder.adapterPosition].id)
+                    .removeValue().addOnSuccessListener {
+                        holder.registered = false
+                        holder.itemRegister.setImageResource(R.drawable.ic_add)
+                        USER.registered.remove(listItems[holder.adapterPosition].id)
+                        showToast("Вы решили не помогать(")
+                    }
+                    .addOnFailureListener { showToast(it.message.toString()) }
             }
         }
         super.onViewAttachedToWindow(holder)

@@ -159,7 +159,7 @@ fun sendMessageAsFileForGroup(
     typeOfMessage: String,
     filename: String,
 ) {
-    val refGroup = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+    val refGroup = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
@@ -266,7 +266,7 @@ fun createBillAndPushToDatabase(
 }
 
 fun sendMessageToGroup(message: String, groupID: String, typeText: String, function: () -> Unit) {
-    val refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+    val refMessages = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
     val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
 
     val mapMessage = hashMapOf<String, Any>()
@@ -285,7 +285,7 @@ fun sendMessageToGroup(message: String, groupID: String, typeText: String, funct
 fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
     .child(CURRENT_UID).child(cid).push().key.toString()
 
-fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_GROUPS)
+fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_CHATS)
     .child(cid).child(NODE_MESSAGES).push().key.toString()
 
 fun uploadFileToStorage(
@@ -326,7 +326,7 @@ fun sendQuiz(
     multi: Boolean,
     function: () -> Unit
 ) {
-    val refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+    val refMessages = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
     val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
 
     val mapMessage = hashMapOf<String, Any>()
