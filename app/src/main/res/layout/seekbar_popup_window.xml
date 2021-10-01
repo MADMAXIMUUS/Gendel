@@ -24,7 +24,7 @@
             android:layout_marginEnd="@dimen/app_margin"
             android:background="@null"
             android:button="@drawable/ic_line_weight_circle_60"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,DuplicateSpeakableTextCheck" />
 
         <RadioButton
             android:id="@+id/weight_40"

@@ -1,0 +1,27 @@
+<vector android:autoMirrored="true" android:height="31dp"
+    android:viewportHeight="31" android:viewportWidth="24"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M21.13,2a0.87,0.87 0,0 1,0.87 0.87V28.13a0.87,0.87 0,0 1,-0.87 0.87H2.87A0.87,0.87 0,0 1,2 28.13V2.87A0.87,0.87 0,0 1,2.87 2H21.13m0,-2H2.87A2.88,2.88 0,0 0,0 2.87V28.13A2.88,2.88 0,0 0,2.87 31H21.13A2.88,2.88 0,0 0,24 28.13V2.87A2.88,2.88 0,0 0,21.13 0Z"/>
+    <path android:fillColor="#FF000000" android:pathData="M5,11a1,1 0,1 0,1 1,1 1,0 0,0 -1,-1Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M8,12L17.23,12" android:strokeColor="#000"
+        android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#FF000000" android:pathData="M5,14a1,1 0,1 0,1 1,1 1,0 0,0 -1,-1Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M8.02,15L19,15" android:strokeColor="#000"
+        android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#FF000000" android:pathData="M5,17a1,1 0,1 0,1 1,1 1,0 0,0 -1,-1Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M8.02,18L19,18" android:strokeColor="#000"
+        android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#FF000000" android:pathData="M5,20a1,1 0,1 0,1 1,1 1,0 0,0 -1,-1Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M8,21L19.23,21" android:strokeColor="#000"
+        android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#FF000000" android:pathData="M5,23a1,1 0,1 0,1 1,1 1,0 0,0 -1,-1Z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M8.02,24L19,24" android:strokeColor="#000"
+        android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#00000000" android:pathData="M6.8,5L17.2,5"
+        android:strokeColor="#000" android:strokeLineCap="round" android:strokeWidth="2"/>
+</vector>

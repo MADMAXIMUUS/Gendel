@@ -19,7 +19,8 @@
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
         android:padding="@dimen/app_padding"
-        android:src="@drawable/ic_bottom_sheet_image"
+        app:tint="@color/white_pink"
+        android:src="@drawable/ic_chat_attach_image"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -30,7 +31,8 @@
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
         android:padding="@dimen/app_padding"
-        android:src="@drawable/ic_bottom_sheet_file"
+        app:tint="@color/white_pink"
+        android:src="@drawable/ic_chat_attach_file"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -41,7 +43,8 @@
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
         android:padding="@dimen/app_padding"
-        android:src="@drawable/graffiti_bottom_sheet"
+        app:tint="@color/white_pink"
+        android:src="@drawable/ic_chat_attach_graffiti"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -52,7 +55,8 @@
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
         android:padding="@dimen/app_padding"
-        android:src="@drawable/ic_bottom_sheet_quiz"
+        app:tint="@color/white_pink"
+        android:src="@drawable/ic_chat_attach_quiz"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>
