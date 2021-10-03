@@ -1,40 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/app_small_padding"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="48dp"
+    android:background="@color/blue_pink"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/create_quiz_answer_list"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:src="@drawable/ic_list"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_create_quiz_answer_toggle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/violet"
         tools:ignore="ContentDescription" />
 
     <EditText
         android:id="@+id/create_quiz_answer_text"
         android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/blue_pink"
         android:hint="@string/create_quiz_answer_hint"
-        android:textColor="?attr/colorPrimary"
-        android:textColorHint="@color/grey"
-        android:background="@color/white"
-        android:textSize="@dimen/normalText"
-        android:layout_height="wrap_content"
-        tools:ignore="Autofill"
-        android:layout_weight="1"
+        android:inputType="text|textCapSentences"
         android:padding="@dimen/app_small_padding"
-        android:inputType="text|textCapSentences" />
+        android:textColor="?attr/colorPrimary"
+        android:textColorHint="@color/violet"
+        android:textSize="@dimen/normalText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/create_quiz_answer_delete"
+        app:layout_constraintStart_toEndOf="@id/create_quiz_answer_list"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill" />
 
     <ImageView
         android:id="@+id/create_quiz_answer_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:src="@drawable/ic_delete_answer"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_create_quiz_delete_answer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/violet"
         tools:ignore="ContentDescription" />
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/violet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/violet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.example.gendel.ui.screens.base.BaseChatFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -53,6 +54,7 @@ class GroupChatFragment(private val group: CommonModel) :
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return binding.root
     }
 
@@ -75,24 +77,24 @@ class GroupChatFragment(private val group: CommonModel) :
         setHasOptionsMenu(true)
         layoutManager = LinearLayoutManager(this.context)
         appVoiceRecorder = AppVoiceRecorder()
-        /*bottomSheetBehaviour = BottomSheetBehavior
+        bottomSheetBehaviour = BottomSheetBehavior
             .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_choice))
         bottomSheetBehaviourQuiz = BottomSheetBehavior
             .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_create_quiz))
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN*/
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         binding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val string = binding.chatInputMessage.text.toString()
             if (string.isEmpty() || string == "Запись") {
                 binding.chatButtonSendMessage.visibility = View.GONE
-                binding.chatButtonAttachFile.visibility = View.VISIBLE
+                binding.chatButtonAttach.visibility = View.VISIBLE
                 binding.chatButtonVoice.visibility = View.VISIBLE
             } else {
                 binding.chatButtonSendMessage.visibility = View.VISIBLE
-                binding.chatButtonAttachFile.visibility = View.GONE
+                binding.chatButtonAttach.visibility = View.GONE
                 binding.chatButtonVoice.visibility = View.GONE
             }
         })
-        binding.chatButtonAttachFile.setOnClickListener { attach() }
+        binding.chatButtonAttach.setOnClickListener { attach() }
         CoroutineScope(Dispatchers.IO).launch {
             binding.chatButtonVoice.setOnTouchListener { _, event ->
                 if (checkPermission(RECORD_AUDIO)) {
@@ -124,7 +126,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attach() {
-        /*binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz).visibility =
+        binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz).visibility =
             View.VISIBLE
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_image)
@@ -134,7 +136,7 @@ class GroupChatFragment(private val group: CommonModel) :
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_graffiti)
             .setOnClickListener { attachGraffiti() }
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz)
-            .setOnClickListener { attachQuiz() }*/
+            .setOnClickListener { attachQuiz() }
     }
 
     private fun attachQuiz() {
@@ -151,7 +153,7 @@ class GroupChatFragment(private val group: CommonModel) :
             deleteAnswer(0)
         }
         binding.coordinatorLayout
-            .findViewById<ConstraintLayout>(R.id.create_quiz_add_answer_big_button)
+            .findViewById<LinearLayout>(R.id.create_quiz_add_answer_big_button)
             .setOnClickListener {
                 if (answers.childCount < 10) {
                     val answerView =
@@ -171,7 +173,7 @@ class GroupChatFragment(private val group: CommonModel) :
                     showToast("Добавлено уже максимальное количество ответов")
                 }
             }
-        binding.coordinatorLayout.findViewById<Button>(R.id.create_quiz_create_button)
+        binding.coordinatorLayout.findViewById<FloatingActionButton>(R.id.create_quiz_create_button)
             .setOnClickListener { createQuiz(answers) }
     }
 

@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
-import com.example.gendel.databinding.FragmentChatsBinding
+import com.example.gendel.databinding.FragmentChatsListBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.utilities.*
 
 class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
 
-    private var _binding: FragmentChatsBinding? = null
+    private var _binding: FragmentChatsListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ChatsListAdapter
 
@@ -22,9 +23,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentChatsBinding.inflate(inflater, container, false)
+        _binding = FragmentChatsListBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         return binding.root
     }
 

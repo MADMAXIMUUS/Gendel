@@ -43,6 +43,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
         _binding = FragmentDrawBinding.inflate(inflater, container, false)
         customView = layoutInflater.inflate(R.layout.seekbar_popup_window, null)
         DRAW_FRAGMENT = this
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         return binding.root
     }
 

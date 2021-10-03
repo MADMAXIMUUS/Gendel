@@ -5,7 +5,7 @@
     android:id="@+id/bottom_sheet_create_quiz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey_blue"
+    android:background="@color/white_pink"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -18,41 +18,31 @@
             android:id="@+id/create_quiz_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/bg_bottom_radius"
+            android:backgroundTint="@color/blue_pink"
             android:elevation="5dp"
-            android:paddingBottom="@dimen/app_padding"
+            android:paddingBottom="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/create_quiz_question"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_margin="@dimen/app_small_margin"
-                android:text="@string/create_quiz_question"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="@dimen/normalText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <EditText
                 android:id="@+id/create_quiz_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/app_small_margin"
-                android:layout_marginTop="@dimen/app_small_margin"
-                android:layout_marginEnd="@dimen/app_small_margin"
-                android:background="@color/white"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/create_quiz_edittext_selector"
                 android:hint="@string/create_quiz_title_hint"
                 android:inputType="text|textCapSentences"
                 android:padding="@dimen/app_padding"
                 android:textColor="?attr/colorPrimary"
-                android:textColorHint="@color/edittext_hint_color"
+                android:textColorHint="@color/violet"
                 android:textSize="@dimen/normalText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_quiz_question"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="Autofill"
                 tools:text="Название" />
 
@@ -63,9 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_margin"
-            android:background="@color/white"
+            android:background="@drawable/bg_all_radius"
+            android:backgroundTint="@color/blue_pink"
             android:elevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_quiz_header">
 
@@ -76,8 +68,9 @@
                 android:layout_marginStart="@dimen/app_small_margin"
                 android:layout_marginTop="@dimen/app_margin"
                 android:text="@string/create_quiz_block_answer_title"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/violet"
                 android:textSize="@dimen/normalText"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,8 +78,7 @@
                 android:id="@+id/create_quiz_answers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/app_small_margin"
-                android:layout_marginEnd="@dimen/app_small_margin"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,43 +88,41 @@
 
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/create_quiz_add_answer_big_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/app_small_margin"
-                android:background="@drawable/create_quiz_ripple_effect"
+                android:background="@drawable/create_quiz_bottom_radius_ripple_effect"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="@dimen/app_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_quiz_answers">
+                app:layout_constraintTop_toBottomOf="@id/create_quiz_answers"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
+                    android:layout_marginStart="115dp"
                     android:id="@+id/create_quiz_add_answer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="@dimen/app_small_margin"
-                    android:src="@drawable/ic_add"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_create_quiz_add_answer"
+                    app:tint="@color/violet"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/create_quiz_add_answer_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginTop="@dimen/app_small_margin"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
                     android:text="@string/create_quiz_add_answer_title"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="@dimen/normalText"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/create_quiz_add_answer" />
+                    android:textColor="@color/violet"
+                    android:textSize="@dimen/normalText" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -143,7 +133,7 @@
             android:layout_marginStart="@dimen/app_margin"
             android:layout_marginTop="@dimen/app_small_margin"
             android:text="@string/create_quiz_add_answer_count"
-            android:textColor="@color/edittext_hint_color"
+            android:textColor="@color/violet"
             android:textSize="@dimen/normalText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_quiz_block_answer" />
@@ -153,8 +143,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_small_margin"
-            android:background="@color/white"
+            android:background="@drawable/bg_all_radius"
+            android:backgroundTint="@color/blue_pink"
             android:elevation="5dp"
+            android:paddingBottom="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/create_quiz_add_answer_count">
@@ -166,49 +158,64 @@
                 android:layout_marginStart="@dimen/app_small_margin"
                 android:layout_marginTop="@dimen/app_margin"
                 android:text="@string/create_quiz_block_settings_title"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/violet"
                 android:textSize="@dimen/normalText"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/create_quiz_settings_multi"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_margin="@dimen/app_small_margin"
-                android:text="@string/create_quiz_settings_multi"
-                android:textColor="?attr/colorPrimaryDark"
-                android:textSize="@dimen/normalText"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings_title" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/create_quiz_settings_multi_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginTop="@dimen/app_small_margin"
-                android:layout_marginEnd="@dimen/app_margin"
-                android:layout_marginBottom="@dimen/app_small_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/create_quiz_ripple_effect_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings_title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings_title">
+
+                <TextView
+                    android:id="@+id/create_quiz_settings_multi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/app_small_margin"
+                    android:text="@string/create_quiz_settings_multi"
+                    android:textColor="@color/violet"
+                    android:textSize="@dimen/normalText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/create_quiz_settings_multi_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="@dimen/app_small_margin"
+                    android:layout_marginEnd="@dimen/app_margin"
+                    android:layout_marginBottom="@dimen/app_small_margin"
+                    android:thumb="@drawable/ic_create_quiz_handle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbTint="@color/violet"
+                    app:trackTint="@color/white_pink" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_quiz_create_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/app_margin"
-            android:background="@drawable/bg_create_quiz_create_button"
-            android:text="@string/create_quiz_button_create_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/normalText"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/pink"
+            android:foregroundTint="@color/white_pink"
+            android:src="@drawable/ic_confirm"
+            app:borderWidth="0dp"
+            app:fabCustomSize="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings" />
-
+            app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

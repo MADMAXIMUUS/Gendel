@@ -10,7 +10,7 @@
         android:id="@+id/settings_header_bloc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_settings_bottom_radius"
+        android:background="@drawable/bg_bottom_radius"
         android:backgroundTint="@color/violet"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"

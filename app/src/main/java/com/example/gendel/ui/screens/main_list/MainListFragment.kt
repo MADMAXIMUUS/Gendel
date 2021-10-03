@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -27,6 +28,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
         _binding = FragmentMainListBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.VISIBLE
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         return binding.root
     }
 

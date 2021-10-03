@@ -16,7 +16,7 @@
     <dimen name="settings_user_photo_button_width">60dp</dimen>
     <dimen name="settings_user_photo_button_height">60dp</dimen>
     <dimen name="settings_user_photo_border">2dp</dimen>
-    <dimen name="settings_ripple_effect_radius">4dp</dimen>
+    <dimen name="settings_ripple_effect_radius">25dp</dimen>
     <!--
     Because the window insets on round devices are larger than 15dp, this padding only applies
     to square screens.

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/white_pink">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_pink" />
+            <corners
+                android:bottomLeftRadius="@dimen/settings_ripple_effect_radius"
+                android:bottomRightRadius="@dimen/settings_ripple_effect_radius" />
+        </shape>
+    </item>
+</ripple>
