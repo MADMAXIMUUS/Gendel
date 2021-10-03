@@ -1,4 +1,4 @@
-<vector android:height="6dp" android:tint="@color/single_chat_button"
+<vector android:height="6dp" android:tint="@color/chat_button"
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="6dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="@android:color/white"

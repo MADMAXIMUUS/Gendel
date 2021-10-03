@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet_choice"
@@ -15,48 +15,104 @@
         android:id="@+id/button_attach_image"
         android:layout_width="@dimen/button_sheet_width"
         android:layout_height="@dimen/button_sheet_height"
-        android:layout_margin="@dimen/app_margin"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
-        android:padding="@dimen/app_padding"
-        app:tint="@color/white_pink"
+        android:padding="15dp"
         android:src="@drawable/ic_chat_attach_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white_pink"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/button_attach_image_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_attach_image_title"
+        android:textColor="@color/violet"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/button_attach_image"
+        app:layout_constraintStart_toStartOf="@id/button_attach_image"
+        app:layout_constraintTop_toBottomOf="@id/button_attach_image" />
 
     <ImageView
         android:id="@+id/button_attach_file"
         android:layout_width="@dimen/button_sheet_width"
         android:layout_height="@dimen/button_sheet_height"
-        android:layout_margin="@dimen/app_margin"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
-        android:padding="@dimen/app_padding"
-        app:tint="@color/white_pink"
+        android:padding="15dp"
         android:src="@drawable/ic_chat_attach_file"
+        app:layout_constraintStart_toEndOf="@id/button_attach_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white_pink"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/button_attach_file_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_attach_file_title"
+        android:textColor="@color/violet"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/button_attach_file"
+        app:layout_constraintStart_toStartOf="@id/button_attach_file"
+        app:layout_constraintTop_toBottomOf="@id/button_attach_file" />
 
     <ImageView
         android:id="@+id/button_attach_graffiti"
         android:layout_width="@dimen/button_sheet_width"
         android:layout_height="@dimen/button_sheet_height"
-        android:layout_margin="@dimen/app_margin"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
-        android:padding="@dimen/app_padding"
-        app:tint="@color/white_pink"
+        android:padding="15dp"
         android:src="@drawable/ic_chat_attach_graffiti"
+        app:layout_constraintStart_toEndOf="@id/button_attach_file"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white_pink"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/button_attach_graffiti_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_attach_graffiti_title"
+        android:textColor="@color/violet"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/button_attach_graffiti"
+        app:layout_constraintStart_toStartOf="@id/button_attach_graffiti"
+        app:layout_constraintTop_toBottomOf="@id/button_attach_graffiti" />
 
     <ImageView
         android:id="@+id/button_attach_quiz"
         android:layout_width="@dimen/button_sheet_width"
         android:layout_height="@dimen/button_sheet_height"
-        android:layout_margin="@dimen/app_margin"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_count_of_unread_message"
         android:backgroundTint="@color/attached_bottom_sheet"
-        android:padding="@dimen/app_padding"
-        app:tint="@color/white_pink"
+        android:padding="15dp"
         android:src="@drawable/ic_chat_attach_quiz"
+        app:layout_constraintStart_toEndOf="@id/button_attach_graffiti"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white_pink"
         tools:ignore="ContentDescription" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/button_attach_quiz_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chat_attach_quiz_title"
+        android:textColor="@color/violet"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/button_attach_quiz"
+        app:layout_constraintStart_toStartOf="@id/button_attach_quiz"
+        app:layout_constraintTop_toBottomOf="@id/button_attach_quiz" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

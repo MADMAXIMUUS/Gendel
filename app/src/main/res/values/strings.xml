@@ -88,6 +88,10 @@
     <string name="new_bill_end_date_title">Дата окончания</string>
     <string name="calendar_button_confirm">Выбрать</string>
     <string name="calendar_button_cancel">Отмена</string>
+    <string name="chat_attach_image_title">Изображение</string>
+    <string name="chat_attach_file_title">Файл</string>
+    <string name="chat_attach_graffiti_title">Графити</string>
+    <string name="chat_attach_quiz_title">Опрос</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

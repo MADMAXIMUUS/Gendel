@@ -11,7 +11,7 @@ import com.example.gendel.databinding.FragmentChatsBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.utilities.*
 
-class ChatsFragment : Fragment(R.layout.fragment_chats) {
+class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
 
     private var _binding: FragmentChatsBinding? = null
     private val binding get() = _binding!!
