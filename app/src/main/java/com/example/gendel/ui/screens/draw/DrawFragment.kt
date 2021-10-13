@@ -2,8 +2,6 @@ package com.example.gendel.ui.screens.draw
 
 import android.annotation.SuppressLint
 import android.app.Instrumentation
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
@@ -11,12 +9,10 @@ import android.widget.RadioButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.getMessageKey
-import com.example.gendel.database.getMessageKeyForGroup
-import com.example.gendel.database.uploadFileToStorage
-import com.example.gendel.database.uploadFileToStorageForGroup
 import com.example.gendel.databinding.FragmentDrawBinding
-import com.example.gendel.utilities.*
+import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.DRAW_FRAGMENT
+import com.example.gendel.utilities.hideKeyboard
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorShape
 import kotlinx.coroutines.CoroutineScope

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.CalendarView
 import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -15,6 +16,8 @@ import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.replaceFragment
 import com.example.gendel.utilities.showToast
+import com.mynameismidori.currencypicker.CurrencyPicker
+import com.mynameismidori.currencypicker.CurrencyPickerListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,6 +53,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
 
     @SuppressLint("SimpleDateFormat")
     private fun initFunc() {
+        binding.newBillCurrencySymbol.text = "₽"
         binding.newBillEndDateRoot.setOnClickListener {
             popupWindow = PopupWindow(
                 customView,
@@ -90,7 +94,8 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         binding.newBillButtonCreate.setOnClickListener {
             val storeName = binding.newBillEdittextStoreName.text.toString()
             val date = binding.newBillEndDateTitle.text.toString()
-            val cost = binding.newBillCostEdittext.text.toString()
+            val cost = binding.newBillCostEdittext.text.toString() +
+                    binding.newBillCurrencySymbol.text
             val format = SimpleDateFormat("dd.MM.yyyy")
             val startDate = format.format(Date(calendar.date)).toString()
             if (storeName.isEmpty())
@@ -114,6 +119,15 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                         }.addOnFailureListener { showToast(it.message.toString()) }
                 }
             }
+        }
+        binding.newBillCurrency.setOnClickListener {
+            val picker = CurrencyPicker.newInstance("Выберите валюту")
+
+            picker.setListener { _, _, p2, _ ->
+                binding.newBillCurrencySymbol.text = p2
+                picker.dismiss()
+            }
+            picker.show(APP_ACTIVITY.supportFragmentManager, "CURRENCY_PICKER")
         }
     }
 }

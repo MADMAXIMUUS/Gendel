@@ -102,4 +102,8 @@
         <item name="android:textColorPrimary">@color/violet</item>
     </style>
 
+    <style name="MyDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@color/white_pink</item>
+    </style>
+
 </resources>

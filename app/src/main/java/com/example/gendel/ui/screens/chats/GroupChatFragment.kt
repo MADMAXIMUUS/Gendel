@@ -365,18 +365,4 @@ class GroupChatFragment(private val group: CommonModel) :
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.chat_action_menu, menu)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_clear_chat -> clearChatForGroupChat(group.id) {
-                showToast("Чат очищен")
-                replaceFragment(MainListFragment())
-            }
-            R.id.menu_delete_chat -> deleteChatForGroupChat(group.id) {
-                showToast("Чат удален")
-                replaceFragment(MainListFragment())
-            }
-        }
-        return true
-    }
 }
