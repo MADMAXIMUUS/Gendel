@@ -6,18 +6,14 @@ import android.os.Bundle
 import android.view.*
 import android.widget.CalendarView
 import android.widget.PopupWindow
-import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentNewBillBinding
 import com.example.gendel.ui.screens.base.BaseFragment
-import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.replaceFragment
 import com.example.gendel.utilities.showToast
 import com.mynameismidori.currencypicker.CurrencyPicker
-import com.mynameismidori.currencypicker.CurrencyPickerListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +29,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
     private lateinit var calendar: CalendarView
     private var isDateChosen = false
     private lateinit var inst: Instrumentation
+    private var symbol = "₽"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,9 +48,8 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         _binding = null
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "UseCompatLoadingForDrawables")
     private fun initFunc() {
-        binding.newBillCurrencySymbol.text = "₽"
         binding.newBillEndDateRoot.setOnClickListener {
             popupWindow = PopupWindow(
                 customView,
@@ -71,11 +67,11 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             calendar.minDate = calendar.date
             customView.findViewById<CalendarView>(R.id.calendar)
                 .setOnDateChangeListener { _, year, month, dayOfMonth ->
-                    date = if (dayOfMonth < 10 && month < 10)
+                    date = if (dayOfMonth < 10 && month < 9 )
                         "0$dayOfMonth.0${month + 1}.$year"
-                    else if (dayOfMonth < 10 && month >= 10)
+                    else if (dayOfMonth < 10 && month >= 9)
                         "0$dayOfMonth.${month + 1}.$year"
-                    else if ((dayOfMonth >= 10 && month < 10))
+                    else if ((dayOfMonth >= 10 && month < 9))
                         "$dayOfMonth.0${month + 1}.$year"
                     else
                         "$dayOfMonth.${month + 1}.$year"
@@ -94,8 +90,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         binding.newBillButtonCreate.setOnClickListener {
             val storeName = binding.newBillEdittextStoreName.text.toString()
             val date = binding.newBillEndDateTitle.text.toString()
-            val cost = binding.newBillCostEdittext.text.toString() +
-                    binding.newBillCurrencySymbol.text
+            val cost = binding.newBillCostEdittext.text.toString() + symbol
             val format = SimpleDateFormat("dd.MM.yyyy")
             val startDate = format.format(Date(calendar.date)).toString()
             if (storeName.isEmpty())
@@ -123,8 +118,15 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         binding.newBillCurrency.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Выберите валюту")
 
-            picker.setListener { _, _, p2, _ ->
-                binding.newBillCurrencySymbol.text = p2
+            picker.setListener { _, _, symbol, flag ->
+                binding.newBillCurrency.setImageDrawable(
+                    resources.getDrawable(
+                        flag,
+                        APP_ACTIVITY.theme
+                    )
+                )
+                binding.newBillCurrency.setColorFilter(R.color.white)
+                this.symbol = symbol
                 picker.dismiss()
             }
             picker.show(APP_ACTIVITY.supportFragmentManager, "CURRENCY_PICKER")
