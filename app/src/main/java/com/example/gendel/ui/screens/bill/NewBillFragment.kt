@@ -48,7 +48,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         _binding = null
     }
 
-    @SuppressLint("SimpleDateFormat", "UseCompatLoadingForDrawables")
+    @SuppressLint("SimpleDateFormat")
     private fun initFunc() {
         binding.newBillEndDateRoot.setOnClickListener {
             popupWindow = PopupWindow(
@@ -67,7 +67,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             calendar.minDate = calendar.date
             customView.findViewById<CalendarView>(R.id.calendar)
                 .setOnDateChangeListener { _, year, month, dayOfMonth ->
-                    date = if (dayOfMonth < 10 && month < 9 )
+                    date = if (dayOfMonth < 10 && month < 9)
                         "0$dayOfMonth.0${month + 1}.$year"
                     else if (dayOfMonth < 10 && month >= 9)
                         "0$dayOfMonth.${month + 1}.$year"
@@ -116,20 +116,22 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             }
         }
         binding.newBillCurrency.setOnClickListener {
-            val picker = CurrencyPicker.newInstance("Выберите валюту")
-
-            picker.setListener { _, _, symbol, flag ->
-                binding.newBillCurrency.setImageDrawable(
-                    resources.getDrawable(
-                        flag,
-                        APP_ACTIVITY.theme
-                    )
-                )
-                binding.newBillCurrency.setColorFilter(R.color.white)
-                this.symbol = symbol
-                picker.dismiss()
-            }
-            picker.show(APP_ACTIVITY.supportFragmentManager, "CURRENCY_PICKER")
+            openCurrencyPicker()
         }
+        binding.newBillCurrencySymbol.setOnClickListener {
+            openCurrencyPicker()
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun openCurrencyPicker() {
+        val picker = CurrencyPicker.newInstance("Выберите валюту")
+        picker.setListener { _, _, symbol, _ ->
+            binding.newBillCurrencySymbol.text = symbol
+            binding.newBillCurrency.visibility = View.GONE
+            this.symbol = symbol
+            picker.dismiss()
+        }
+        picker.show(APP_ACTIVITY.supportFragmentManager, "CURRENCY_PICKER")
     }
 }

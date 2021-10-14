@@ -110,10 +110,23 @@
             android:textColor="@color/pink"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/new_bill_currency"
+            app:layout_constraintEnd_toStartOf="@id/new_bill_currency_symbol"
             app:layout_constraintStart_toEndOf="@id/new_bill_cost_title"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10" />
+
+        <TextView
+            android:id="@+id/new_bill_currency_symbol"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/pink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/new_bill_currency"
