@@ -175,6 +175,12 @@ class GroupChatFragment(private val group: CommonModel) :
             }
         binding.coordinatorLayout.findViewById<FloatingActionButton>(R.id.create_quiz_create_button)
             .setOnClickListener { createQuiz(answers) }
+        binding.coordinatorLayout.findViewById<ConstraintLayout>(R.id.create_quiz_choose_answer_type)
+            .setOnClickListener {
+                val switch =
+                    binding.coordinatorLayout.findViewById<SwitchMaterial>(R.id.create_quiz_settings_multi_switch)
+                switch.isChecked = !switch.isChecked
+            }
     }
 
     private fun createQuiz(answers: LinearLayout) {

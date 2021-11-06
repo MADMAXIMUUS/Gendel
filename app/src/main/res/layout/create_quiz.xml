@@ -103,10 +103,10 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_marginStart="115dp"
                     android:id="@+id/create_quiz_add_answer"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginStart="115dp"
                     android:src="@drawable/ic_create_quiz_add_answer"
                     app:tint="@color/violet"
                     tools:ignore="ContentDescription" />
@@ -165,9 +165,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/create_quiz_choose_answer_type"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/create_quiz_ripple_effect_2"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings_title">
@@ -188,6 +191,7 @@
                     android:id="@+id/create_quiz_settings_multi_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:enabled="false"
                     android:layout_marginTop="@dimen/app_small_margin"
                     android:layout_marginEnd="@dimen/app_margin"
                     android:layout_marginBottom="@dimen/app_small_margin"
