@@ -1,17 +1,14 @@
 package com.example.gendel.ui.screens.settings
 
 import android.annotation.SuppressLint
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.*
+import com.example.gendel.database.AUTH
+import com.example.gendel.database.USER
 import com.example.gendel.databinding.FragmentProfileBinding
 import com.example.gendel.utilities.*
-import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -47,13 +44,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl, "contact")
     }
 
-    private fun changePhotoUser() {
-        CropImage.activity()
-            .setAspectRatio(1, 1)
-            .setRequestedSize(250, 250)
-            .setCropShape(CropImageView.CropShape.OVAL)
-            .start(APP_ACTIVITY, this)
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -70,23 +60,5 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment())
         }
         return true
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
-            && resultCode == RESULT_OK && data != null
-        ) {
-            val uri = CropImage.getActivityResult(data).uri
-            val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE).child(CURRENT_UID)
-            putFileToStorage(uri, path) {
-                getUrlFromStorage(path) {
-                    putUrlToDatabase(it) {
-                        binding.settingsUserPhoto.downloadAndSetImage(it, "contact")
-                        USER.photoUrl = it
-                    }
-                }
-            }
-        }
     }
 }

@@ -17,13 +17,11 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.ui.message_recycler_view.views.AppViewFactory
 import com.example.gendel.ui.screens.base.BaseChatFragment
-import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.database.DatabaseReference
-import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -227,13 +225,13 @@ class GroupChatFragment(private val group: CommonModel) :
 
     private fun attachImage() {
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-        CropImage.activity()
+        /*CropImage.activity()
             .setAspectRatio(1, 1)
             .setRequestedSize(250, 250)
-            .start(APP_ACTIVITY, this)
+            .start(APP_ACTIVITY, this)*/
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             when (requestCode) {
@@ -264,7 +262,7 @@ class GroupChatFragment(private val group: CommonModel) :
                 }
             }
         }
-    }
+    }*/
 
     private fun initRecycleView() {
         adapter = GroupChatAdapter()

@@ -22,7 +22,6 @@ const val NODE_MEMBERS = "members"
 const val NODE_BILLS = "bills"
 
 const val FOLDER_PROFILE_IMAGE = "profile_image"
-const val FOLDER_FILES = "files"
 const val FOLDER_GROUPS_IMAGE = "groups_image"
 const val FOLDER_GROUPS_FILE = "groups_file"
 

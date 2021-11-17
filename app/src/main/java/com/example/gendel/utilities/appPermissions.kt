@@ -6,14 +6,12 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-const val READ_CONTACT = Manifest.permission.READ_CONTACTS
 const val RECORD_AUDIO = Manifest.permission.RECORD_AUDIO
 const val WRITE_FILES = Manifest.permission.WRITE_EXTERNAL_STORAGE
 const val PERMISSION_REQUEST = 200
 
 fun checkPermission(permission: String): Boolean {
-    return if (Build.VERSION.SDK_INT >= 24
-        && ContextCompat.checkSelfPermission(
+    return if (ContextCompat.checkSelfPermission(
             APP_ACTIVITY,
             permission
         ) != PackageManager.PERMISSION_GRANTED

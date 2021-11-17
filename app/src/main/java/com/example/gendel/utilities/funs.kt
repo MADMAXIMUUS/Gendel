@@ -90,7 +90,7 @@ fun String.asTime(): String {
     return timeFormat.format(time)
 }
 
-fun getFileNameFromUri(uri: Uri): String {
+/*fun getFileNameFromUri(uri: Uri): String {
     var result = ""
     val cursor = APP_ACTIVITY.contentResolver.query(uri, null, null, null, null)
     try {
@@ -103,7 +103,7 @@ fun getFileNameFromUri(uri: Uri): String {
         cursor?.close()
         return result
     }
-}
+}*/
 
 fun getPlurals(plurals: Int, count: Int) = APP_ACTIVITY.resources.getQuantityString(
     plurals, count, count
