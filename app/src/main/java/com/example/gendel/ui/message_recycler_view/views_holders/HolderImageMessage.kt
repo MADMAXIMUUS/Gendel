@@ -29,13 +29,13 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
         if (view.from == CURRENT_UID) {
             blockUserImageMessage.visibility = View.VISIBLE
             blockReceivedImageMessage.visibility = View.GONE
-            chatUserImageMessage.downloadAndSetImage(view.fileUrl, "message")
+            chatUserImageMessage.downloadAndSetImage(view.fileUrl)
             chatUserImageMessageTime.text =
                 view.timeStamp.asTime()
         } else {
             blockUserImageMessage.visibility = View.GONE
             blockReceivedImageMessage.visibility = View.VISIBLE
-            chatReceivedImage.downloadAndSetImage(view.fileUrl, "message")
+            chatReceivedImage.downloadAndSetImage(view.fileUrl)
             chatReceivedImageMessageTime.text =
                 view.timeStamp.asTime()
         }

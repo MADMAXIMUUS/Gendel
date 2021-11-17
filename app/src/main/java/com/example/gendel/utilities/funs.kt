@@ -3,8 +3,6 @@ package com.example.gendel.utilities
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.OpenableColumns
 import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -50,34 +48,12 @@ fun hideKeyboard() {
     imm.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
 }
 
-fun ImageView.downloadAndSetImage(url: String, type: String) {
-    when (type) {
-        "contact" ->
-            Picasso.get()
-                .load(url)
-                .fit()
-                .placeholder(R.drawable.default_photo)
-                .into(this)
-        "main_list" ->
-            Picasso.get()
-                .load(url)
-                .fit()
-                .placeholder(R.drawable.default_photo_chat)
-                .into(this)
-        "group" ->
-            Picasso.get()
-                .load(url)
-                .fit()
-                .placeholder(R.drawable.default_photo_chat)
-                .into(this)
-        "message" -> {
-            Picasso.get()
-                .load(url)
-                .fit()
-                .noPlaceholder()
-                .into(this)
-        }
-    }
+fun ImageView.downloadAndSetImage(url: String) {
+    Picasso.get()
+        .load(url)
+        .fit()
+        .placeholder(R.drawable.placeholder_image)
+        .into(this)
 }
 
 fun dpInPx(unit: Int, value: Float, metrics: android.util.DisplayMetrics): Int {

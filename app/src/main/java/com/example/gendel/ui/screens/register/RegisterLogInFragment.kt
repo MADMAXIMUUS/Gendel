@@ -1,17 +1,21 @@
 package com.example.gendel.ui.screens.register
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.AUTH
+import com.example.gendel.database.logInAccount
 import com.example.gendel.databinding.FragmentLoginBinding
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.replaceFragment
 import com.example.gendel.utilities.restartActivity
 import com.example.gendel.utilities.showToast
+import com.google.android.gms.common.api.Api
 
 
 class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
@@ -29,6 +33,12 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.GONE
         APP_ACTIVITY.binding.verificationText.visibility = View.GONE
+        val window = APP_ACTIVITY.window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.blue_pink)
+        if (Build.VERSION.SDK_INT >= 29)
+            window.isNavigationBarContrastEnforced = true
         return binding.root
     }
 
@@ -43,7 +53,10 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
             email = binding.registerLoginEditTextEmail.text.toString()
             password = binding.registerLoginEditTextPassword.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                logInAccount()
+                logInAccount(email, password){
+                    showToast("Добро пожаловать")
+                    restartActivity()
+                }
             } else {
                 showToast("Не все поля заполнены")
             }
@@ -51,17 +64,5 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
         binding.registerLoginTextViewButtonSignIn.setOnClickListener {
             replaceFragment(RegisterSignInFragment(), false)
         }
-    }
-
-    private fun logInAccount() {
-        AUTH.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    showToast("Добро пожаловать")
-                    restartActivity()
-                } else {
-                    showToast("Ошибка входа в аккаунт")
-                }
-            }
     }
 }

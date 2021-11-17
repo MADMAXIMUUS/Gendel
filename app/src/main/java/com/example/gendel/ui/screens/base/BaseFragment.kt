@@ -11,6 +11,7 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
         super.onStart()
         APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
         APP_ACTIVITY.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backarrow)
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         APP_ACTIVITY.toolbar.setNavigationOnClickListener {

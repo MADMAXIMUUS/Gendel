@@ -26,6 +26,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
         _binding = FragmentChatsListBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         return binding.root
     }
@@ -52,7 +53,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
                 })
         }
         binding.chatsListRecycleView.adapter = adapter
-        binding.chatsListRecycleView.addItemDecoration(ChatsListsItemDecoration(15))
+        binding.chatsListRecycleView.addItemDecoration(ChatsListsItemDecoration(1))
     }
 
     private fun showGroup(model: CommonModel) {

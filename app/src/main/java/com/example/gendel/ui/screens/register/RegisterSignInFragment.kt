@@ -1,9 +1,11 @@
 package com.example.gendel.ui.screens.register
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -27,6 +29,12 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
         _binding = FragmentSigninBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.GONE
         APP_ACTIVITY.binding.verificationText.visibility = View.GONE
+        val window = APP_ACTIVITY.window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.blue_pink)
+        if (Build.VERSION.SDK_INT >= 29)
+            window.isNavigationBarContrastEnforced = true
         return binding.root
     }
 
@@ -44,7 +52,10 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
             cpassword = binding.registerSignInEditTextConfirmPassword.text.toString()
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && cpassword.isNotEmpty()) {
                 if (password == cpassword)
-                    createNewAccount()
+                    createNewAccount(name, email, password){
+                        showToast("Добро пожаловать. Регистрация прошла успешно. Подтвердите email")
+                        restartActivity()
+                    }
                 else
                     showToast("Пароли не совпадают")
             } else {
@@ -53,33 +64,6 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
         }
         binding.registerSignInTextViewButtonLogin.setOnClickListener {
             replaceFragment(RegisterLogInFragment(), false)
-        }
-    }
-
-    private fun createNewAccount() {
-        AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                AUTH.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showToast("Добро пожаловать. Регистрация прошла успешно. Подтвердите email")
-                        val uid = AUTH.currentUser?.uid.toString()
-                        val dateMap = mutableMapOf<String, Any>()
-                        dateMap[CHILD_ID] = uid
-                        dateMap[CHILD_NAME] = name
-                        dateMap[CHILD_EMAIL] = email
-                        dateMap[CHILD_PASSWORD] = password
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
-                            .addListenerForSingleValueEvent(AppValueEventListener {
-                                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
-                                    .updateChildren(dateMap)
-                                    .addOnSuccessListener {
-                                        restartActivity()
-                                    }
-                                    .addOnFailureListener { showToast("Ошибка входа в аккаунт") }
-                            })
-                    } else showToast(it.exception?.message.toString())
-                }
-            } else showToast(task.exception?.message.toString())
         }
     }
 }

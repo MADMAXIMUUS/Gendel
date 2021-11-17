@@ -34,21 +34,15 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     }
 
     private fun initFullnameList() {
-        val fullnameList = USER.name.split(" ")
-        if (fullnameList.size > 1) {
-            binding.settingsInputName.setText(fullnameList[0])
-            binding.settingsInputSurname.setText(fullnameList[1])
-        } else binding.settingsInputName.setText(fullnameList[0])
+            binding.settingsInputName.setText(USER.name)
     }
 
     override fun change() {
         val name = binding.settingsInputName.text.toString()
-        val surname = binding.settingsInputSurname.text.toString()
         if (name.isEmpty()){
             showToast(getString(R.string.settings_toast_name_is_empty))
         } else {
-            val fullname = "$name $surname"
-            setFullnameToDatabase(fullname)
+            setFullnameToDatabase(name)
         }
     }
 }

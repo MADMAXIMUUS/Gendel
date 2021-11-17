@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     style="@style/chats_list_item"
-    android:elevation="10dp"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/chats_list_item_photo"
         android:layout_width="@dimen/main_list_image_width"
         android:layout_height="@dimen/main_list_image_height"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         android:layout_marginStart="@dimen/app_margin"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"

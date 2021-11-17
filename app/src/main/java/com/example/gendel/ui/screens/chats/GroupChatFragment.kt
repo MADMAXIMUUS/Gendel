@@ -20,9 +20,9 @@ import com.example.gendel.ui.screens.base.BaseChatFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.database.DatabaseReference
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -340,8 +340,8 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun initInfoToolbar() {
-        toolbarInfo.findViewById<CircleImageView>(R.id.toolbar_chat_image)
-            .downloadAndSetImage(group.photoUrl, "group")
+        toolbarInfo.findViewById<ShapeableImageView>(R.id.toolbar_chat_image)
+            .downloadAndSetImage(group.photoUrl)
         if (receivingUser.name.isEmpty()) {
             toolbarInfo
                 .findViewById<TextView>(R.id.toolbar_chat_fullname)

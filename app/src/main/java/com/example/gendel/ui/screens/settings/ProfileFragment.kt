@@ -3,6 +3,7 @@ package com.example.gendel.ui.screens.settings
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.AUTH
@@ -14,6 +15,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var exitView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,6 +24,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
+        exitView = APP_ACTIVITY.toolbar.findViewById(R.id.settings_exit)
+        exitView.visibility = View.VISIBLE
         return binding.root
     }
 
@@ -41,24 +45,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun initFields() {
         binding.profileTextViewName.text = USER.name
         binding.profileTextViewEmail.text = USER.email
-        binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl, "contact")
-    }
-
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        APP_ACTIVITY.menuInflater.inflate(R.menu.settings_action_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_menu_exit -> {
-                AppStates.updateState(AppStates.OFFLINE)
-                AUTH.signOut()
-                restartActivity()
-            }
-            R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment())
+        exitView.findViewById<ConstraintLayout>(R.id.exit_button).setOnClickListener {
+            AppStates.updateState(AppStates.OFFLINE)
+            AUTH.signOut()
+            restartActivity()
         }
-        return true
+        binding.profileTextViewName.setOnClickListener {
+            replaceFragment(ChangeNameFragment())
+        }
+        binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
     }
 }

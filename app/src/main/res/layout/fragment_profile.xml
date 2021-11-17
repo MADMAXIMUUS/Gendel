@@ -17,15 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/settings_user_photo"
             android:layout_width="@dimen/settings_user_photo_width"
             android:layout_height="@dimen/settings_user_photo_height"
             android:layout_marginTop="34dp"
-            android:src="@drawable/default_photo"
-            app:civ_border_color="?attr/colorPrimaryDark"
-            app:civ_border_width="2dp"
-            app:civ_circle_background_color="@color/white"
+            app:srcCompat="@drawable/default_photo"
+            app:strokeColor="@color/pink"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/violet"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

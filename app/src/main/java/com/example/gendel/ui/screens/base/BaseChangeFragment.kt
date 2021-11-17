@@ -15,13 +15,14 @@ open class BaseChangeFragment (layout:Int): Fragment(layout) {
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
-        APP_ACTIVITY.binding.bottomNavigationMenu.visibility = View.GONE
+        APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.GONE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
         APP_ACTIVITY.toolbar.title=""
     }
 
     override fun onStop() {
         super.onStop()
-        APP_ACTIVITY.binding.bottomNavigationMenu.visibility = View.VISIBLE
+        APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
         hideKeyboard()
     }
 

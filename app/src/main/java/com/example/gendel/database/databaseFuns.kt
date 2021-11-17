@@ -294,3 +294,40 @@ fun sendQuiz(
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun createNewAccount(name:String, email:String, password: String, function: () -> Unit) {
+    AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            AUTH.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val uid = AUTH.currentUser?.uid.toString()
+                    val dateMap = hashMapOf<String, Any>()
+                    dateMap[CHILD_ID] = uid
+                    dateMap[CHILD_NAME] = name
+                    dateMap[CHILD_EMAIL] = email
+                    dateMap[CHILD_PASSWORD] = password
+                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                        .addListenerForSingleValueEvent(AppValueEventListener {
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                                .updateChildren(dateMap)
+                                .addOnSuccessListener {
+                                    function()
+                                }
+                                .addOnFailureListener { showToast("Ошибка входа в аккаунт") }
+                        })
+                } else showToast(it.exception?.message.toString())
+            }
+        } else showToast(task.exception?.message.toString())
+    }
+}
+
+fun logInAccount(email:String, password:String, function: () -> Unit) {
+    AUTH.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                function()
+            } else {
+                showToast("Ошибка входа в аккаунт")
+            }
+        }
+}

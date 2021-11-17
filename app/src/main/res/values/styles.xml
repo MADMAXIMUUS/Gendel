@@ -19,6 +19,8 @@
     <style name="chats_list_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:background">@drawable/ripple_effect</item>
@@ -35,7 +37,7 @@
     <style name="smallText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/blue_pink</item>
         <item name="maxLines">2</item>
         <item name="android:textSize">@dimen/smallText</item>
         <item name="android:layout_marginStart">@dimen/app_margin</item>
@@ -57,30 +59,15 @@
     <style name="editText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/violet</item>
         <item name="android:maxLines">1</item>
-        <item name="android:background">@drawable/edittext_selector</item>
-        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:background">@drawable/profile_item_background</item>
+        <item name="android:textColorHint">@color/pink</item>
         <item name="colorControlActivated">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/normalText</item>
         <item name="android:layout_margin">@dimen/app_margin</item>
         <item name="android:padding">@dimen/app_padding</item>
         <item name="android:inputType">phone</item>
-    </style>
-
-    <style name="register_edittext">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/app_margin</item>
-        <item name="android:background">@drawable/register_edittext_selector</item>
-        <item name="android:hint">@string/register_phone_hint</item>
-        <item name="android:importantForAutofill" tools:ignore="NewApi">no</item>
-        <item name="android:inputType">phone</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:padding">@dimen/register_edittext_padding</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/grey</item>
-        <item name="android:textSize">@dimen/normalText</item>
     </style>
 
     <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
@@ -104,6 +91,11 @@
 
     <style name="MyDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowBackground">@color/white_pink</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

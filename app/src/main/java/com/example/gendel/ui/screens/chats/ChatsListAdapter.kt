@@ -9,7 +9,7 @@ import com.example.gendel.R
 import com.example.gendel.models.CommonModel
 import com.example.gendel.utilities.downloadAndSetImage
 import com.example.gendel.utilities.replaceFragment
-import de.hdodenhof.circleimageview.CircleImageView
+import com.google.android.material.imageview.ShapeableImageView
 
 class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>() {
 
@@ -18,7 +18,7 @@ class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>(
     class ChatsListHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.chats_list_item_name)
         val itemLastMessage: TextView = view.findViewById(R.id.chats_list_last_message)
-        val itemPhoto: CircleImageView = view.findViewById(R.id.chats_list_item_photo)
+        val itemPhoto: ShapeableImageView = view.findViewById(R.id.chats_list_item_photo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatsListHolder {
@@ -34,7 +34,7 @@ class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>(
     override fun onBindViewHolder(holder: ChatsListHolder, position: Int) {
         holder.itemName.text = listItems[position].storeName
         holder.itemLastMessage.text = listItems[position].lastMessage
-        holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl, "main_list")
+        holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl)
     }
 
     fun updateListItems(item: CommonModel) {
