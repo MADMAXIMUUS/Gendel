@@ -2,9 +2,7 @@ package com.example.gendel.models
 
 data class CommonModel(
     val id: String = "",
-    var username: String = "",
-    var bio: String = "",
-    var fullname: String = "",
+    var name: String = "",
     var state: String = "",
     var phone: String = "",
     var photoUrl: String = "empty",

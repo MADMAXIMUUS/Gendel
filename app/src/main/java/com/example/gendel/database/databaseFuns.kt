@@ -301,6 +301,6 @@ fun logInAccount(email:String, password:String, function: () -> Unit) {
 
 fun getReceivedName(id: String, function: (name: String) -> Unit){
     REF_DATABASE_ROOT.child(NODE_USERS).child(id).addListenerForSingleValueEvent(AppValueEventListener{
-        function(it.getCommonModel().fullname)
+        function(it.getCommonModel().name)
     })
 }
