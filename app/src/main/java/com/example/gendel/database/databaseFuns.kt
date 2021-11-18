@@ -79,44 +79,11 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun updateCurrentUsername(newUsername: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_USERNAME)
-        .setValue(newUsername)
-        .addOnCompleteListener {
-            if (it.isSuccessful) {
-                deleteOldUsername(newUsername)
-            } else {
-                showToast(it.exception?.message.toString())
-            }
-        }
-}
-
-fun deleteOldUsername(newUsername: String) {
-    REF_DATABASE_ROOT.child(NODE_USERNAMES).child(USER.username).removeValue()
-        .addOnSuccessListener {
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-            USER.username = newUsername
-        }.addOnFailureListener {
-            showToast(it.message.toString())
-        }
-}
-
-fun setBioToDatabase(newBio: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_BIO).setValue(newBio)
-        .addOnSuccessListener {
-            USER.bio = newBio
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener {
-            showToast(it.message.toString())
-        }
-}
-
 fun setFullnameToDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
         .setValue(fullname)
         .addOnSuccessListener {
             USER.name = fullname
-            //APP_ACTIVITY.appDrawer.updateHeader()
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener {
             showToast(it.message.toString())
@@ -330,4 +297,10 @@ fun logInAccount(email:String, password:String, function: () -> Unit) {
                 showToast("Ошибка входа в аккаунт")
             }
         }
+}
+
+fun getReceivedName(id: String, function: (name: String) -> Unit){
+    REF_DATABASE_ROOT.child(NODE_USERS).child(id).addListenerForSingleValueEvent(AppValueEventListener{
+        function(it.getCommonModel().fullname)
+    })
 }

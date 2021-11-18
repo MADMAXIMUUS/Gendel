@@ -23,18 +23,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/chat_received_message_quiz_po_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Максим" />
+
+        <TextView
             android:id="@+id/chat_received_quiz_po_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_small_margin"
-            android:layout_marginTop="@dimen/app_small_margin"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:textSize="@dimen/normalText"
-            android:textColor="@color/grey"
+            android:textColor="@color/violet"
             app:layout_constraintBottom_toTopOf="@id/chat_received_quiz_po"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message_quiz_po_name"
             tools:text="Сколько двоек?" />
 
         <RadioGroup
@@ -54,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/smallText"
-            android:textColor="@color/grey"
+            android:textColor="@color/pink"
             android:layout_marginStart="@dimen/app_small_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/grey"
+            android:textColor="@color/pink"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +109,7 @@
             android:layout_marginTop="@dimen/app_small_margin"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:textSize="@dimen/normalText"
-            android:textColor="@color/white"
+            android:textColor="@color/violet"
             app:layout_constraintBottom_toTopOf="@id/chat_user_quiz_po"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/smallText"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             android:layout_marginStart="@dimen/app_small_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

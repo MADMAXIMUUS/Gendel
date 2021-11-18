@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.asTime
 import com.example.gendel.utilities.downloadAndSetImage
@@ -25,6 +26,9 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
     private val chatReceivedImageMessageTime: TextView =
         blockReceivedImageMessage.findViewById(R.id.chat_received_image_time)
 
+    private val chatReceivedImageName: TextView = blockReceivedImageMessage
+        .findViewById(R.id.chat_received_message_image_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserImageMessage.visibility = View.VISIBLE
@@ -38,6 +42,9 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
             chatReceivedImage.downloadAndSetImage(view.fileUrl)
             chatReceivedImageMessageTime.text =
                 view.timeStamp.asTime()
+            getReceivedName(view.from){
+                chatReceivedImageName.text = it
+            }
         }
     }
 

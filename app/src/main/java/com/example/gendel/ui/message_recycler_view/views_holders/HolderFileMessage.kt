@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
 import com.example.gendel.database.getFileFromStorage
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.WRITE_FILES
 import com.example.gendel.utilities.asTime
@@ -44,6 +45,9 @@ class HolderFileMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
     private val chatReceivedFileDownloadButton: ImageView = blockReceivedFileMessage
         .findViewById(R.id.chat_received_button_download)
 
+    private val chatReceivedName: TextView = blockReceivedFileMessage
+        .findViewById(R.id.chat_received_message_file_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserFileMessage.visibility = View.VISIBLE
@@ -57,6 +61,9 @@ class HolderFileMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             chatReceivedFileMessageTime.text =
                 view.timeStamp.asTime()
             chatReceivedFilename.text = view.text
+            getReceivedName(view.from){
+                chatReceivedName.text = it
+            }
         }
     }
 

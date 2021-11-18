@@ -20,15 +20,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <TextView
+            android:id="@+id/chat_received_message_file_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Максим" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:background="@color/white"
+            android:scaleType="center"
             android:id="@+id/chat_received_button_download"
             android:layout_width="@dimen/chat_button_width"
             android:layout_height="@dimen/chat_button_height"
             android:layout_marginStart="@dimen/app_small_margin"
-            android:src="@drawable/ic_chat_file_blue"
+            android:src="@drawable/ic_download"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message_file_name"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:tint="@color/pink"
             tools:ignore="ContentDescription" />
 
         <ProgressBar
@@ -40,14 +56,15 @@
             android:layout_marginStart="@dimen/app_small_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message_file_name" />
 
         <TextView
             android:id="@+id/chat_received_filename"
             android:layout_width="0dp"
             android:maxLines="2"
+            android:layout_marginStart="5dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/grey"
+            android:textColor="@color/pink"
             app:layout_constraintBottom_toTopOf="@+id/chat_received_file_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/chat_received_button_download"
@@ -56,21 +73,23 @@
 
         <TextView
             android:id="@+id/chat_received_file_time"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
+            android:layout_marginStart="5dp"
             android:gravity="end"
-            android:textColor="@color/grey"
+            android:textColor="@color/violet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chat_received_button_download"
             tools:text="21:45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bloc_user_file"
-        android:layout_width="@dimen/chat_common_width"
-        android:layout_height="@dimen/chat_common_height"
+        android:layout_width="@dimen/chat_common_width_user"
+        android:layout_height="@dimen/chat_common_height_user"
         android:layout_marginStart="100dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -81,12 +100,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:background="@color/white"
+            android:scaleType="center"
             android:id="@+id/chat_user_button_download"
             android:layout_width="@dimen/chat_button_width"
             android:layout_height="@dimen/chat_button_height"
             android:layout_marginStart="@dimen/app_small_margin"
-            android:src="@drawable/ic_chat_file"
+            android:src="@drawable/ic_download"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:tint="@color/pink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -106,9 +129,10 @@
         <TextView
             android:id="@+id/chat_user_filename"
             android:layout_width="0dp"
+            android:layout_marginStart="5dp"
             android:maxLines="2"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             app:layout_constraintBottom_toTopOf="@+id/chat_user_file_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/chat_user_button_download"
@@ -116,13 +140,15 @@
 
         <TextView
             android:id="@+id/chat_user_file_time"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_marginStart="5dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/white"
+            android:textColor="@color/violet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chat_user_button_download"
             tools:text="21:45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

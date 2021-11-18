@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.asTime
@@ -29,6 +30,9 @@ class HolderQuizPOMessage(view: View) : RecyclerView.ViewHolder(view), MessageHo
     private val chatReceivedQuizPOTitle: TextView =
         blockReceivedQuizPO.findViewById(R.id.chat_received_quiz_po_title)
 
+    private val chatReceivedQuizPOName: TextView = blockReceivedQuizPO
+        .findViewById(R.id.chat_received_message_quiz_po_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserQuizPO.visibility = View.VISIBLE
@@ -49,6 +53,9 @@ class HolderQuizPOMessage(view: View) : RecyclerView.ViewHolder(view), MessageHo
             chatReceivedQuizPOTitle.text = view.text
             chatReceivedQuizPOMessageTime.text =
                 view.timeStamp.asTime()
+            getReceivedName(view.from){
+                chatReceivedQuizPOName.text = it
+            }
             for (i in 0 until view.answers.size)
             {
                 val answer = RadioButton(APP_ACTIVITY)

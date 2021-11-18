@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.asTime
 
@@ -24,6 +25,9 @@ class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
     private val chatReceivedMessageTime: TextView =
         blockReceivedMessage.findViewById(R.id.chat_received_message_time)
 
+    private val chatReceivedName: TextView = blockReceivedMessage
+        .findViewById(R.id.chat_received_message_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserMessage.visibility = View.VISIBLE
@@ -37,6 +41,9 @@ class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             chatReceivedMessage.text = view.text
             chatReceivedMessageTime.text =
                 view.timeStamp.asTime()
+            getReceivedName(view.from) {
+                chatReceivedName.text = it
+            }
         }
     }
 

@@ -22,18 +22,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/chat_received_message_quiz_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Максим" />
+
+        <TextView
             android:id="@+id/chat_received_quiz_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_small_margin"
-            android:layout_marginTop="@dimen/app_small_margin"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="start"
-            android:textColor="@color/grey"
+            android:textColor="@color/violet"
             android:textSize="@dimen/normalText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message_quiz_name"
             tools:text="Сколько двоек?" />
 
         <LinearLayout
@@ -51,12 +62,12 @@
         <Button
             android:id="@+id/chat_received_vote_button"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="48dp"
             android:layout_margin="@dimen/app_small_margin"
             android:background="#00FFFFFF"
             android:text="@string/quiz_button_vote_text"
-            android:textColor="@color/grey"
-            android:textSize="12sp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chat_received_quiz" />
@@ -68,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_small_margin"
             android:layout_marginTop="@dimen/app_small_margin"
-            android:textColor="@color/grey"
+            android:textColor="@color/violet"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +93,7 @@
             android:layout_marginTop="@dimen/app_small_margin"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/grey"
+            android:textColor="@color/violet"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +126,7 @@
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="start"
             android:textSize="@dimen/normalText"
-            android:textColor="@color/white"
+            android:textColor="@color/violet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -136,11 +147,11 @@
         <Button
             android:id="@+id/chat_user_vote_button"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="48dp"
             android:background="#00FFFFFF"
             android:text="@string/quiz_button_vote_text"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chat_user_quiz" />
@@ -153,7 +164,7 @@
             android:layout_marginStart="@dimen/app_small_margin"
             android:layout_marginTop="@dimen/app_small_margin"
             android:textSize="@dimen/smallText"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chat_user_vote_button"
@@ -166,7 +177,7 @@
             android:layout_marginTop="@dimen/app_small_margin"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

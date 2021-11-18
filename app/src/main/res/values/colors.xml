@@ -6,8 +6,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="user_message_color">#B0D0FF</color>
-    <color name="receiving_message_color">#FFFB97</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darker">#FFD1CDCD</color>
     <color name="grey">#FF837E7E</color>

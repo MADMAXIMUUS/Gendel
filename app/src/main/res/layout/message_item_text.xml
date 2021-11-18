@@ -28,12 +28,12 @@
             android:layout_height="wrap_content"
             android:maxWidth="260dp"
             android:padding="@dimen/app_padding"
-            android:textColor="@color/black"
+            android:textColor="@color/violet"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/chat_user_message_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Привет я Максим" />
+            tools:text="Привет, я Максим" />
 
         <TextView
             android:id="@+id/chat_user_message_time"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/black"
+            android:textColor="@color/pink"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chat_user_message"
@@ -65,17 +65,31 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/chat_received_message_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Максим" />
+
+
+        <TextView
             android:id="@+id/chat_received_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxWidth="260dp"
-            android:padding="@dimen/app_padding"
-            android:textColor="@color/black"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:textColor="@color/violet"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/chat_received_message_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Привет я Maxim" />
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message_name"
+            tools:text="Привет, я Maxim" />
 
         <TextView
             android:id="@+id/chat_received_message_time"
@@ -83,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/black"
+            android:textColor="@color/pink"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chat_received_message"

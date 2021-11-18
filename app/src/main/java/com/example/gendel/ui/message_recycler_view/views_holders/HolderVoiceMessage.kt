@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.AppVoicePlayer
 import com.example.gendel.utilities.asTime
@@ -39,6 +40,9 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
     private val chatUserButtonStop: ImageView =
         blockUserVoiceMessage.findViewById(R.id.chat_user_button_stop)
 
+    private val chatReceivedVoiceName: TextView = blockReceivedVoiceMessage
+        .findViewById(R.id.chat_received_message_voice_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserVoiceMessage.visibility = View.VISIBLE
@@ -52,6 +56,9 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
             chatReceivedVoiceMessage.text = view.text
             chatReceivedVoiceMessageTime.text =
                 view.timeStamp.asTime()
+            getReceivedName(view.from) {
+                chatReceivedVoiceName.text = it
+            }
         }
     }
 

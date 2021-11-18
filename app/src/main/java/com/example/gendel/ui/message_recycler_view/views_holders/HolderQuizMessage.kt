@@ -1,11 +1,15 @@
 package com.example.gendel.ui.message_recycler_view.views_holders
 
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.getReceivedName
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.asTime
@@ -34,6 +38,9 @@ class HolderQuizMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
     private val chatReceivedQuizTitle: TextView =
         blockReceivedQuiz.findViewById(R.id.chat_received_quiz_title)
 
+    private val chatReceivedQuizName: TextView = blockReceivedQuiz
+        .findViewById(R.id.chat_received_message_quiz_name)
+
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
             blockUserQuiz.visibility = View.VISIBLE
@@ -41,8 +48,7 @@ class HolderQuizMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             chatUserQuizTitle.text = view.text
             chatUserQuizMessageTime.text =
                 view.timeStamp.asTime()
-            for (i in 0 until view.answers.size)
-            {
+            for (i in 0 until view.answers.size) {
                 val answer = CheckBox(APP_ACTIVITY)
                 answer.text = view.answers["answer $i"].toString()
                 answer.textSize = 14f
@@ -54,8 +60,10 @@ class HolderQuizMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             chatReceivedQuizTitle.text = view.text
             chatReceivedQuizMessageTime.text =
                 view.timeStamp.asTime()
-            for (i in 0 until view.answers.size)
-            {
+            getReceivedName(view.from) {
+                chatReceivedQuizName.text = it
+            }
+            for (i in 0 until view.answers.size) {
                 val answer = CheckBox(APP_ACTIVITY)
                 answer.text = view.answers["answer $i"].toString()
                 answer.textSize = 14f
