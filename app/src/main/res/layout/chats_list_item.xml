@@ -15,21 +15,43 @@
         android:layout_marginStart="@dimen/app_margin"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/default_photo_chat"
+        android:src="@drawable/placeholder_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/chats_list_placeholder_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="6dp"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/chats_list_item_photo"
+        app:layout_constraintEnd_toEndOf="@id/chats_list_item_photo"
+        app:layout_constraintStart_toStartOf="@id/chats_list_item_photo"
+        app:layout_constraintTop_toTopOf="@id/chats_list_item_photo" />
+
+    <TextView
         android:id="@+id/chats_list_item_name"
-        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_margin"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/chats_list_item_photo"
         app:layout_constraintTop_toTopOf="@+id/chats_list_item_photo"
         tools:text="Name item" />
 
     <TextView
         android:id="@+id/chats_list_last_message"
-        style="@style/smallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_margin"
+        android:textColor="@color/blue_pink"
+        android:textSize="16sp"
         android:maxLines="2"
         android:maxWidth="200dp"
         app:layout_constraintStart_toEndOf="@+id/chats_list_item_photo"

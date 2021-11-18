@@ -183,7 +183,7 @@ fun getFileFromStorage(file: File, fileUrl: String, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun clearChatForGroupChat(id: String, function: () -> Unit) {
+fun clearChat(id: String, function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(id)
         .removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -195,7 +195,7 @@ fun clearChatForGroupChat(id: String, function: () -> Unit) {
         }
 }
 
-fun deleteChatForGroupChat(id: String, function: () -> Unit) {
+fun deleteChat(id: String, function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID).child(id).removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
         .addOnSuccessListener { function() }

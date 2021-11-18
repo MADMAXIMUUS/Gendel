@@ -45,6 +45,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun initFields() {
         binding.profileTextViewName.text = USER.name
         binding.profileTextViewEmail.text = USER.email
+        binding.profilePlaceholderName.text = USER.name[0].toString()
         exitView.findViewById<ConstraintLayout>(R.id.exit_button).setOnClickListener {
             AppStates.updateState(AppStates.OFFLINE)
             AUTH.signOut()

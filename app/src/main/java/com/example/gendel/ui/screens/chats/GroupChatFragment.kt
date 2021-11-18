@@ -1,7 +1,6 @@
 package com.example.gendel.ui.screens.chats
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -217,10 +216,10 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachFile() {
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
-        startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
+        //bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+        //val intent = Intent(Intent.ACTION_GET_CONTENT)
+        //intent.type = "*/*"
+        //startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
     }
 
     private fun attachImage() {
@@ -339,19 +338,17 @@ class GroupChatFragment(private val group: CommonModel) :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initInfoToolbar() {
         toolbarInfo.findViewById<ShapeableImageView>(R.id.toolbar_chat_image)
             .downloadAndSetImage(group.photoUrl)
-        if (receivingUser.name.isEmpty()) {
-            toolbarInfo
-                .findViewById<TextView>(R.id.toolbar_chat_fullname)
-                .text = group.storeName
-        } else {
-            toolbarInfo
-                .findViewById<TextView>(R.id.toolbar_chat_fullname)
-                .text = receivingUser.name
-        }
-        toolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text = receivingUser.state
+        toolbarInfo
+            .findViewById<TextView>(R.id.toolbar_chat_fullname)
+            .text = group.storeName
+        toolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text =
+            "Участников - ${group.memberCount}"
+        toolbarInfo.findViewById<TextView>(R.id.toolbar_placeholder_name).text =
+            group.storeName[0].toString()
     }
 
     override fun onPause() {
@@ -368,5 +365,10 @@ class GroupChatFragment(private val group: CommonModel) :
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.chat_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        replaceFragment(ChatSettingsFragment(group))
+        return super.onOptionsItemSelected(item)
     }
 }

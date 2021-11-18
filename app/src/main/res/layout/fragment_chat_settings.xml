@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screens.chats.ChatSettingsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_settings_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_radius"
+        android:backgroundTint="@color/blue_pink"
+        android:elevation="5dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/chat_settings_chat_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="1dp"
+            android:src="@drawable/placeholder_image"
+            android:tint="@color/white_pink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:strokeColor="@color/violet"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/chat_settings_chat_icon_change_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:background="@color/white_pink"
+            android:padding="1dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_change_photo_icon"
+            android:tint="@color/pink"
+            app:layout_constraintBottom_toBottomOf="@id/chat_settings_chat_icon"
+            app:layout_constraintEnd_toEndOf="@id/chat_settings_chat_icon"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:strokeColor="@color/violet"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/profile_placeholder_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="12dp"
+            android:textAlignment="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/pink"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/chat_settings_chat_icon"
+            app:layout_constraintEnd_toEndOf="@id/chat_settings_chat_icon"
+            app:layout_constraintStart_toStartOf="@id/chat_settings_chat_icon"
+            app:layout_constraintTop_toTopOf="@id/chat_settings_chat_icon"
+            tools:text="Н" />
+
+        <TextView
+            android:id="@+id/chat_settings_store_name"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/create_quiz_edittext_selector"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chat_settings_chat_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="Autofill"
+            tools:text="Название" />
+
+        <TextView
+            android:id="@+id/chat_settings_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_settings_store_name"
+            tools:text="Участников - 10" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_settings_block_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin"
+        android:background="@drawable/bg_all_radius"
+        android:backgroundTint="@color/blue_pink"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chat_settings_header">
+
+        <TextView
+            android:id="@+id/chat_settings_block_settings_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_small_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            android:text="@string/create_quiz_block_settings_title"
+            android:textColor="@color/violet"
+            android:textSize="@dimen/normalText"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_settings_notification_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/create_quiz_ripple_effect_2"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_settings_block_settings_title">
+
+            <ImageView
+                android:id="@+id/chat_settings_notification_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/pink"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/chat_settings_notification_title"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_settings_notification_icon"
+                app:layout_constraintStart_toEndOf="@id/chat_settings_notification_icon"
+                app:layout_constraintTop_toTopOf="@id/chat_settings_notification_icon" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/chat_settings_notification_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="@dimen/app_margin"
+                android:enabled="true"
+                android:thumb="@drawable/ic_create_quiz_handle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbTint="@color/pink"
+                app:trackTint="@color/switch_track_color" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_settings_attachments_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/create_quiz_bottom_radius_ripple_effect"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_settings_notification_button">
+
+            <ImageView
+                android:id="@+id/chat_settings_attachments_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_chat_attach_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/pink"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/chat_settings_attachments_title"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_settings_attachments_icon"
+                app:layout_constraintStart_toEndOf="@id/chat_settings_attachments_icon"
+                app:layout_constraintTop_toTopOf="@id/chat_settings_attachments_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_settings_bloch_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin"
+        android:background="@drawable/bg_all_radius"
+        android:backgroundTint="@color/blue_pink"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chat_settings_block_settings">
+
+        <TextView
+            android:id="@+id/chat_settings_block_exit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_small_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            android:text="@string/chat_settings_exit_block_title"
+            android:textColor="@color/violet"
+            android:textSize="@dimen/normalText"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_settings_clear_history_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/create_quiz_ripple_effect_2"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_settings_block_exit_title">
+
+            <ImageView
+                android:id="@+id/chat_settings_clear_history_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_delete_history_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/red"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/chat_settings_clear_history_title"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_settings_clear_history_icon"
+                app:layout_constraintStart_toEndOf="@id/chat_settings_clear_history_icon"
+                app:layout_constraintTop_toTopOf="@id/chat_settings_clear_history_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_settings_leave_chat_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/create_quiz_bottom_radius_ripple_effect"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_settings_clear_history_button">
+
+            <ImageView
+                android:id="@+id/chat_settings_leave_chat_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/red"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/chat_settings_leave_chat_title"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_settings_leave_chat_icon"
+                app:layout_constraintStart_toEndOf="@id/chat_settings_leave_chat_icon"
+                app:layout_constraintTop_toTopOf="@id/chat_settings_leave_chat_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

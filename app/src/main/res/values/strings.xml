@@ -75,6 +75,12 @@
     <string name="chat_attach_graffiti_title">Графити</string>
     <string name="chat_attach_quiz_title">Опрос</string>
     <string name="profile_exit">ВЫХОД</string>
+    <string name="chat_settings_notification_title">Уведомления</string>
+    <string name="chat_settings_attachments_title">Материалы беседы</string>
+    <string name="chat_settings_clear_history_title">Очистить историю</string>
+    <string name="chat_settings_exit_block_title">Выход и очистка истории</string>
+    <string name="chat_settings_leave_chat_title">Покинуть беседу</string>
+    <string name="email_verification">Подтвердите email для доступа ко всем функциям</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

@@ -11,10 +11,24 @@
         android:id="@+id/toolbar_chat_image"
         android:layout_width="@dimen/toolbar_image_width"
         android:layout_height="@dimen/toolbar_image_height"
-        android:src="@drawable/default_photo"
+        android:src="@drawable/placeholder_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/toolbar_placeholder_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_chat_image"
+        app:layout_constraintEnd_toEndOf="@id/toolbar_chat_image"
+        app:layout_constraintStart_toStartOf="@id/toolbar_chat_image"
+        app:layout_constraintTop_toTopOf="@id/toolbar_chat_image" />
 
     <TextView
         android:id="@+id/toolbar_chat_fullname"

@@ -22,14 +22,50 @@
             android:layout_width="@dimen/settings_user_photo_width"
             android:layout_height="@dimen/settings_user_photo_height"
             android:layout_marginTop="34dp"
-            app:srcCompat="@drawable/default_photo"
+            app:srcCompat="@drawable/placeholder_image"
             app:strokeColor="@color/pink"
             app:strokeWidth="2dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="1dp"
             android:backgroundTint="@color/violet"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/chat_settings_chat_icon_change_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:background="@color/white_pink"
+            android:padding="1dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_change_photo_big_icon"
+            android:tint="@color/pink"
+            app:layout_constraintBottom_toBottomOf="@id/settings_user_photo"
+            app:layout_constraintEnd_toEndOf="@id/settings_user_photo"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:strokeColor="@color/violet"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/profile_placeholder_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="10dp"
+            android:textAlignment="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/pink"
+            android:textSize="90sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/settings_user_photo"
+            app:layout_constraintEnd_toEndOf="@id/settings_user_photo"
+            app:layout_constraintStart_toStartOf="@id/settings_user_photo"
+            app:layout_constraintTop_toTopOf="@id/settings_user_photo" />
 
         <TextView
             android:id="@+id/profile_textView_name"

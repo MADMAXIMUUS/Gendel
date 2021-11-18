@@ -4,7 +4,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class ListsItemDecoration(val spaceTop: Int, val spaceBottom: Int) : RecyclerView.ItemDecoration() {
+class ListsItemDecoration(private val spaceTop: Int, private val spaceBottom: Int) :
+    RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -12,7 +13,13 @@ class ListsItemDecoration(val spaceTop: Int, val spaceBottom: Int) : RecyclerVie
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.bottom = spaceBottom
-        outRect.top = spaceTop
+        val position = parent.getChildAdapterPosition(view)
+        if (position == parent.adapter?.itemCount!! - 1) {
+            outRect.top = spaceTop
+            outRect.bottom = 270
+        } else {
+            outRect.bottom = spaceBottom
+            outRect.top = spaceTop
+        }
     }
 }

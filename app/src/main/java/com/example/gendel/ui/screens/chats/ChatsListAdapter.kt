@@ -17,6 +17,7 @@ class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>(
 
     class ChatsListHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.chats_list_item_name)
+        val itemPlaceholderName: TextView = view.findViewById(R.id.chats_list_placeholder_name)
         val itemLastMessage: TextView = view.findViewById(R.id.chats_list_last_message)
         val itemPhoto: ShapeableImageView = view.findViewById(R.id.chats_list_item_photo)
     }
@@ -33,8 +34,12 @@ class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>(
 
     override fun onBindViewHolder(holder: ChatsListHolder, position: Int) {
         holder.itemName.text = listItems[position].storeName
-        holder.itemLastMessage.text = listItems[position].lastMessage
+        if (listItems[position].lastMessage.isNotEmpty())
+            holder.itemLastMessage.text = listItems[position].lastMessage
+        else
+            holder.itemLastMessage.text = "Сообщений пока нет"
         holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl)
+        holder.itemPlaceholderName.text = listItems[position].storeName[0].toString()
     }
 
     fun updateListItems(item: CommonModel) {
