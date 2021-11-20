@@ -2,6 +2,7 @@ package com.example.gendel.ui.screens.bill
 
 import android.annotation.SuppressLint
 import android.app.Instrumentation
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.CalendarView
@@ -39,6 +40,12 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         _binding = FragmentNewBillBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.title = "Новое объявление"
         customView = layoutInflater.inflate(R.layout.end_date_picker, null)
+        val window = APP_ACTIVITY.window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.white)
+        if (Build.VERSION.SDK_INT >= 29)
+            window.isNavigationBarContrastEnforced = true
         initFunc()
         return binding.root
     }

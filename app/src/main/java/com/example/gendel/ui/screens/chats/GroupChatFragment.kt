@@ -2,6 +2,7 @@ package com.example.gendel.ui.screens.chats
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -52,6 +53,12 @@ class GroupChatFragment(private val group: CommonModel) :
     ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        val window = APP_ACTIVITY.window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.white_pink)
+        if (Build.VERSION.SDK_INT >= 29)
+            window.isNavigationBarContrastEnforced = true
         return binding.root
     }
 

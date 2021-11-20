@@ -40,6 +40,10 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
+        if (USER.verified == "false") {
+            holder.itemRegister.isEnabled = false
+            holder.itemFavorites.isEnabled = false
+        }
         for (i in 0 until USER.favorites.size) {
             if (listItems[holder.position].id in USER.favorites.keys) {
                 holder.inFavorites = true

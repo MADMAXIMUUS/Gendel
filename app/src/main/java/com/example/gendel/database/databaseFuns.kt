@@ -44,9 +44,6 @@ inline fun initUser(crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
         .addListenerForSingleValueEvent(AppValueEventListener {
             USER = it.getValue(UserModel::class.java) ?: UserModel()
-            if (USER.username.isEmpty()) {
-                USER.username = CURRENT_UID
-            }
             function()
         })
 }

@@ -2,7 +2,9 @@ package com.example.gendel.ui.screens.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
@@ -55,5 +57,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             replaceFragment(ChangeNameFragment())
         }
         binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
+        if (USER.verified == "false") {
+            binding.profileEmailVerificationButton.visibility = View.VISIBLE
+            binding.profileEmailVerificationButton.setOnClickListener {
+                AUTH.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                    showToast("Письмо отправлено!")
+                }?.addOnFailureListener { showToast("Ошибка отправки письма!") }
+            }
+        }
+        else{
+            binding.profileEmailVerificationButton.visibility = View.GONE
+        }
     }
 }

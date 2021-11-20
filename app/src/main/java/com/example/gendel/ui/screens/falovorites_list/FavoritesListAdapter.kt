@@ -40,6 +40,10 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
+        if (USER.verified == "false") {
+            holder.itemRegister.isEnabled = false
+            holder.itemFavorites.isEnabled = false
+        }
         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
         for (i in 0 until USER.registered.size) {
             if (listItems[holder.position].id in USER.registered.keys) {

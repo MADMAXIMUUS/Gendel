@@ -93,7 +93,7 @@
         </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_new_chat"
+            android:id="@+id/button_new_bill"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:backgroundTint="@color/pink"
