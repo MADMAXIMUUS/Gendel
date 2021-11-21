@@ -31,13 +31,10 @@ open class BaseChangeFragment (layout:Int): Fragment(layout) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> change()
-        }
+           change()
         return true
     }
 
     open fun change() {
-
     }
 }

@@ -2,6 +2,8 @@ package com.example.gendel.ui.screens.draw
 
 import android.annotation.SuppressLint
 import android.app.Instrumentation
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
@@ -9,10 +11,10 @@ import android.widget.RadioButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
+import com.example.gendel.database.getMessageKeyForGroup
+import com.example.gendel.database.uploadFileToStorage
 import com.example.gendel.databinding.FragmentDrawBinding
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.DRAW_FRAGMENT
-import com.example.gendel.utilities.hideKeyboard
+import com.example.gendel.utilities.*
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorShape
 import kotlinx.coroutines.CoroutineScope
@@ -120,45 +122,26 @@ class DrawFragment(private val dialogId: String, val type: String) :
             createColorPickerDialog()
         }
         binding.graffitiButtonOk.setOnClickListener {
-            send()
+            sendGraffitiInChat()
         }
     }
 
-    private fun send() {
-        /*val bitmap = Bitmap.createBitmap(binding.graffitiCanvas.extraBitmap)
-        when (type) {
-            TYPE_CHAT -> {
-                val messageKey = getMessageKey(dialogId)
-                file = File(APP_ACTIVITY.filesDir, messageKey)
-                file.writeBitmap(bitmap, Bitmap.CompressFormat.PNG, 85)
-                file.createNewFile()
-                val uri = Uri.fromFile(file)
-                uploadFileToStorage(
-                    uri,
-                    messageKey,
-                    dialogId,
-                    TYPE_MESSAGE_IMAGE,
-                    "Графити"
-                )
-                file.delete()
-            }
-            TYPE_BILL -> {
-                val messageKey = getMessageKeyForGroup(dialogId)
-                file = File(APP_ACTIVITY.filesDir, messageKey)
-                file.writeBitmap(bitmap, Bitmap.CompressFormat.PNG, 85)
-                file.createNewFile()
-                val uri = Uri.fromFile(file)
-                uploadFileToStorageForGroup(
-                    uri,
-                    messageKey,
-                    dialogId,
-                    TYPE_MESSAGE_IMAGE,
-                    "Графити"
-                )
-                file.delete()
-            }
-        }
-        backToChat()*/
+    private fun sendGraffitiInChat() {
+        val bitmap = Bitmap.createBitmap(binding.graffitiCanvas.extraBitmap)
+        val messageKey = getMessageKeyForGroup(dialogId)
+        file = File(APP_ACTIVITY.filesDir, messageKey)
+        file.writeBitmap(bitmap, Bitmap.CompressFormat.PNG, 85)
+        file.createNewFile()
+        val uri = Uri.fromFile(file)
+        uploadFileToStorage(
+            uri,
+            messageKey,
+            dialogId,
+            TYPE_MESSAGE_IMAGE,
+            "Графити"
+        )
+        file.delete()
+        backToChat()
     }
 
     private fun backToChat() {

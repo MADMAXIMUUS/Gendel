@@ -14,6 +14,8 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_new_custom_launcher_round"
         android:supportsRtl="true"
+        android:name=".ui.objects.Gendel"
+        android:fullBackupContent="true"
         android:theme="@style/Theme.Gendel.Light.Standard">
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld

@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.CalendarView
 import android.widget.PopupWindow
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentNewBillBinding
@@ -41,9 +42,9 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         APP_ACTIVITY.toolbar.title = "Новое объявление"
         customView = layoutInflater.inflate(R.layout.end_date_picker, null)
         val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.white)
         if (Build.VERSION.SDK_INT >= 29)
             window.isNavigationBarContrastEnforced = true
         initFunc()

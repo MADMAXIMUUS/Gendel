@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -30,11 +31,11 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
-        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.violet)
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet);
         if (Build.VERSION.SDK_INT >= 29)
             window.isNavigationBarContrastEnforced = true
         return binding.root

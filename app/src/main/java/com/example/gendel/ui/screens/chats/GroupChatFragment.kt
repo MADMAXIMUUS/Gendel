@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,11 +53,11 @@ class GroupChatFragment(private val group: CommonModel) :
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
-        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.white_pink)
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet);
         if (Build.VERSION.SDK_INT >= 29)
             window.isNavigationBarContrastEnforced = true
         return binding.root
@@ -112,7 +113,7 @@ class GroupChatFragment(private val group: CommonModel) :
                     } else if (event.action == MotionEvent.ACTION_UP) {
                         binding.chatInputMessage.setText("")
                         appVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorageForGroup(
+                            uploadFileToStorage(
                                 Uri.fromFile(file),
                                 messageKey,
                                 group.id,

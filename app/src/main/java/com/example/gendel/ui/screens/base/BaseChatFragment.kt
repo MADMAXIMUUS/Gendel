@@ -20,7 +20,7 @@ open class BaseChatFragment(layout: Int) : Fragment(layout) {
     override fun onDestroy() {
         super.onDestroy()
         APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
-        APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_home
+        APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_chats
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 }

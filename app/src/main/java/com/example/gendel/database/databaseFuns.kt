@@ -15,6 +15,7 @@ import java.io.File
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_DATABASE_ROOT.keepSynced(true)
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
@@ -212,7 +213,7 @@ fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_CHATS)
     .child(cid).child(NODE_MESSAGES).push().key.toString()
 
 
-fun uploadFileToStorageForGroup(
+fun uploadFileToStorage(
     uri: Uri,
     messageKey: String,
     groupID: String,

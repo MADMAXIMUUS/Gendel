@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.*
+import com.example.gendel.database.NODE_BILLS
+import com.example.gendel.database.REF_DATABASE_ROOT
+import com.example.gendel.database.getCommonModel
 import com.example.gendel.databinding.FragmentMainListBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.utilities.*
+import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.AppValueEventListener
+import com.example.gendel.utilities.ListsItemDecoration
+import com.example.gendel.utilities.hideKeyboard
 
 class MainListFragment : Fragment(R.layout.fragment_main_list) {
 
@@ -31,9 +37,9 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.VISIBLE
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.violet)
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet)
         if (Build.VERSION.SDK_INT >= 29)
             window.isNavigationBarContrastEnforced = true
         return binding.root
