@@ -1,10 +1,12 @@
 package com.example.gendel.ui.screens.chats
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -27,7 +29,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
-        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        val window = APP_ACTIVITY.window
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet)
+        if (Build.VERSION.SDK_INT >= 29)
+            window.isNavigationBarContrastEnforced = true
         return binding.root
     }
 
@@ -61,15 +69,23 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
             .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
                 val newModel = dataSnapshot1.getCommonModel()
 
-                REF_DATABASE_ROOT.child(NODE_BILLS).child(model.id).child(NODE_MESSAGES)
+                REF_DATABASE_ROOT.child(NODE_CHATS).child(CURRENT_UID).child(model.id)
                     .limitToLast(1)
                     .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
                         val tempList = dataSnapshot2.children.map { it.getCommonModel() }
-
-                        if (tempList.isNotEmpty())
-                            newModel.lastMessage = tempList[0].text
-
-                        adapter.updateListItems(newModel)
+                        if (tempList.isNotEmpty()) {
+                            if (tempList[0].from == CURRENT_UID) {
+                                newModel.lastMessage =
+                                    getString(R.string.message_from_you) + ": " + tempList[0].text
+                                adapter.updateListItems(newModel)
+                            } else {
+                                getReceivedName(tempList[0].from) {
+                                    newModel.lastMessage = it + ": " + tempList[0].text
+                                    adapter.updateListItems(newModel)
+                                }
+                            }
+                        } else
+                            adapter.updateListItems(newModel)
                     })
             })
 

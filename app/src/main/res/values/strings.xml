@@ -82,6 +82,7 @@
     <string name="chat_settings_leave_chat_title">Покинуть беседу</string>
     <string name="email_verification">Подтвердите email для доступа ко всем функциям</string>
     <string name="verified_email">Подтвердить email</string>
+    <string name="message_from_you">Вы</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

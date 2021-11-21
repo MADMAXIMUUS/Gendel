@@ -11,6 +11,7 @@ data class CommonModel(
     var endDate: String = "",
     var startDate: String = "",
     var memberCount: String = "",
+    var members: HashMap<String, Any> = hashMapOf(),
 
     var text: String = "",
     var type: String = "",

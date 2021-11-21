@@ -96,24 +96,35 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
             if (!holder.registered) {
                 val mapData = hashMapOf<String, Any>()
                 mapData[listItems[holder.adapterPosition].id] = "1"
-                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
-                    .updateChildren(mapData)
-                    .addOnSuccessListener {
-                        holder.registered = true
-                        holder.itemRegister.setImageResource(R.drawable.ic_unregister)
-                        USER.registered[listItems[holder.adapterPosition].id] = "1"
-                        showToast("Вы согласились помочь)")
-                    }.addOnFailureListener { showToast(it.message.toString()) }
-            } else {
-                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
-                    .child(listItems[holder.adapterPosition].id)
-                    .removeValue().addOnSuccessListener {
-                        holder.registered = false
-                        holder.itemRegister.setImageResource(R.drawable.ic_add)
-                        USER.registered.remove(listItems[holder.adapterPosition].id)
-                        showToast("Вы решили не помогать(")
-                    }
-                    .addOnFailureListener { showToast(it.message.toString()) }
+                getBill(listItems[holder.adapterPosition].id) { bill ->
+                    val members = bill.members
+                    members["member ${bill.memberCount.toInt()}"] = CURRENT_UID
+                    val newMemberCount = (bill.memberCount.toInt() + 1).toString()
+                    val mapDataBills = hashMapOf<String, Any>()
+                    mapDataBills[CHILD_ID] = bill.id
+                    mapDataBills[CHILD_COST] = bill.cost
+                    mapDataBills[CHILD_MEMBERS] = members
+                    mapDataBills[CHILD_MEMBERS_COUNT] = newMemberCount
+                    mapDataBills[CHILD_END_DATE] = bill.endDate
+                    mapDataBills[CHILD_START_DATE] = bill.startDate
+                    mapDataBills[CHILD_STORE_NAME] = bill.storeName
+                    REF_DATABASE_ROOT.child(NODE_BILLS).child(bill.id).updateChildren(mapDataBills)
+                        .addOnSuccessListener {
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+                                .child(CHILD_REGISTERED)
+                                .updateChildren(mapData)
+                                .addOnSuccessListener {
+                                    holder.registered = true
+                                    holder.itemRegister.setImageResource(R.drawable.ic_unregister)
+                                    USER.registered[listItems[holder.adapterPosition].id] = "1"
+                                    getBill(bill.id) { bill1 ->
+                                        holder.itemMember.text = bill1.memberCount
+                                    }
+                                    showToast("Вы согласились помочь)")
+                                }.addOnFailureListener { showToast(it.message.toString()) }
+                        }.addOnFailureListener { showToast(it.message.toString()) }
+                }
+
             }
         }
         super.onViewAttachedToWindow(holder)

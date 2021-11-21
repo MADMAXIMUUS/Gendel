@@ -15,9 +15,11 @@ import java.io.File
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
-    REF_DATABASE_ROOT.keepSynced(true)
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
+    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_DATABASE_ROOT.child(NODE_CHATS).child(CURRENT_UID).keepSynced(true)
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).keepSynced(true)
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
 }
 
@@ -44,7 +46,7 @@ inline fun putFileToStorage(uri: Uri, path: StorageReference, crossinline functi
 inline fun initUser(crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
         .addListenerForSingleValueEvent(AppValueEventListener {
-            USER = it.getValue(UserModel::class.java) ?: UserModel()
+            USER = it.getUserModel()
             function()
         })
 }
@@ -181,7 +183,12 @@ fun createBillAndPushToDatabase(
     mapData[CHILD_END_DATE] = endDate
     mapData[CHILD_COST] = cost
     mapData[CHILD_START_DATE] = startDate
-    mapData[CHILD_MEMBERS] = "1"
+    mapData[CHILD_MEMBERS_COUNT] = "1"
+
+    val membersData = hashMapOf<String, Any>()
+    membersData["member 0"] = CURRENT_UID
+    mapData[CHILD_MEMBERS] = membersData
+
     path.updateChildren(mapData)
         .addOnSuccessListener {
             function(keyBill)
@@ -189,21 +196,25 @@ fun createBillAndPushToDatabase(
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageToGroup(message: String, groupID: String, typeText: String, function: () -> Unit) {
-    val refMessages = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
-    val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
+fun sendMessageToGroup(message: String, type: String, group: CommonModel, function: () -> Unit) {
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
-    mapMessage[CHILD_TYPE] = typeText
+    mapMessage[CHILD_TYPE] = type
     mapMessage[CHILD_TEXT] = message
-    mapMessage[CHILD_ID] = messageKey.toString()
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
-    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
-        .updateChildren(mapMessage)
-        .addOnSuccessListener { function() }
-        .addOnFailureListener { showToast(it.message.toString()) }
+    for (i in 0 until group.memberCount.toInt()) {
+        val refMessages = "$NODE_CHATS/${group.members["member $i"]}/${group.id}/"
+        val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
+        mapMessage[CHILD_ID] = messageKey.toString()
+        REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
+            .updateChildren(mapMessage)
+            .addOnSuccessListener { function() }
+            .addOnFailureListener { showToast(it.message.toString()) }
+    }
+
+
 }
 
 fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
@@ -297,8 +308,20 @@ fun logInAccount(email:String, password:String, function: () -> Unit) {
         }
 }
 
-fun getReceivedName(id: String, function: (name: String) -> Unit){
-    REF_DATABASE_ROOT.child(NODE_USERS).child(id).addListenerForSingleValueEvent(AppValueEventListener{
-        function(it.getCommonModel().name)
-    })
+fun getReceivedName(id: String, function: (name: String) -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(id)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            function(it.getCommonModel().name)
+        })
+}
+
+fun getBill(
+    id: String,
+    function: (CommonModel) -> Unit
+) {
+    REF_DATABASE_ROOT.child(NODE_BILLS).child(id)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            val model = it.getCommonModel()
+            function(model)
+        })
 }

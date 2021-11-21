@@ -57,7 +57,7 @@ class GroupChatFragment(private val group: CommonModel) :
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet);
+        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.white_pink);
         if (Build.VERSION.SDK_INT >= 29)
             window.isNavigationBarContrastEnforced = true
         return binding.root
@@ -275,8 +275,8 @@ class GroupChatFragment(private val group: CommonModel) :
         adapter = GroupChatAdapter()
         refMessages = REF_DATABASE_ROOT
             .child(NODE_CHATS)
+            .child(CURRENT_UID)
             .child(group.id)
-            .child(NODE_MESSAGES)
         binding.chatRecycleView.adapter = adapter
         binding.chatRecycleView.setHasFixedSize(true)
         binding.chatRecycleView.isNestedScrollingEnabled = false
@@ -340,7 +340,7 @@ class GroupChatFragment(private val group: CommonModel) :
             smoothScrollToPosition = true
             val message = binding.chatInputMessage.text.toString()
             if (message.isNotEmpty())
-                sendMessageToGroup(message, group.id, TYPE_TEXT) {
+                sendMessageToGroup(message, TYPE_TEXT, group) {
                     binding.chatInputMessage.setText("")
                 }
         }
