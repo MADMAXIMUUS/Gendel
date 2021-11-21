@@ -2,15 +2,19 @@ package com.example.gendel.ui.screens.register
 
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.*
+import com.example.gendel.database.createNewAccount
 import com.example.gendel.databinding.FragmentSigninBinding
-import com.example.gendel.utilities.*
+import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.replaceFragment
+import com.example.gendel.utilities.restartActivity
+import com.example.gendel.utilities.showToast
 
 class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
 
@@ -64,6 +68,34 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
         }
         binding.registerSignInTextViewButtonLogin.setOnClickListener {
             replaceFragment(RegisterLogInFragment(), false)
+        }
+        binding.registerSignInEditTextConfirmPasswordShowPassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerSignInEditTextConfirmPasswordHidePassword.visibility = View.VISIBLE
+            binding.registerSignInEditTextConfirmPassword.inputType =
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.registerSignInEditTextConfirmPassword.setSelection(binding.registerSignInEditTextConfirmPassword.length());
+        }
+        binding.registerSignInEditTextConfirmPasswordHidePassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerSignInEditTextConfirmPasswordShowPassword.visibility = View.VISIBLE
+            binding.registerSignInEditTextConfirmPassword.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.registerSignInEditTextConfirmPassword.setSelection(binding.registerSignInEditTextConfirmPassword.length());
+        }
+        binding.registerSignInEditTextPasswordShowPassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerSignInEditTextPasswordHidePassword.visibility = View.VISIBLE
+            binding.registerSignInEditTextPassword.inputType =
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.registerSignInEditTextPassword.setSelection(binding.registerSignInEditTextPassword.length());
+        }
+        binding.registerSignInEditTextPasswordHidePassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerSignInEditTextPasswordShowPassword.visibility = View.VISIBLE
+            binding.registerSignInEditTextPassword.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.registerSignInEditTextPassword.setSelection(binding.registerSignInEditTextPassword.length());
         }
     }
 }

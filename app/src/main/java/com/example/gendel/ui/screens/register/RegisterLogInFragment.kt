@@ -2,20 +2,19 @@ package com.example.gendel.ui.screens.register
 
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.AUTH
 import com.example.gendel.database.logInAccount
 import com.example.gendel.databinding.FragmentLoginBinding
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.replaceFragment
 import com.example.gendel.utilities.restartActivity
 import com.example.gendel.utilities.showToast
-import com.google.android.gms.common.api.Api
 
 
 class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
@@ -63,6 +62,20 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
         }
         binding.registerLoginTextViewButtonSignIn.setOnClickListener {
             replaceFragment(RegisterSignInFragment(), false)
+        }
+        binding.registerLoginEditTextPasswordShowPassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerLoginEditTextPasswordHidePassword.visibility = View.VISIBLE
+            binding.registerLoginEditTextPassword.inputType =
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length());
+        }
+        binding.registerLoginEditTextPasswordHidePassword.setOnClickListener {
+            it.visibility = View.GONE
+            binding.registerLoginEditTextPasswordShowPassword.visibility = View.VISIBLE
+            binding.registerLoginEditTextPassword.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length());
         }
     }
 }
