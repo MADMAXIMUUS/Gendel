@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.logInAccount
 import com.example.gendel.databinding.FragmentLoginBinding
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.replaceFragment
-import com.example.gendel.utilities.restartActivity
-import com.example.gendel.utilities.showToast
+import com.example.gendel.utilities.*
 
 
 class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
@@ -32,12 +29,8 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.visibility = View.GONE
         APP_ACTIVITY.binding.verificationText.visibility = View.GONE
-        val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = APP_ACTIVITY.resources.getColor(R.color.blue_pink)
-        if (Build.VERSION.SDK_INT >= 29)
-            window.isNavigationBarContrastEnforced = true
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.blue_pink)
         return binding.root
     }
 

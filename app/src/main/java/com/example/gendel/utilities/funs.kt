@@ -3,10 +3,13 @@ package com.example.gendel.utilities
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.util.TypedValue
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.MainActivity
 import com.example.gendel.R
@@ -90,4 +93,13 @@ fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int
         bitmap.compress(format, quality, out)
         out.flush()
     }
+}
+
+fun setBottomNavigationBarColor(color: Int){
+    val window = APP_ACTIVITY.window
+    window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, color)
+    if (Build.VERSION.SDK_INT >= 29)
+        window.isNavigationBarContrastEnforced = true
 }

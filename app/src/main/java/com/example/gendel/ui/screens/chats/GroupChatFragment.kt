@@ -18,6 +18,7 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.ui.message_recycler_view.views.AppViewFactory
 import com.example.gendel.ui.screens.base.BaseChatFragment
+import com.example.gendel.ui.screens.draw.DrawFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -53,13 +54,8 @@ class GroupChatFragment(private val group: CommonModel) :
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
-        val window = APP_ACTIVITY.window
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.white_pink);
-        if (Build.VERSION.SDK_INT >= 29)
-            window.isNavigationBarContrastEnforced = true
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        setBottomNavigationBarColor(R.color.white_pink)
         return binding.root
     }
 
@@ -220,7 +216,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachGraffiti() {
-        /*replaceFragment(DrawFragment(group.id, TYPE_BILL))*/
+        replaceFragment(DrawFragment(group.id))
     }
 
     private fun attachFile() {

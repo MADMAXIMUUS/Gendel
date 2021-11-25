@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentChangeNameBinding
@@ -20,6 +21,8 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChangeNameBinding.inflate(inflater, container, false)
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.white)
         return binding.root
     }
 

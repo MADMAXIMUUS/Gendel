@@ -26,7 +26,7 @@ class AppGraffiti @JvmOverloads constructor(
     private var motionTouchEventY = 0f
     private var currentX = 0f
     private var currentY = 0f
-    private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorBackground, null)
+    private val backgroundColor = ResourcesCompat.getColor(resources, R.color.white_pink, null)
     private val drawColor = ResourcesCompat.getColor(resources, R.color.colorPaint, null)
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
 

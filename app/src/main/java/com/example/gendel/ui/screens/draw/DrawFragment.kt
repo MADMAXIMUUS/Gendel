@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class DrawFragment(private val dialogId: String, val type: String) :
+class DrawFragment(private val dialogId: String) :
     Fragment(R.layout.fragment_draw) {
     private var _binding: FragmentDrawBinding? = null
     val binding get() = _binding!!
@@ -42,6 +42,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
         customView = layoutInflater.inflate(R.layout.seekbar_popup_window, null)
         DRAW_FRAGMENT = this
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.blue_pink)
         return binding.root
     }
 
@@ -51,7 +52,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
         binding.graffitiColorPicker.background.current.setTint(
             ResourcesCompat.getColor(
                 resources,
-                R.attr.colorPrimary,
+                R.color.violet,
                 null
             )
         )
@@ -97,14 +98,14 @@ class DrawFragment(private val dialogId: String, val type: String) :
             binding.graffitiEraser.background.current.setTint(
                 ResourcesCompat.getColor(
                     resources,
-                    R.attr.colorPrimary,
+                    R.color.violet,
                     null
                 )
             )
             binding.graffitiColorPicker.background.current.setTint(
                 ResourcesCompat.getColor(
                     resources,
-                    R.color.grey,
+                    R.color.white_pink,
                     null
                 )
             )
@@ -115,7 +116,7 @@ class DrawFragment(private val dialogId: String, val type: String) :
             binding.graffitiEraser.background.current.setTint(
                 ResourcesCompat.getColor(
                     resources,
-                    R.color.grey,
+                    R.color.white_pink,
                     null
                 )
             )

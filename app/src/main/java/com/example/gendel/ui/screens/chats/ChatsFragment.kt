@@ -29,13 +29,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
-        val window = APP_ACTIVITY.window
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet)
-        if (Build.VERSION.SDK_INT >= 29)
-            window.isNavigationBarContrastEnforced = true
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.violet)
         return binding.root
     }
 

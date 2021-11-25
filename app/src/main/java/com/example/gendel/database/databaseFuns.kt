@@ -90,34 +90,6 @@ fun setFullnameToDatabase(fullname: String) {
         }
 }
 
-fun sendMessageAsFile(
-    receivingUserID: String,
-    fileUrl: String,
-    messageKey: String,
-    typeOfMessage: String,
-    filename: String,
-) {
-
-    val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserID"
-    val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserID/$CURRENT_UID"
-
-    val mapMessage = hashMapOf<String, Any>()
-    mapMessage[CHILD_FROM] = CURRENT_UID
-    mapMessage[CHILD_TYPE] = typeOfMessage
-    mapMessage[CHILD_ID] = messageKey
-    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
-    mapMessage[CHILD_FILE_URL] = fileUrl
-    mapMessage[CHILD_TEXT] = filename
-
-    val mapDialog = hashMapOf<String, Any>()
-    mapDialog["$refDialogUser/$messageKey"] = mapMessage
-    mapDialog["$refDialogReceivingUser/$messageKey"] = mapMessage
-
-    REF_DATABASE_ROOT
-        .updateChildren(mapDialog)
-        .addOnFailureListener { showToast(it.message.toString()) }
-}
-
 fun sendMessageAsFileForGroup(
     groupID: String,
     fileUrl: String,

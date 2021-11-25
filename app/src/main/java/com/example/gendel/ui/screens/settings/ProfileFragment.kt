@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
@@ -28,6 +29,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         exitView = APP_ACTIVITY.toolbar.findViewById(R.id.settings_exit)
         exitView.visibility = View.VISIBLE
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.violet)
         return binding.root
     }
 

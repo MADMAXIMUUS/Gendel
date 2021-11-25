@@ -14,6 +14,7 @@ import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentNewBillBinding
 import com.example.gendel.ui.screens.base.BaseFragment
 import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.setBottomNavigationBarColor
 import com.example.gendel.utilities.showToast
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.coroutines.CoroutineScope
@@ -41,12 +42,8 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         _binding = FragmentNewBillBinding.inflate(inflater, container, false)
         APP_ACTIVITY.toolbar.title = "Новое объявление"
         customView = layoutInflater.inflate(R.layout.end_date_picker, null)
-        val window = APP_ACTIVITY.window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.white)
-        if (Build.VERSION.SDK_INT >= 29)
-            window.isNavigationBarContrastEnforced = true
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.white)
         initFunc()
         return binding.root
     }

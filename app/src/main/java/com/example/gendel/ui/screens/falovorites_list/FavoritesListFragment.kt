@@ -12,10 +12,7 @@ import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentFavoritesListBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.AppValueEventListener
-import com.example.gendel.utilities.ListsItemDecoration
-import com.example.gendel.utilities.hideKeyboard
+import com.example.gendel.utilities.*
 
 class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
     private var _binding: FragmentFavoritesListBinding? = null
@@ -31,13 +28,8 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
-        val window = APP_ACTIVITY.window
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, R.color.violet);
-        if (Build.VERSION.SDK_INT >= 29)
-            window.isNavigationBarContrastEnforced = true
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        setBottomNavigationBarColor(R.color.violet)
         return binding.root
     }
 
