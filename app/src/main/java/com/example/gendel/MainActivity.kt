@@ -1,9 +1,11 @@
 package com.example.gendel
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.gendel.database.*
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
 
     override fun onColorSelected(dialogId: Int, color: Int) {
         DRAW_FRAGMENT.binding.graffitiCanvas.paint.color = color
-        DRAW_FRAGMENT.binding.graffitiColorPicker.background.current.setTint(color)
+        DRAW_FRAGMENT.binding.graffitiColorPicker.backgroundTintList = ColorStateList.valueOf(color)
     }
 
     override fun onDialogDismissed(dialogId: Int) {

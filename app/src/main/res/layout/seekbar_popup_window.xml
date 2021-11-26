@@ -17,33 +17,32 @@
 
         <RadioButton
             android:id="@+id/weight_60"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginStart="@dimen/app_margin"
             android:layout_marginTop="@dimen/app_margin"
             android:layout_marginEnd="@dimen/app_margin"
             android:background="@null"
+            android:layout_gravity="center"
             android:button="@drawable/ic_line_weight_circle_60"
             tools:ignore="ContentDescription,DuplicateSpeakableTextCheck" />
 
         <RadioButton
             android:id="@+id/weight_40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="@dimen/app_margin"
-            android:layout_marginEnd="25dp"
+            android:layout_gravity="center"
             android:background="@null"
             android:button="@drawable/ic_line_weight_circle_40"
             tools:ignore="ContentDescription" />
 
         <RadioButton
             android:id="@+id/weight_20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/app_margin"
-            android:layout_marginEnd="35dp"
             android:background="@null"
             android:button="@drawable/ic_line_weight_circle_20"
             android:checked="true"
@@ -51,22 +50,20 @@
 
         <RadioButton
             android:id="@+id/weight_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="38dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/app_margin"
-            android:layout_marginEnd="38dp"
             android:background="@null"
             android:button="@drawable/ic_line_weight_circle_15"
             tools:ignore="ContentDescription" />
 
         <RadioButton
             android:id="@+id/weight_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/app_margin"
-            android:layout_marginEnd="40dp"
             android:layout_marginBottom="@dimen/app_margin"
             android:background="@null"
             android:button="@drawable/ic_line_weight_circle_10"

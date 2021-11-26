@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
 import android.widget.RadioButton
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
@@ -49,12 +50,10 @@ class DrawFragment(private val dialogId: String) :
     @SuppressLint("ResourceType")
     override fun onResume() {
         super.onResume()
-        binding.graffitiColorPicker.background.current.setTint(
-            ResourcesCompat.getColor(
-                resources,
-                R.color.violet,
-                null
-            )
+        binding.graffitiColorPicker.backgroundTintList =
+            ContextCompat.getColorStateList(
+                APP_ACTIVITY,
+                R.color.violet
         )
         binding.graffitiLineWeight.setOnClickListener {
             popupWindow = PopupWindow(
@@ -95,31 +94,25 @@ class DrawFragment(private val dialogId: String) :
             backToChat()
         }
         binding.graffitiEraser.setOnClickListener {
-            binding.graffitiEraser.background.current.setTint(
-                ResourcesCompat.getColor(
-                    resources,
-                    R.color.violet,
-                    null
+            binding.graffitiEraser.backgroundTintList =
+                ContextCompat.getColorStateList(
+                    APP_ACTIVITY,
+                    R.color.violet
                 )
-            )
-            binding.graffitiColorPicker.background.current.setTint(
-                ResourcesCompat.getColor(
-                    resources,
-                    R.color.white_pink,
-                    null
+            binding.graffitiColorPicker.backgroundTintList =
+                ContextCompat.getColorStateList(
+                    APP_ACTIVITY,
+                    R.color.white_pink
                 )
-            )
             binding.graffitiCanvas.paint.color =
-                ResourcesCompat.getColor(resources, R.color.colorBackground, null)
+                ResourcesCompat.getColor(resources, R.color.white_pink, null)
         }
         binding.graffitiColorPicker.setOnClickListener {
-            binding.graffitiEraser.background.current.setTint(
-                ResourcesCompat.getColor(
-                    resources,
-                    R.color.white_pink,
-                    null
+            binding.graffitiEraser.backgroundTintList =
+                ContextCompat.getColorStateList(
+                    APP_ACTIVITY,
+                    R.color.white_pink
                 )
-            )
             createColorPickerDialog()
         }
         binding.graffitiButtonOk.setOnClickListener {
@@ -161,7 +154,7 @@ class DrawFragment(private val dialogId: String) :
     @SuppressLint("ResourceType")
     private fun createColorPickerDialog() {
         ColorPickerDialog.newBuilder()
-            .setColor(ResourcesCompat.getColor(resources, R.attr.colorPrimary, null))
+            .setColor(ContextCompat.getColor(APP_ACTIVITY, R.color.pink))
             .setDialogType(ColorPickerDialog.TYPE_PRESETS)
             .setAllowCustom(true)
             .setAllowPresets(true)

@@ -12,18 +12,13 @@
     <color name="light_grey">#FFD3D3D3</color>
     <color name="light_light_grey">#ECECEC</color>
     <color name="light_grey_blue">#FFB2EBF2</color>
-    <color name="chat_background">#FF80DEEA</color>
     <color name="register_background">?attr/colorPrimary</color>
     <color name="edittext_background">@color/white_pink</color>
     <color name="edittext_text_color">@color/black</color>
     <color name="edittext_hint_color">@color/blue_pink</color>
     <color name="chat_button_background">@color/white_pink</color>
-    <color name="chat_button">@color/grey</color>
-    <color name="send_button">?attr/colorPrimary</color>
     <color name="attached_bottom_sheet">?attr/colorPrimary</color>
     <color name="attached_bottom_sheet_icon">@color/white</color>
-    <color name="colorBackground">#FFE3F2FD</color>
-    <color name="colorPaint">?attr/colorPrimary</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="red">#FFFF0000</color>
 
