@@ -11,7 +11,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import com.example.gendel.R
 import com.example.gendel.utilities.APP_ACTIVITY
 import kotlin.math.abs
@@ -24,6 +23,7 @@ class AppGraffiti @JvmOverloads constructor(
     private lateinit var extraCanvas: Canvas
     lateinit var extraBitmap: Bitmap
     private var path = Path()
+    private lateinit var lastStand: Bitmap
     private var motionTouchEventX = 0f
     private var motionTouchEventY = 0f
     private var currentX = 0f
@@ -42,6 +42,7 @@ class AppGraffiti @JvmOverloads constructor(
         path.moveTo(motionTouchEventX, motionTouchEventY)
         currentX = motionTouchEventX
         currentY = motionTouchEventY
+        lastStand = extraBitmap.copy(Bitmap.Config.ARGB_8888, true)
     }
 
     private fun touchMove() {
@@ -58,6 +59,12 @@ class AppGraffiti @JvmOverloads constructor(
             currentY = motionTouchEventY
             extraCanvas.drawPath(path, paint)
         }
+        invalidate()
+    }
+
+    fun undo() {
+        extraBitmap = lastStand.copy(Bitmap.Config.ARGB_8888, true)
+        extraCanvas = Canvas(extraBitmap)
         invalidate()
     }
 

@@ -15,20 +15,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SeekBar
-        android:id="@+id/graffiti_line_weight_picker"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:background="@color/blue_pink"
-        android:max="100"
-        android:visibility="gone"
-        android:progress="20"
-        android:progressTint="@color/violet"
-        android:thumbTint="@color/violet"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/graffiti_line_weight_picker_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
         app:layout_constraintBottom_toTopOf="@id/graffiti_bottom_sheet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/graffiti_line_weight_picker_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/placeholder_image"
+            app:layout_constraintBottom_toTopOf="@id/graffiti_line_weight_picker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:tint="@color/violet" />
+
+        <SeekBar
+            android:id="@+id/graffiti_line_weight_picker"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@color/blue_pink"
+            android:max="100"
+            android:progress="20"
+            android:progressTint="@color/violet"
+            android:thumbTint="@color/violet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/graffiti_bottom_sheet"
@@ -53,11 +77,11 @@
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/graffiti_line_weight"
+            android:id="@+id/graffiti_remove_last"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
-            android:background="@drawable/ic_seekbar"
+            android:background="@drawable/ic_remove_last"
             app:backgroundTint="@color/violet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/graffiti_close"

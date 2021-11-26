@@ -51,33 +51,39 @@ class DrawFragment(private val dialog: CommonModel) :
             ContextCompat.getColorStateList(
                 APP_ACTIVITY,
                 R.color.pink
-        )
-        binding.graffitiLineWeight.setOnClickListener {
-            if (binding.graffitiLineWeightPicker.visibility == View.VISIBLE)
-                binding.graffitiLineWeightPicker.visibility = View.GONE
-            else
-                binding.graffitiLineWeightPicker.visibility = View.VISIBLE
-
-            binding.graffitiLineWeightPicker.setOnSeekBarChangeListener(object :
-                SeekBar.OnSeekBarChangeListener {
-                var value: Float = 20.0f
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
-                ) {
-                    value = progress.toFloat()
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    binding.graffitiCanvas.paint.strokeWidth = value
-                }
-
-            })
+            )
+        binding.graffitiRemoveLast.setOnClickListener {
+                binding.graffitiCanvas.undo()
         }
+        binding.graffitiLineWeightPicker.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            var value: Float = 20.0f
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean
+            ) {
+                val layoutParams = binding.graffitiLineWeightPickerImage.layoutParams
+                layoutParams.width = progress
+                layoutParams.height = progress
+                binding.graffitiLineWeightPickerImage.layoutParams = layoutParams
+                value = progress.toFloat()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                val layoutParams = binding.graffitiLineWeightPickerImage.layoutParams
+                layoutParams.width = binding.graffitiLineWeightPicker.progress
+                layoutParams.height = binding.graffitiLineWeightPicker.progress
+                binding.graffitiLineWeightPickerImage.layoutParams = layoutParams
+                binding.graffitiLineWeightPickerImage.visibility = View.VISIBLE
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                binding.graffitiCanvas.paint.strokeWidth = value
+                binding.graffitiLineWeightPickerImage.visibility = View.GONE
+            }
+
+        })
         binding.graffitiClose.setOnClickListener {
             backToChat()
         }
