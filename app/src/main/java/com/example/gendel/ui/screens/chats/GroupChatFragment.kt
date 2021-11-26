@@ -112,7 +112,7 @@ class GroupChatFragment(private val group: CommonModel) :
                             uploadFileToStorage(
                                 Uri.fromFile(file),
                                 messageKey,
-                                group.id,
+                                group,
                                 TYPE_MESSAGE_VOICE,
                                 "Голосовое сообщение"
                             )
@@ -216,7 +216,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachGraffiti() {
-        replaceFragment(DrawFragment(group.id))
+        replaceFragment(DrawFragment(group))
     }
 
     private fun attachFile() {

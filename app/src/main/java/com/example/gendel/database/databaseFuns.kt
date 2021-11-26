@@ -90,15 +90,13 @@ fun setFullnameToDatabase(fullname: String) {
         }
 }
 
-fun sendMessageAsFileForGroup(
-    groupID: String,
+fun sendMessageAsNotTextForGroup(
+    group: CommonModel,
     fileUrl: String,
     messageKey: String,
     typeOfMessage: String,
     filename: String,
 ) {
-    val refGroup = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
-
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = typeOfMessage
@@ -107,12 +105,12 @@ fun sendMessageAsFileForGroup(
     mapMessage[CHILD_FILE_URL] = fileUrl
     mapMessage[CHILD_TEXT] = filename
 
-    val mapDialog = hashMapOf<String, Any>()
-    mapDialog["$refGroup/$messageKey"] = mapMessage
-
-    REF_DATABASE_ROOT
-        .updateChildren(mapDialog)
-        .addOnFailureListener { showToast(it.message.toString()) }
+    for (i in 0 until group.memberCount.toInt()) {
+        val refMessages = "$NODE_CHATS/${group.members["member $i"]}/${group.id}/"
+        REF_DATABASE_ROOT.child(refMessages).child(messageKey)
+            .updateChildren(mapMessage)
+            .addOnFailureListener { showToast(it.message.toString()) }
+    }
 }
 
 fun getFileFromStorage(file: File, fileUrl: String, function: () -> Unit) {
@@ -192,21 +190,18 @@ fun sendMessageToGroup(message: String, type: String, group: CommonModel, functi
 fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
     .child(CURRENT_UID).child(cid).push().key.toString()
 
-fun getMessageKeyForGroup(cid: String) = REF_DATABASE_ROOT.child(NODE_CHATS)
-    .child(cid).child(NODE_MESSAGES).push().key.toString()
-
 
 fun uploadFileToStorage(
     uri: Uri,
     messageKey: String,
-    groupID: String,
+    group: CommonModel,
     typeOfMessage: String,
     filename: String = "",
 ) {
-    val path = REF_STORAGE_ROOT.child(FOLDER_GROUPS_FILE).child(groupID).child(messageKey)
+    val path = REF_STORAGE_ROOT.child(FOLDER_GROUPS_FILE).child(group.id).child(messageKey)
     putFileToStorage(uri, path) {
         getUrlFromStorage(path) { path ->
-            sendMessageAsFileForGroup(groupID, path, messageKey, typeOfMessage, filename)
+            sendMessageAsNotTextForGroup(group, path, messageKey, typeOfMessage, filename)
         }
     }
 }

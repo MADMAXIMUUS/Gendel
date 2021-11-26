@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_default_status">В сети</string>
+    <string name="settings_hint_input_name">Имя/никнейм</string>
+    <string name="settings_toast_name_is_empty">Имя/никнейм не может быть пустым!</string>
+    <string name="toast_data_update">Данные обновлены</string>
+    <string name="contact_default_fullname">Максим Нечаев</string>
+    <string name="contact_default_status">В сети</string>
+    <string name="message_hint">Сообщение</string>
+    <string name="voice_message">Голосовое сообщение</string>
+    <string name="create_quiz_title_hint">Введите вопрос</string>
+    <string name="create_quiz_block_answer_title">Варианты ответа</string>
+    <string name="create_quiz_add_answer_title">Добавить ответ…</string>
+    <string name="create_quiz_add_answer_count">Еще можно добавить 9 ответов</string>
+    <string name="create_quiz_block_settings_title">Настройки</string>
+    <string name="create_quiz_settings_multi">Выбор нескольких ответов</string>
+    <string name="create_quiz_answer_hint">Ответ</string>
+    <string name="bottom_menu_main">Главная</string>
+    <string name="bottom_menu_favorite">Избранное</string>
+    <string name="bottom_menu_chats">Чаты</string>
+    <string name="bottom_menu_profile">Профиль</string>
+    <string name="quiz_button_vote_text">Голосовать</string>
+    <string name="register_enter_name">Введите имя/никнейм</string>
+    <string name="register_enter_email">Введите email</string>
+    <string name="register_enter_password">Введите пароль</string>
+    <string name="register_confirm_password">Подтвердите пароль</string>
+    <string name="register_textView_hint_login">Войти!</string>
+    <string name="register_sign_in_textView_hint">Уже есть аккаунт?</string>
+    <string name="register_textView_sign_in">Регистрация</string>
+    <string name="register_textView_log_in">Войти</string>
+    <string name="register_log_in_textView_hint">Еще нет аккаунта?</string>
+    <string name="register_textView_hint_sign_in">Создайте его!</string>
+    <string name="register_textView_forgot_password">Забыли пароль?</string>
+    <string name="start_date_title">Дата создания объявления</string>
+    <string name="end_date_title">Планируемая дата заказа</string>
+    <string name="member_count_title">Количество участников</string>
+    <string name="shipping_cost_title">Стоимость доставки</string>
+    <string name="search">Поиск</string>
+    <string name="enter_store_name">Введите название магазина</string>
+    <string name="new_bill_cost_title">Стоимость доставки</string>
+    <string name="new_bill_tags_title">Тэги</string>
+    <string name="new_bill_end_date_title">Дата окончания</string>
+    <string name="calendar_button_confirm">Выбрать</string>
+    <string name="calendar_button_cancel">Отмена</string>
+    <string name="chat_attach_image_title">Изображение</string>
+    <string name="chat_attach_file_title">Файл</string>
+    <string name="chat_attach_graffiti_title">Графити</string>
+    <string name="chat_attach_quiz_title">Опрос</string>
+    <string name="profile_exit">ВЫХОД</string>
+    <string name="chat_settings_notification_title">Уведомления</string>
+    <string name="chat_settings_attachments_title">Материалы беседы</string>
+    <string name="chat_settings_clear_history_title">Очистить историю</string>
+    <string name="chat_settings_exit_block_title">Выход и очистка истории</string>
+    <string name="chat_settings_leave_chat_title">Покинуть беседу</string>
+    <string name="email_verification">Подтвердите email для доступа ко всем функциям</string>
+    <string name="verified_email">Подтвердить email</string>
+    <string name="message_from_you">Вы</string>
+
+    <plurals name="count_members">
+        <item quantity="one">%d участник</item>
+        <item quantity="other">%d участников</item>
+        <item quantity="few">%d участника</item>
+        <item quantity="many">%d участников</item>
+    </plurals>
+
+    <plurals name="count_voters">
+        <item quantity="one">%d голос</item>
+        <item quantity="few">%d голоса</item>
+        <item quantity="other">%d голосов</item>
+        <item quantity="many">%d голосов</item>
+    </plurals>
+
+    <plurals name="count_answers">
+        <item quantity="one">Еще можно добавить %d ответ</item>
+        <item quantity="few">Еще можно добавить %d ответа</item>
+        <item quantity="other">Еще можно добавить %d ответов</item>
+        <item quantity="many">Еще можно добавить %d ответов</item>
+    </plurals>
+
+</resources>

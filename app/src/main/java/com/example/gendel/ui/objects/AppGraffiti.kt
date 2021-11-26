@@ -10,8 +10,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.gendel.R
+import com.example.gendel.utilities.APP_ACTIVITY
 import kotlin.math.abs
 
 class AppGraffiti @JvmOverloads constructor(
@@ -26,8 +28,8 @@ class AppGraffiti @JvmOverloads constructor(
     private var motionTouchEventY = 0f
     private var currentX = 0f
     private var currentY = 0f
-    private val backgroundColor = ResourcesCompat.getColor(resources, R.color.white_pink, null)
-    private val drawColor = ResourcesCompat.getColor(resources, R.color.pink, null)
+    private val backgroundColor = ContextCompat.getColor(APP_ACTIVITY, R.color.white_pink)
+    private val drawColor = ContextCompat.getColor(APP_ACTIVITY, R.color.pink)
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
 
     override fun onDraw(canvas: Canvas) {

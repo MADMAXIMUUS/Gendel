@@ -6,15 +6,15 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.PopupWindow
-import android.widget.RadioButton
+import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.getMessageKeyForGroup
+import com.example.gendel.database.getMessageKey
 import com.example.gendel.database.uploadFileToStorage
 import com.example.gendel.databinding.FragmentDrawBinding
+import com.example.gendel.models.CommonModel
 import com.example.gendel.utilities.*
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorShape
@@ -23,14 +23,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class DrawFragment(private val dialogId: String) :
+class DrawFragment(private val dialog: CommonModel) :
     Fragment(R.layout.fragment_draw) {
     private var _binding: FragmentDrawBinding? = null
     val binding get() = _binding!!
-    private lateinit var popupWindow: PopupWindow
     private lateinit var inst: Instrumentation
     private lateinit var file: File
-    private lateinit var customView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +38,6 @@ class DrawFragment(private val dialogId: String) :
         hideKeyboard()
         APP_ACTIVITY.toolbar.visibility = View.GONE
         _binding = FragmentDrawBinding.inflate(inflater, container, false)
-        customView = layoutInflater.inflate(R.layout.seekbar_popup_window, null)
         DRAW_FRAGMENT = this
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.blue_pink)
@@ -53,42 +50,33 @@ class DrawFragment(private val dialogId: String) :
         binding.graffitiColorPicker.backgroundTintList =
             ContextCompat.getColorStateList(
                 APP_ACTIVITY,
-                R.color.violet
+                R.color.pink
         )
         binding.graffitiLineWeight.setOnClickListener {
-            popupWindow = PopupWindow(
-                customView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            popupWindow.elevation = 10f
-            popupWindow.isOutsideTouchable = true
-            popupWindow.showAsDropDown(
-                binding.graffitiLineWeight,
-                -65,
-                -770,
-                Gravity.CENTER
-            )
-            customView.findViewById<RadioButton>(R.id.weight_10).setOnClickListener {
-                binding.graffitiCanvas.paint.strokeWidth = 10F
-                popupWindow.dismiss()
-            }
-            customView.findViewById<RadioButton>(R.id.weight_15).setOnClickListener {
-                binding.graffitiCanvas.paint.strokeWidth = 15F
-                popupWindow.dismiss()
-            }
-            customView.findViewById<RadioButton>(R.id.weight_20).setOnClickListener {
-                binding.graffitiCanvas.paint.strokeWidth = 20F
-                popupWindow.dismiss()
-            }
-            customView.findViewById<RadioButton>(R.id.weight_40).setOnClickListener {
-                binding.graffitiCanvas.paint.strokeWidth = 40F
-                popupWindow.dismiss()
-            }
-            customView.findViewById<RadioButton>(R.id.weight_60).setOnClickListener {
-                binding.graffitiCanvas.paint.strokeWidth = 60F
-                popupWindow.dismiss()
-            }
+            if (binding.graffitiLineWeightPicker.visibility == View.VISIBLE)
+                binding.graffitiLineWeightPicker.visibility = View.GONE
+            else
+                binding.graffitiLineWeightPicker.visibility = View.VISIBLE
+
+            binding.graffitiLineWeightPicker.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+                var value: Float = 20.0f
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    value = progress.toFloat()
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    binding.graffitiCanvas.paint.strokeWidth = value
+                }
+
+            })
         }
         binding.graffitiClose.setOnClickListener {
             backToChat()
@@ -122,7 +110,7 @@ class DrawFragment(private val dialogId: String) :
 
     private fun sendGraffitiInChat() {
         val bitmap = Bitmap.createBitmap(binding.graffitiCanvas.extraBitmap)
-        val messageKey = getMessageKeyForGroup(dialogId)
+        val messageKey = getMessageKey(dialog.id)
         file = File(APP_ACTIVITY.filesDir, messageKey)
         file.writeBitmap(bitmap, Bitmap.CompressFormat.PNG, 85)
         file.createNewFile()
@@ -130,7 +118,7 @@ class DrawFragment(private val dialogId: String) :
         uploadFileToStorage(
             uri,
             messageKey,
-            dialogId,
+            dialog,
             TYPE_MESSAGE_IMAGE,
             "Графити"
         )

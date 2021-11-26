@@ -15,6 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <SeekBar
+        android:id="@+id/graffiti_line_weight_picker"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@color/blue_pink"
+        android:max="100"
+        android:visibility="gone"
+        android:progress="20"
+        android:progressTint="@color/violet"
+        android:thumbTint="@color/violet"
+        app:layout_constraintBottom_toTopOf="@id/graffiti_bottom_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/graffiti_bottom_sheet"
         android:layout_width="match_parent"
@@ -27,9 +42,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/graffiti_close"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="22dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
             android:background="@drawable/ic_cancel"
             app:backgroundTint="@color/violet"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,9 +54,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/graffiti_line_weight"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="22dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
             android:background="@drawable/ic_seekbar"
             app:backgroundTint="@color/violet"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,13 +66,14 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/graffiti_button_ok"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="5dp"
             android:backgroundTint="@color/violet"
             android:elevation="0dp"
             android:src="@drawable/ic_confirm"
-            app:fabCustomSize="65dp"
+            app:borderWidth="0dp"
+            app:fabCustomSize="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +82,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/graffiti_eraser"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="22dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/ic_eraser"
             app:backgroundTint="@color/white_pink"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,9 +94,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/graffiti_color_picker"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="22dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/ic_color_picker"
             app:backgroundTint="@color/white_pink"
             app:layout_constraintBottom_toBottomOf="parent"
