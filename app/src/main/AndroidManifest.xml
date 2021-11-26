@@ -21,6 +21,10 @@
                app to run.
         -->
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_with_background" />
+
         <activity
             android:name="com.example.gendel.MainActivity"
             android:exported="true"
@@ -32,5 +36,7 @@
             </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>

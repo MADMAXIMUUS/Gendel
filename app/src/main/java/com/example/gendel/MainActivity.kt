@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.example.gendel.database.*
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
@@ -14,10 +13,7 @@ import com.example.gendel.ui.screens.falovorites_list.FavoritesListFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.AppStates
-import com.example.gendel.utilities.DRAW_FRAGMENT
-import com.example.gendel.utilities.replaceFragment
+import com.example.gendel.utilities.*
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 
 
@@ -36,6 +32,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
             initFields()
             initFunc()
         }
+
         binding.bottomNavigationMenu.background = null
         binding.bottomNavigationMenu.menu.getItem(2).isEnabled = false
     }
@@ -92,6 +89,10 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
     override fun onStop() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onColorSelected(dialogId: Int, color: Int) {

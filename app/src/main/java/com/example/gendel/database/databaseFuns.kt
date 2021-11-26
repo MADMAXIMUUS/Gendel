@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
@@ -21,6 +22,13 @@ fun initFirebase() {
     REF_DATABASE_ROOT.child(NODE_CHATS).child(CURRENT_UID).keepSynced(true)
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).keepSynced(true)
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
+
+    FirebaseMessaging.getInstance().token.addOnCompleteListener OnCompleteListener@{
+        if (!it.isSuccessful)
+            return@OnCompleteListener
+
+        TOKEN = it.result.toString()
+    }
 }
 
 inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {

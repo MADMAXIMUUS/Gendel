@@ -10,6 +10,7 @@ lateinit var CURRENT_UID: String
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var REF_STORAGE_ROOT: StorageReference
 lateinit var USER: UserModel
+lateinit var TOKEN: String
 
 const val TYPE_TEXT = "text"
 
