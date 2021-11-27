@@ -13,7 +13,10 @@ import com.example.gendel.ui.screens.falovorites_list.FavoritesListFragment
 import com.example.gendel.ui.screens.main_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
-import com.example.gendel.utilities.*
+import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.AppStates
+import com.example.gendel.utilities.DRAW_FRAGMENT
+import com.example.gendel.utilities.replaceFragment
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 
 
@@ -57,14 +60,24 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         if (AUTH.currentUser != null) {
             if (USER.verified == "false")
                 if (AUTH.currentUser!!.isEmailVerified) {
+                    val mapData = hashMapOf<String, Any>()
+                    mapData[CHILD_VERIFIED] = "true"
+                    mapData[CHILD_TOKEN] = TOKEN
                     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-                        .child(CHILD_VERIFIED).setValue("true")
-                        .addOnSuccessListener { USER.verified = "true" }
+                        .updateChildren(mapData)
+                        .addOnSuccessListener {
+                            USER.verified = "true"
+                            USER.token = TOKEN
+                        }
                         .addOnFailureListener { }
                 }
             if (USER.verified == "true") {
                 binding.verificationText.visibility = View.GONE
                 binding.buttonNewBill.isEnabled = true
+                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+                    .child(CHILD_TOKEN).setValue(TOKEN)
+                    .addOnSuccessListener { USER.token = TOKEN }
+                    .addOnFailureListener { }
             }
             binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
             replaceFragment(MainListFragment(), false)

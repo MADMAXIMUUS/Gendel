@@ -19,6 +19,7 @@ fun initFirebase() {
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_DATABASE_ROOT.child(NODE_BILLS).keepSynced(true)
     REF_DATABASE_ROOT.child(NODE_CHATS).child(CURRENT_UID).keepSynced(true)
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).keepSynced(true)
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
@@ -256,7 +257,6 @@ fun createNewAccount(name:String, email:String, password: String, function: () -
                     dateMap[CHILD_ID] = uid
                     dateMap[CHILD_NAME] = name
                     dateMap[CHILD_EMAIL] = email
-                    dateMap[CHILD_PASSWORD] = password
                     REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
                         .addListenerForSingleValueEvent(AppValueEventListener {
                             REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
