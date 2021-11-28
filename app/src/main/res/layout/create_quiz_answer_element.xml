@@ -30,7 +30,7 @@
         android:padding="@dimen/app_small_padding"
         android:textColor="?attr/colorPrimary"
         android:textColorHint="@color/violet"
-        android:textSize="@dimen/normalText"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/create_quiz_answer_delete"
         app:layout_constraintStart_toEndOf="@id/create_quiz_answer_list"

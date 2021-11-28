@@ -2,7 +2,6 @@ package com.example.gendel.ui.screens.chats
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -141,9 +140,60 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachQuiz() {
+        hideKeyboard()
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         bottomSheetBehaviourQuiz.peekHeight = 800
         bottomSheetBehaviourQuiz.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehaviourQuiz.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                val quiz =
+                    binding.coordinatorLayout.findViewById<ScrollView>(R.id.bottom_sheet_create_quiz)
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+
+                    quiz.findViewById<View>(R.id.create_quiz_handle).visibility = View.GONE
+                    quiz.findViewById<ConstraintLayout>(R.id.create_quiz_header).background =
+                        ContextCompat.getDrawable(
+                            APP_ACTIVITY, R.drawable.bg_bottom_radius
+                        )
+                    quiz.background = ContextCompat.getDrawable(
+                        APP_ACTIVITY, R.drawable.placeholder_image
+                    )
+                }
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    quiz.findViewById<View>(R.id.create_quiz_handle).visibility = View.VISIBLE
+                    quiz.findViewById<ConstraintLayout>(R.id.create_quiz_header).background =
+                        ContextCompat.getDrawable(
+                            APP_ACTIVITY, R.drawable.bg_all_radius
+                        )
+                    quiz.background = ContextCompat.getDrawable(
+                        APP_ACTIVITY, R.drawable.bg_top_radius
+                    )
+                }
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    quiz.findViewById<EditText>(R.id.create_quiz_title)
+                    quiz.findViewById<LinearLayout>(R.id.create_quiz_answers).removeAllViews()
+                    quiz.findViewById<LinearLayout>(R.id.create_quiz_answers)
+                        .addView(
+                            layoutInflater.inflate(R.layout.create_quiz_answer_element, null)
+                        )
+                    quiz.findViewById<TextView>(R.id.create_quiz_add_answer_count)
+                        .text = getPlurals(
+                        R.plurals.count_answers,
+                        10 - binding.coordinatorLayout
+                            .findViewById<LinearLayout>(R.id.create_quiz_answers).childCount
+                    )
+                    quiz.findViewById<SwitchMaterial>(R.id.create_quiz_settings_multi_switch)
+                        .isChecked = false
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+
+            }
+
+        })
         createQuizSetClicker()
     }
 
@@ -220,7 +270,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attachFile() {
-        //bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         //val intent = Intent(Intent.ACTION_GET_CONTENT)
         //intent.type = "*/*"
         //startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
@@ -228,10 +278,6 @@ class GroupChatFragment(private val group: CommonModel) :
 
     private fun attachImage() {
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-        /*CropImage.activity()
-            .setAspectRatio(1, 1)
-            .setRequestedSize(250, 250)
-            .start(APP_ACTIVITY, this)*/
     }
 
     /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
