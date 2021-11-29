@@ -88,12 +88,21 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun setFullnameToDatabase(fullname: String) {
+fun setFullnameToDatabase(fullname: String, function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
         .setValue(fullname)
         .addOnSuccessListener {
             USER.name = fullname
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener {
+            showToast(it.message.toString())
+        }
+}
+
+fun setEmailToDatabase(fullname: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
+        .setValue(fullname)
+        .addOnSuccessListener {
+            USER.name = fullname
         }.addOnFailureListener {
             showToast(it.message.toString())
         }

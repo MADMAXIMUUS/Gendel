@@ -3,6 +3,7 @@
     <string name="settings_default_status">Online</string>
     <string name="settings_hint_input_name">Name/nickname</string>
     <string name="settings_toast_name_is_empty">Name/nickname cannot be empty!</string>
+    <string name="settings_toast_email_is_empty">Email cannot be empty!</string>
     <string name="toast_data_update">Data updated</string>
     <string name="contact_default_fullname">Maxim Nechaev</string>
     <string name="contact_default_status">Online</string>
@@ -55,6 +56,7 @@
     <string name="email_verification">Confirm email to access all functions</string>
     <string name="verified_email">Confirm email</string>
     <string name="message_from_you">You</string>
+    <string name="profile_settings_change_password_title">Change password</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

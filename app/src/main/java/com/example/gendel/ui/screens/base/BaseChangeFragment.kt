@@ -25,16 +25,4 @@ open class BaseChangeFragment (layout:Int): Fragment(layout) {
         APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
         hideKeyboard()
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        APP_ACTIVITY.menuInflater.inflate(R.menu.settings_menu_confirm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-           change()
-        return true
-    }
-
-    open fun change() {
-    }
 }

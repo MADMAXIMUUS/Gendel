@@ -31,7 +31,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         exitView.visibility = View.VISIBLE
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.violet)
+        changeFloatButton()
         return binding.root
+    }
+
+    private fun changeFloatButton() {
+        APP_ACTIVITY.binding.buttonNewBill.setImageResource(R.drawable.ic_settings)
+        APP_ACTIVITY.binding.buttonNewBill.setOnClickListener {
+            replaceFragment(SettingsFragment())
+        }
     }
 
     override fun onDestroyView() {
@@ -55,9 +63,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             AppStates.updateState(AppStates.OFFLINE)
             AUTH.signOut()
             restartActivity()
-        }
-        binding.profileTextViewName.setOnClickListener {
-            replaceFragment(ChangeNameFragment())
         }
         binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
         if (USER.verified == "false") {
