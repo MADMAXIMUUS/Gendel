@@ -57,6 +57,12 @@
     <string name="verified_email">Подтвердить email</string>
     <string name="message_from_you">Вы</string>
     <string name="profile_settings_change_password_title">Сменить пароль</string>
+    <string name="chat_context_menu_reply">Ответить</string>
+    <string name="chat_context_menu_forward">Переслать</string>
+    <string name="chat_context_menu_edit">Изменить</string>
+    <string name="chat_context_menu_delete">Удалить</string>
+    <string name="chat_context_menu_copy">Скопировать</string>
+    <string name="chat_context_menu_pin">Закрепить</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>
