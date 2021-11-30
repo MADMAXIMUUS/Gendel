@@ -88,7 +88,7 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun setFullnameToDatabase(fullname: String, function: () -> Unit) {
+fun setFullnameToDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
         .setValue(fullname)
         .addOnSuccessListener {
@@ -98,11 +98,11 @@ fun setFullnameToDatabase(fullname: String, function: () -> Unit) {
         }
 }
 
-fun setEmailToDatabase(fullname: String, function: () -> Unit) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
-        .setValue(fullname)
+fun setEmailToDatabase(email: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_EMAIL)
+        .setValue(email)
         .addOnSuccessListener {
-            USER.name = fullname
+            USER.email = email
         }.addOnFailureListener {
             showToast(it.message.toString())
         }

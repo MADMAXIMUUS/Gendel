@@ -54,7 +54,7 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
                         restartActivity()
                     }
                 else
-                    showToast("Пароли не совпадают")
+                    showToast(getString(R.string.password_mismatch))
             } else {
                 showToast("Не все поля заполнены")
             }

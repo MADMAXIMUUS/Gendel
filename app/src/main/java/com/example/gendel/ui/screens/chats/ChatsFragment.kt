@@ -32,6 +32,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        APP_ACTIVITY.toolbar.title=getString(R.string.title_chats)
         setBottomNavigationBarColor(R.color.violet)
         changeFloatButton()
         return binding.root

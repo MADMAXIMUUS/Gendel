@@ -6,21 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.example.gendel.R
-import com.example.gendel.database.AUTH
 import com.example.gendel.database.USER
 import com.example.gendel.database.setEmailToDatabase
 import com.example.gendel.database.setFullnameToDatabase
 import com.example.gendel.databinding.FragmentSettingsBinding
 import com.example.gendel.ui.screens.base.BaseChangeFragment
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.setBottomNavigationBarColor
-import com.example.gendel.utilities.showToast
+import com.example.gendel.utilities.*
 
 class SettingsFragment : BaseChangeFragment(R.layout.fragment_settings) {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    var nameIsChanged: Boolean = false
-    var emailIsChanged: Boolean = false
+    private var nameChanged = false
+    private var emailChanged = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +25,7 @@ class SettingsFragment : BaseChangeFragment(R.layout.fragment_settings) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        APP_ACTIVITY.toolbar.title = getString(R.string.title_settings)
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.white)
         return binding.root
@@ -45,28 +43,38 @@ class SettingsFragment : BaseChangeFragment(R.layout.fragment_settings) {
 
     private fun initFields() {
         binding.profileSettingsEdittextName.setText(USER.name)
+        binding.profileSettingsChangePasswordRoot.setOnClickListener {
+            replaceFragment(ChangePasswordFragment())
+        }
+        binding.profileSettingsEdittextName.addTextChangedListener(
+            AppTextWatcher {
+                nameChanged = true
+            }
+        )
+        binding.profileSettingsEdittextEmail.addTextChangedListener(
+            AppTextWatcher {
+                emailChanged = true
+            }
+        )
         binding.profileSettingsEdittextEmail.setText(USER.email)
+        binding.profileSettingsConfirm.setOnClickListener {
+            change()
+        }
     }
 
-    fun change() {
+    private fun change() {
         val name = binding.profileSettingsEdittextName.text.toString()
         val email = binding.profileSettingsEdittextEmail.text.toString()
-        if (name.isEmpty()) {
+        if (name.isEmpty() && nameChanged) {
             showToast(getString(R.string.settings_toast_name_is_empty))
-        } else {
-            setFullnameToDatabase(name) {
-                nameIsChanged = true
-            }
+        } else if (nameChanged) {
+            setFullnameToDatabase(name)
         }
-        if (email.isEmpty()) {
+        if (email.isEmpty() && emailChanged) {
             showToast(getString(R.string.settings_toast_email_is_empty))
-        } else {
-            setEmailToDatabase(name) {
-                emailIsChanged = true
-            }
+        } else if (emailChanged) {
+            setEmailToDatabase(email)
         }
-        if (nameIsChanged || emailIsChanged) {
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }
+        APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_profile
     }
 }

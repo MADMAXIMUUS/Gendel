@@ -26,6 +26,7 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFavoritesListBinding.inflate(inflater, container, false)
+        APP_ACTIVITY.toolbar.title=getString(R.string.title_group)
         APP_ACTIVITY.toolbar.visibility = View.VISIBLE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
         APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE

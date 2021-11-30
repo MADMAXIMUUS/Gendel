@@ -20,6 +20,7 @@ import com.example.gendel.ui.screens.base.BaseChatFragment
 import com.example.gendel.ui.screens.draw.DrawFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -126,8 +127,6 @@ class GroupChatFragment(private val group: CommonModel) :
     }
 
     private fun attach() {
-        binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_quiz).visibility =
-            View.VISIBLE
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
         binding.coordinatorLayout.findViewById<ImageView>(R.id.button_attach_image)
             .setOnClickListener { attachImage() }

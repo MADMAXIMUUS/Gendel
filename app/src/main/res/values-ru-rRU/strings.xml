@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_default_status">В сети</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_chats">Чаты</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_group">Беседы</string>
+    <string name="title_change_paswword">Сменить пароль</string>
     <string name="settings_hint_input_name">Имя/никнейм</string>
     <string name="settings_toast_name_is_empty">Имя/никнейм не может быть пустым!</string>
     <string name="settings_toast_email_is_empty">Email не может быть пустым!</string>
@@ -25,6 +31,8 @@
     <string name="register_enter_email">Введите email</string>
     <string name="register_enter_password">Введите пароль</string>
     <string name="register_confirm_password">Подтвердите пароль</string>
+    <string name="change_password_enter_new_password">Введите новый пароль</string>
+    <string name="change_password_confirm_new_password">Подтвердите новый пароль</string>
     <string name="register_textView_hint_login">Войти!</string>
     <string name="register_sign_in_textView_hint">Уже есть аккаунт?</string>
     <string name="register_textView_sign_in">Регистрация</string>
@@ -57,6 +65,8 @@
     <string name="verified_email">Подтвердить email</string>
     <string name="message_from_you">Вы</string>
     <string name="profile_settings_change_password_title">Сменить пароль</string>
+    <string name="profile_settings_confirm">Сохранить</string>
+    <string name="password_mismatch">Пароли не совпадают</string>
     <string name="chat_context_menu_reply">Ответить</string>
     <string name="chat_context_menu_forward">Переслать</string>
     <string name="chat_context_menu_edit">Изменить</string>

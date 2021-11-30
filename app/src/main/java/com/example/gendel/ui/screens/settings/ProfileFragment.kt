@@ -38,7 +38,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun changeFloatButton() {
         APP_ACTIVITY.binding.buttonNewBill.setImageResource(R.drawable.ic_settings)
         APP_ACTIVITY.binding.buttonNewBill.setOnClickListener {
-            replaceFragment(SettingsFragment())
+            replaceFragment(SettingsFragment(), true)
         }
     }
 
@@ -50,7 +50,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
-        APP_ACTIVITY.toolbar.title = resources.getString(R.string.bottom_menu_profile)
+        APP_ACTIVITY.toolbar.title = getString(R.string.title_profile)
         initFields()
     }
 
