@@ -50,13 +50,13 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && cpassword.isNotEmpty()) {
                 if (password == cpassword)
                     createNewAccount(name, email, password){
-                        showToast("Добро пожаловать. Регистрация прошла успешно. Подтвердите email")
+                        showToast(getString(R.string.signin_welcome))
                         restartActivity()
                     }
                 else
                     showToast(getString(R.string.password_mismatch))
             } else {
-                showToast("Не все поля заполнены")
+                showToast(getString(R.string.register_not_all_field))
             }
         }
         binding.registerSignInTextViewButtonLogin.setOnClickListener {

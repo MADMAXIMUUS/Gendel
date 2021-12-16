@@ -16,7 +16,7 @@ class ListsItemDecoration(private val spaceTop: Int, private val spaceBottom: In
         val position = parent.getChildAdapterPosition(view)
         if (position == parent.adapter?.itemCount!! - 1) {
             outRect.top = spaceTop
-            outRect.bottom = 270
+            outRect.bottom = 330
         } else {
             outRect.bottom = spaceBottom
             outRect.top = spaceTop

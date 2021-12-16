@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.models.CommonModel
+import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.downloadAndSetImage
 import com.example.gendel.utilities.replaceFragment
 import com.google.android.material.imageview.ShapeableImageView
@@ -37,7 +38,7 @@ class ChatsListAdapter : RecyclerView.Adapter<ChatsListAdapter.ChatsListHolder>(
         if (listItems[position].lastMessage.isNotEmpty())
             holder.itemLastMessage.text = listItems[position].lastMessage
         else
-            holder.itemLastMessage.text = "Сообщений пока нет"
+            holder.itemLastMessage.text = APP_ACTIVITY.getString(R.string.no_message_yet)
         holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl)
         holder.itemPlaceholderName.text = listItems[position].storeName[0].toString()
     }

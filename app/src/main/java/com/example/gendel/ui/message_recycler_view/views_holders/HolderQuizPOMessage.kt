@@ -11,8 +11,9 @@ import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.asTime
 
-class HolderQuizPOMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+class HolderQuizPOMessage(val view: View) : RecyclerView.ViewHolder(view), MessageHolder {
 
+    private lateinit var messageView: MessageView
     private val blockUserQuizPO: ConstraintLayout = view.findViewById(R.id.bloc_user_quiz_po)
     private val blockReceivedQuizPO: ConstraintLayout =
         view.findViewById(R.id.bloc_received_quiz_po)
@@ -34,6 +35,7 @@ class HolderQuizPOMessage(view: View) : RecyclerView.ViewHolder(view), MessageHo
         .findViewById(R.id.chat_received_message_quiz_po_name)
 
     override fun drawMessage(view: MessageView) {
+        messageView = view
         if (view.from == CURRENT_UID) {
             blockUserQuizPO.visibility = View.VISIBLE
             blockReceivedQuizPO.visibility = View.GONE
@@ -65,6 +67,10 @@ class HolderQuizPOMessage(view: View) : RecyclerView.ViewHolder(view), MessageHo
             }
         }
     }
+
+
+    override fun getMessageId(): String  = messageView.id
+    override fun getMessageFrom(): String  = messageView.from
 
     override fun onAttach(view: MessageView) {
 

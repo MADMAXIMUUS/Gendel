@@ -20,7 +20,6 @@ import com.example.gendel.ui.screens.base.BaseChatFragment
 import com.example.gendel.ui.screens.draw.DrawFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -85,7 +84,7 @@ class GroupChatFragment(private val group: CommonModel) :
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         binding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val string = binding.chatInputMessage.text.toString()
-            if (string.isEmpty() || string == "Запись") {
+            if (string.isEmpty() || string == APP_ACTIVITY.getString(R.string.record)) {
                 binding.chatButtonSendMessage.visibility = View.GONE
                 binding.chatButtonAttach.visibility = View.VISIBLE
                 binding.chatButtonVoice.visibility = View.VISIBLE
@@ -100,7 +99,7 @@ class GroupChatFragment(private val group: CommonModel) :
             binding.chatButtonVoice.setOnTouchListener { _, event ->
                 if (checkPermission(RECORD_AUDIO)) {
                     if (event.action == MotionEvent.ACTION_DOWN) {
-                        binding.chatInputMessage.setText("Запись")
+                        binding.chatInputMessage.setText(APP_ACTIVITY.getString(R.string.record))
                         binding.chatButtonVoice.setColorFilter(
                             R.attr.colorPrimary
                         )
@@ -114,7 +113,7 @@ class GroupChatFragment(private val group: CommonModel) :
                                 messageKey,
                                 group,
                                 TYPE_MESSAGE_VOICE,
-                                "Голосовое сообщение"
+                                APP_ACTIVITY.getString(R.string.voice_message)
                             )
                             smoothScrollToPosition = true
                         }
@@ -220,7 +219,7 @@ class GroupChatFragment(private val group: CommonModel) :
                         .findViewById<TextView>(R.id.create_quiz_add_answer_count).text =
                         getPlurals(R.plurals.count_answers, 10 - answers.childCount)
                 } else {
-                    showToast("Добавлено уже максимальное количество ответов")
+                    showToast(getString(R.string.max_answers))
                 }
             }
         binding.coordinatorLayout.findViewById<FloatingActionButton>(R.id.create_quiz_create_button)
@@ -313,7 +312,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }*/
 
     private fun initRecycleView() {
-        adapter = GroupChatAdapter()
+        adapter = GroupChatAdapter(group)
         refMessages = REF_DATABASE_ROOT
             .child(NODE_CHATS)
             .child(CURRENT_UID)
@@ -395,7 +394,7 @@ class GroupChatFragment(private val group: CommonModel) :
             .findViewById<TextView>(R.id.toolbar_chat_fullname)
             .text = group.storeName
         toolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text =
-            "Участников - ${group.memberCount}"
+            getString(R.string.count_member_title) + group.memberCount
         toolbarInfo.findViewById<TextView>(R.id.toolbar_placeholder_name).text =
             group.storeName[0].toString()
     }

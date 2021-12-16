@@ -73,26 +73,52 @@
     <string name="chat_context_menu_delete">Delete</string>
     <string name="chat_context_menu_copy">Copy</string>
     <string name="chat_context_menu_pin">Pin</string>
+    <string name="delete_message_title">Delete message?</string>
+    <string name="delete_for_all_checkbox_title">Delete for all</string>
+    <string name="delete_for_all_dialog_delete">Delete</string>
+    <string name="delete_for_all_dialog_cancel">Cancel</string>
+    <string name="error_deleting_message">Error deleting message</string>
+    <string name="account_login_error">Account login error</string>
+    <string name="new_bill">New bill</string>
+    <string name="choose_end_date">Choose end date</string>
+    <string name="enter_delivery_cost">Enter delivery cost</string>
+    <string name="сhoose_currency">Choose currency</string>
+    <string name="count_member_title">Members - </string>
+    <string name="no_message_yet">No message yet</string>
+    <string name="record">Record</string>
+    <string name="max_answers">Already added the maximum number of answers</string>
+    <string name="bill_in_favorites">Bill added to favorites</string>
+    <string name="bill_remove_favorites">Bill removed from favorites</string>
+    <string name="welcome">Welcome</string>
+    <string name="register_not_all_field">Not all fields are filled</string>
+    <string name="signin_welcome">Welcome. Registration completed successfully. Confirm email!</string>
+    <string name="verification_letter">The letter has been sent!</string>
+    <string name="email_sending_error">Email sending error!</string>
+    <string name="online">online</string>
+    <string name="offline">was recently</string>
+    <string name="choose_tags_add_tag">+Add tag</string>
+    <string name="choose_tags_save">Save</string>
+    <string name="choose_tags_cancel">Cancel</string>
 
     <plurals name="count_members">
-        <item quantity="one">%d участник</item>
-        <item quantity="other">%d участников</item>
-        <item quantity="few">%d участника</item>
-        <item quantity="many">%d участников</item>
+        <item quantity="one">%d member</item>
+        <item quantity="other">%d members</item>
+        <item quantity="few">%d members</item>
+        <item quantity="many">%d members</item>
     </plurals>
 
     <plurals name="count_voters">
-        <item quantity="one">%d голос</item>
-        <item quantity="few">%d голоса</item>
-        <item quantity="other">%d голосов</item>
-        <item quantity="many">%d голосов</item>
+        <item quantity="one">%d vote</item>
+        <item quantity="few">%d votes</item>
+        <item quantity="other">%d votes</item>
+        <item quantity="many">%d votes</item>
     </plurals>
 
     <plurals name="count_answers">
-        <item quantity="one">Еще можно добавить %d ответ</item>
-        <item quantity="few">Еще можно добавить %d ответа</item>
-        <item quantity="other">Еще можно добавить %d ответов</item>
-        <item quantity="many">Еще можно добавить %d ответов</item>
+        <item quantity="one">You can still add %d answer</item>
+        <item quantity="few">You can still add %d answers</item>
+        <item quantity="other">You can still add %d answers</item>
+        <item quantity="many">You can still add %d answers</item>
     </plurals>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.gendel.database
 
 import android.net.Uri
+import com.example.gendel.R
 import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.utilities.*
@@ -161,6 +162,7 @@ fun createBillAndPushToDatabase(
     endDate: String,
     cost: String,
     startDate: String,
+    tags: HashMap<String, Any>,
     function: (keyBill: String) -> Unit,
 ) {
     val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
@@ -273,7 +275,7 @@ fun createNewAccount(name:String, email:String, password: String, function: () -
                                 .addOnSuccessListener {
                                     function()
                                 }
-                                .addOnFailureListener { showToast("Ошибка входа в аккаунт") }
+                                .addOnFailureListener { showToast(APP_ACTIVITY.getString(R.string.account_login_error)) }
                         })
                 } else showToast(it.exception?.message.toString())
             }
@@ -287,7 +289,7 @@ fun logInAccount(email:String, password:String, function: () -> Unit) {
             if (it.isSuccessful) {
                 function()
             } else {
-                showToast("Ошибка входа в аккаунт")
+                showToast(APP_ACTIVITY.getString(R.string.account_login_error))
             }
         }
 }
@@ -308,4 +310,21 @@ fun getBill(
             val model = it.getCommonModel()
             function(model)
         })
+}
+
+fun deleteMessageForSingle(groupId: String, messageId: String, function: () -> Unit) {
+    REF_DATABASE_ROOT
+        .child(NODE_CHATS)
+        .child(CURRENT_UID)
+        .child(groupId)
+        .child(messageId)
+        .removeValue()
+        .addOnSuccessListener {
+            function()
+        }
+        .addOnFailureListener { showToast(APP_ACTIVITY.getString(R.string.error_deleting_message)) }
+}
+
+fun deleteMessageForAll(group: CommonModel, messageId: String, function: () -> Unit) {
+
 }

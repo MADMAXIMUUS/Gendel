@@ -33,7 +33,10 @@
 
     <TextView
         android:id="@+id/toolbar_chat_fullname"
-        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginStart="16sp"
         android:textColor="@color/white"
         tools:text="@string/contact_default_fullname"
         app:layout_constraintStart_toEndOf="@+id/toolbar_chat_image"
@@ -41,8 +44,11 @@
 
     <TextView
         android:id="@+id/toolbar_chat_status"
-        style="@style/smallText"
-        android:textColor="@color/darker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginStart="16sp"
+        android:textColor="@color/blue_pink"
         app:layout_constraintStart_toEndOf="@+id/toolbar_chat_image"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_chat_fullname"
         tools:text="@string/contact_default_status" />

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.models.CommonModel
+import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -72,7 +73,7 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
                         holder.inFavorites = true
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
                         USER.favorites[listItems[holder.adapterPosition].id] = "1"
-                        showToast("Объявление добавлено в избранное")
+                        showToast(APP_ACTIVITY.getString(R.string.bill_in_favorites))
                     }.addOnFailureListener { showToast(it.message.toString()) }
             } else {
                 REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FAVORITES)
@@ -81,7 +82,7 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
                         holder.inFavorites = false
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
                         USER.favorites.remove(listItems[holder.adapterPosition].id)
-                        showToast("Объявление удалено из избранного")
+                        showToast(APP_ACTIVITY.getString(R.string.bill_remove_favorites))
                     }
                     .addOnFailureListener { showToast(it.message.toString()) }
             }
@@ -111,7 +112,6 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
                                     holder.registered = true
                                     holder.itemRegister.setImageResource(R.drawable.ic_unregister)
                                     USER.registered[listItems[holder.adapterPosition].id] = "1"
-                                    showToast("Вы согласились помочь)")
                                 }.addOnFailureListener { showToast(it.message.toString()) }
                         }.addOnFailureListener { showToast(it.message.toString()) }
                 }

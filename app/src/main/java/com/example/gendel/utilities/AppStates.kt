@@ -1,11 +1,12 @@
 package com.example.gendel.utilities
 
+import com.example.gendel.R
 import com.example.gendel.database.*
 
 enum class AppStates(val state: String) {
 
-    ONLINE("в сети"),
-    OFFLINE("был(а) недавно"),
+    ONLINE(APP_ACTIVITY.getString(R.string.online)),
+    OFFLINE(APP_ACTIVITY.getString(R.string.offline)),
     TYPING("печатает");
 
     companion object {

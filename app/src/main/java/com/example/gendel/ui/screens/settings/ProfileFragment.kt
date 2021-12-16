@@ -69,8 +69,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             binding.profileEmailVerificationButton.visibility = View.VISIBLE
             binding.profileEmailVerificationButton.setOnClickListener {
                 AUTH.currentUser?.sendEmailVerification()?.addOnSuccessListener {
-                    showToast("Письмо отправлено!")
-                }?.addOnFailureListener { showToast("Ошибка отправки письма!") }
+                    showToast(getString(R.string.verification_letter))
+                }?.addOnFailureListener { showToast(getString(R.string.email_sending_error)) }
             }
         }
         else{

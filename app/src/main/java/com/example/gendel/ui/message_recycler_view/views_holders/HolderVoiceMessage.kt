@@ -13,9 +13,10 @@ import com.example.gendel.utilities.AppVoicePlayer
 import com.example.gendel.utilities.asTime
 
 
-class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+class HolderVoiceMessage(val view: View) : RecyclerView.ViewHolder(view), MessageHolder {
 
     private val appVoicePlayer = AppVoicePlayer()
+    private lateinit var messageView: MessageView
 
     private val blockUserVoiceMessage: ConstraintLayout = view.findViewById(R.id.bloc_user_voice)
     private val blockReceivedVoiceMessage: ConstraintLayout =
@@ -44,6 +45,7 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
         .findViewById(R.id.chat_received_message_voice_name)
 
     override fun drawMessage(view: MessageView) {
+        messageView = view
         if (view.from == CURRENT_UID) {
             blockUserVoiceMessage.visibility = View.VISIBLE
             blockReceivedVoiceMessage.visibility = View.GONE
@@ -109,6 +111,9 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
             function()
         }
     }
+
+    override fun getMessageId(): String  = messageView.id
+    override fun getMessageFrom(): String  = messageView.from
 
     override fun onDetach() {
         chatUserButtonPlay.setOnClickListener(null)

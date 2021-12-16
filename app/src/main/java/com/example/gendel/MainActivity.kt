@@ -62,22 +62,22 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
                 if (AUTH.currentUser!!.isEmailVerified) {
                     val mapData = hashMapOf<String, Any>()
                     mapData[CHILD_VERIFIED] = "true"
-                    mapData[CHILD_TOKEN] = TOKEN
+                    /*mapData[CHILD_TOKEN] = TOKEN*/
                     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
                         .updateChildren(mapData)
                         .addOnSuccessListener {
                             USER.verified = "true"
-                            USER.token = TOKEN
+                            /*USER.token = TOKEN*/
                         }
                         .addOnFailureListener { }
                 }
             if (USER.verified == "true") {
                 binding.verificationText.visibility = View.GONE
                 binding.buttonNewBill.isEnabled = true
-                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+                /*REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
                     .child(CHILD_TOKEN).setValue(TOKEN)
                     .addOnSuccessListener { USER.token = TOKEN }
-                    .addOnFailureListener { }
+                    .addOnFailureListener { }*/
             }
             binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
             replaceFragment(MainListFragment(), false)

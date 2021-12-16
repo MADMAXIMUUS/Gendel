@@ -1,16 +1,23 @@
 package com.example.gendel.ui.screens.chats
 
+import android.app.AlertDialog
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
+import com.example.gendel.database.CURRENT_UID
+import com.example.gendel.database.deleteMessageForAll
+import com.example.gendel.database.deleteMessageForSingle
+import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.ui.message_recycler_view.views_holders.AppHolderFactory
 import com.example.gendel.ui.message_recycler_view.views_holders.MessageHolder
 import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class GroupChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GroupChatAdapter(private val group: CommonModel) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listMessagesCache = mutableListOf<MessageView>()
     private val listHolders = mutableListOf<MessageHolder>()
@@ -28,6 +35,7 @@ class GroupChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         listHolders.add((holder as MessageHolder))
         holder.itemView.setOnClickListener {
             val contextMenu = BottomSheetDialog(APP_ACTIVITY, R.style.SheetDialog)
+            contextMenu.setContentView(R.layout.context_menu)
             val reply = contextMenu
                 .findViewById<ConstraintLayout>(R.id.chat_context_menu_reply_root)
             val forward = contextMenu
@@ -40,7 +48,40 @@ class GroupChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .findViewById<ConstraintLayout>(R.id.chat_context_menu_copy_root)
             val delete = contextMenu
                 .findViewById<ConstraintLayout>(R.id.chat_context_menu_delete_root)
-            contextMenu.setContentView(R.layout.context_menu)
+            delete!!.setOnClickListener {
+                if (holder.getMessageFrom() == CURRENT_UID) {
+                    var checked = false
+                    AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
+                        .setTitle(R.string.delete_message_title)
+                        .setMultiChoiceItems(R.array.ContextMenuChoices, null) { _, _, isChecked ->
+                            checked = isChecked
+                        }
+                        .setPositiveButton(R.string.delete_for_all_dialog_delete) { dialog, _ ->
+                            if (checked) {
+                                deleteMessageForAll(
+                                    group,
+                                    (holder as MessageHolder).getMessageId()
+                                ) {
+                                    listMessagesCache.removeAt(holder.adapterPosition)
+                                    notifyItemRemoved(holder.adapterPosition)
+                                }
+                            } else {
+                                deleteMessageForSingle(
+                                    group.id,
+                                    (holder as MessageHolder).getMessageId()
+                                ) {
+                                    listMessagesCache.removeAt(holder.adapterPosition)
+                                    notifyItemRemoved(holder.adapterPosition)
+                                }
+                            }
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton(R.string.delete_for_all_dialog_cancel) { dialog, _ ->
+                            dialog.cancel()
+                        }.create().show()
+                    contextMenu.dismiss()
+                }
+            }
             contextMenu.show()
         }
         super.onViewAttachedToWindow(holder)

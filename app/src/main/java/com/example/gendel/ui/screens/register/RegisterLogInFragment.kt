@@ -1,6 +1,5 @@
 package com.example.gendel.ui.screens.register
 
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import com.example.gendel.R
 import com.example.gendel.database.logInAccount
 import com.example.gendel.databinding.FragmentLoginBinding
 import com.example.gendel.utilities.*
-
 
 class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
 
@@ -46,11 +44,11 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
             password = binding.registerLoginEditTextPassword.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 logInAccount(email, password){
-                    showToast("Добро пожаловать")
+                    showToast(getString(R.string.welcome))
                     restartActivity()
                 }
             } else {
-                showToast("Не все поля заполнены")
+                showToast(getString(R.string.register_not_all_field))
             }
         }
         binding.registerLoginTextViewButtonSignIn.setOnClickListener {

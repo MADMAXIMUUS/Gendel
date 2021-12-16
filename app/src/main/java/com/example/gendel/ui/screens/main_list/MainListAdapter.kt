@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.models.CommonModel
+import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -21,6 +23,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         val itemEndDate: TextView = view.findViewById(R.id.main_list_end_date_value)
         val itemCost: TextView = view.findViewById(R.id.main_list_shipping_cost_value)
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
+        val itemTags:ConstraintLayout = view.findViewById(R.id.main_list_tags)
         val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
         val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
         var inFavorites = false
@@ -78,7 +81,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
                         holder.inFavorites = true
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
                         USER.favorites[listItems[holder.adapterPosition].id] = "1"
-                        showToast("Объявление добавлено в избранное")
+                        showToast(APP_ACTIVITY.getString(R.string.bill_in_favorites))
                     }.addOnFailureListener { showToast(it.message.toString()) }
             } else {
                 REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FAVORITES)
@@ -87,7 +90,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
                         holder.inFavorites = false
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
                         USER.favorites.remove(listItems[holder.adapterPosition].id)
-                        showToast("Объявление удалено из избранного")
+                        showToast(APP_ACTIVITY.getString(R.string.bill_remove_favorites))
                     }
                     .addOnFailureListener { showToast(it.message.toString()) }
             }
@@ -120,7 +123,6 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
                                     getBill(bill.id) { bill1 ->
                                         holder.itemMember.text = bill1.memberCount
                                     }
-                                    showToast("Вы согласились помочь)")
                                 }.addOnFailureListener { showToast(it.message.toString()) }
                         }.addOnFailureListener { showToast(it.message.toString()) }
                 }

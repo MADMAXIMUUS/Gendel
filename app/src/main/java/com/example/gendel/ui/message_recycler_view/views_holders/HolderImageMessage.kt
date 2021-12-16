@@ -12,7 +12,9 @@ import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.asTime
 import com.example.gendel.utilities.downloadAndSetImage
 
-class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+class HolderImageMessage(val view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+
+    private lateinit var messageView: MessageView
     private val blockUserImageMessage: ConstraintLayout = view.findViewById(R.id.bloc_user_image)
     private val blockReceivedImageMessage: ConstraintLayout = view.findViewById(R.id.bloc_received_image)
 
@@ -30,6 +32,7 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
         .findViewById(R.id.chat_received_message_image_name)
 
     override fun drawMessage(view: MessageView) {
+        messageView = view
         if (view.from == CURRENT_UID) {
             blockUserImageMessage.visibility = View.VISIBLE
             blockReceivedImageMessage.visibility = View.GONE
@@ -47,6 +50,9 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
             }
         }
     }
+
+    override fun getMessageId(): String  = messageView.id
+    override fun getMessageFrom(): String  = messageView.from
 
     override fun onAttach(view: MessageView) {
 

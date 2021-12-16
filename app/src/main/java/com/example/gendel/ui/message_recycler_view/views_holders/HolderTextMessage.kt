@@ -11,7 +11,9 @@ import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.utilities.asTime
 
 
-class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+class HolderTextMessage(val view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+
+    private lateinit var messageView: MessageView
     private val blockUserMessage: ConstraintLayout = view.findViewById(R.id.bloc_user_message)
     private val blockReceivedMessage: ConstraintLayout = view.findViewById(R.id.bloc_received_message)
 
@@ -29,6 +31,7 @@ class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
         .findViewById(R.id.chat_received_message_name)
 
     override fun drawMessage(view: MessageView) {
+        messageView = view
         if (view.from == CURRENT_UID) {
             blockUserMessage.visibility = View.VISIBLE
             blockReceivedMessage.visibility = View.GONE
@@ -46,6 +49,9 @@ class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             }
         }
     }
+
+    override fun getMessageId(): String  = messageView.id
+    override fun getMessageFrom(): String  = messageView.from
 
     override fun onAttach(view: MessageView) {
 

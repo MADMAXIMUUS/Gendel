@@ -1,17 +1,17 @@
 package com.example.gendel.ui.screens.falovorites_list
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.*
+import com.example.gendel.database.NODE_BILLS
+import com.example.gendel.database.REF_DATABASE_ROOT
+import com.example.gendel.database.USER
+import com.example.gendel.database.getCommonModel
 import com.example.gendel.databinding.FragmentFavoritesListBinding
-import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.utilities.*
 
@@ -48,6 +48,11 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
         APP_ACTIVITY.toolbar.title = getString(R.string.bottom_menu_favorite)
         hideKeyboard()
         initRecyclerView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initRecyclerView() {

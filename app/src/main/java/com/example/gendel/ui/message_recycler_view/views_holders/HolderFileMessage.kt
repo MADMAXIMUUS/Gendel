@@ -19,7 +19,9 @@ import com.example.gendel.utilities.showToast
 import java.io.File
 
 
-class HolderFileMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+class HolderFileMessage(val view: View) : RecyclerView.ViewHolder(view), MessageHolder {
+
+    private lateinit var messageView: MessageView
 
     private val blockUserFileMessage: ConstraintLayout = view.findViewById(R.id.bloc_user_file)
     private val blockReceivedFileMessage: ConstraintLayout =
@@ -49,6 +51,7 @@ class HolderFileMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
         .findViewById(R.id.chat_received_message_file_name)
 
     override fun drawMessage(view: MessageView) {
+        messageView = view
         if (view.from == CURRENT_UID) {
             blockUserFileMessage.visibility = View.VISIBLE
             blockReceivedFileMessage.visibility = View.GONE
@@ -106,6 +109,9 @@ class HolderFileMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
             showToast(e.message.toString())
         }
     }
+
+    override fun getMessageId(): String  = messageView.id
+    override fun getMessageFrom(): String  = messageView.from
 
     override fun onDetach() {
         chatUserFileDownloadButton.setOnClickListener(null)

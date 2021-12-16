@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -40,7 +39,7 @@ class ChatSettingsFragment(private val group: CommonModel) :
     @SuppressLint("SetTextI18n")
     private fun initFunc() {
         binding.chatSettingsStoreName.text = group.storeName
-        binding.chatSettingsCount.text = "Участников - ${group.memberCount}"
+        binding.chatSettingsCount.text = getString(R.string.count_member_title) + group.memberCount
         binding.profilePlaceholderName.text = group.storeName[0].toString()
         binding.chatSettingsChatIcon.downloadAndSetImage(group.photoUrl)
         binding.chatSettingsNotificationButton.setOnClickListener {
@@ -68,7 +67,6 @@ class ChatSettingsFragment(private val group: CommonModel) :
                         mapData[CHILD_MEMBERS] = group.members
                         REF_DATABASE_ROOT.child(NODE_BILLS).child(group.id).updateChildren(mapData)
                             .addOnSuccessListener {
-                                showToast("Вы покинули чат!")
                                 APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
                                 APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_home
                                 APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -80,7 +78,6 @@ class ChatSettingsFragment(private val group: CommonModel) :
         }
         binding.chatSettingsClearHistoryButton.setOnClickListener {
             clearChat(group.id) {
-                showToast("Чат очищен")
             }
         }
         binding.chatSettingsChatIcon.setOnClickListener {

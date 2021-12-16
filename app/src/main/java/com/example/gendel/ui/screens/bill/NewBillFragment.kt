@@ -1,14 +1,14 @@
 package com.example.gendel.ui.screens.bill
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Instrumentation
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.CalendarView
 import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentNewBillBinding
@@ -27,7 +27,9 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
 
     private var _binding: FragmentNewBillBinding? = null
     private val binding get() = _binding!!
+    private var tags: HashMap<String, Any> = hashMapOf()
     private lateinit var customView: View
+    private lateinit var dialogView: View
     private lateinit var popupWindow: PopupWindow
     private lateinit var calendar: CalendarView
     private var isDateChosen = false
@@ -40,8 +42,9 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentNewBillBinding.inflate(inflater, container, false)
-        APP_ACTIVITY.toolbar.title = "Новое объявление"
+        APP_ACTIVITY.toolbar.title = getString(R.string.new_bill)
         customView = layoutInflater.inflate(R.layout.end_date_picker, null)
+        dialogView = layoutInflater.inflate(R.layout.choose_tags_dialog, null)
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.white)
         initFunc()
@@ -82,15 +85,15 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                         "$dayOfMonth.${month + 1}.$year"
                 }
             customView.findViewById<ConstraintLayout>(R.id.calendar_button_confirm)
-                .setOnClickListener {
-                    binding.newBillEndDateTitle.text = date
-                    isDateChosen = true
-                    popupWindow.dismiss()
-                }
+                    .setOnClickListener {
+                        binding.newBillEndDateTitle.text = date
+                        isDateChosen = true
+                        popupWindow.dismiss()
+                    }
             customView.findViewById<ConstraintLayout>(R.id.calendar_button_cancel)
-                .setOnClickListener {
-                    popupWindow.dismiss()
-                }
+                    .setOnClickListener {
+                        popupWindow.dismiss()
+                    }
         }
         binding.newBillButtonCreate.setOnClickListener {
             val storeName = binding.newBillEdittextStoreName.text.toString()
@@ -99,24 +102,24 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             val format = SimpleDateFormat("dd.MM.yyyy")
             val startDate = format.format(Date(calendar.date)).toString()
             if (storeName.isEmpty())
-                showToast("Введите название магазина")
+                showToast(APP_ACTIVITY.getString(R.string.enter_store_name))
             else if (!isDateChosen)
-                showToast("Выберите дату окончания")
+                showToast(APP_ACTIVITY.getString(R.string.choose_end_date))
             else if (cost.isEmpty())
-                showToast("Введите стоимость доставки")
+                showToast(getString(R.string.enter_delivery_cost))
             else {
-                createBillAndPushToDatabase(storeName, date, cost, startDate) { billID ->
+                createBillAndPushToDatabase(storeName, date, cost, startDate, tags) { billID ->
                     val mapData = hashMapOf<String, Any>()
                     mapData[billID] = "1"
                     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
-                        .updateChildren(mapData)
-                        .addOnSuccessListener {
-                            USER.registered[billID] = "1"
-                            CoroutineScope(Dispatchers.IO).launch {
-                                inst = Instrumentation()
-                                inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
-                            }
-                        }.addOnFailureListener { showToast(it.message.toString()) }
+                            .updateChildren(mapData)
+                            .addOnSuccessListener {
+                                USER.registered[billID] = "1"
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    inst = Instrumentation()
+                                    inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                                }
+                            }.addOnFailureListener { showToast(it.message.toString()) }
                 }
             }
         }
@@ -126,11 +129,27 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         binding.newBillCurrencySymbol.setOnClickListener {
             openCurrencyPicker()
         }
+        binding.newBillTagsRoot.setOnClickListener {
+            dialogView.findViewById<TextView>(R.id.choose_tags_add_tag_button).setOnClickListener {
+
+            }
+            AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
+                    .setView(dialogView)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.choose_tags_save) { dialog, _ ->
+
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton(R.string.calendar_button_cancel) { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .create().show()
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun openCurrencyPicker() {
-        val picker = CurrencyPicker.newInstance("Выберите валюту")
+        val picker = CurrencyPicker.newInstance(getString(R.string.сhoose_currency))
         picker.setListener { _, _, symbol, _ ->
             binding.newBillCurrencySymbol.text = symbol
             binding.newBillCurrency.visibility = View.GONE

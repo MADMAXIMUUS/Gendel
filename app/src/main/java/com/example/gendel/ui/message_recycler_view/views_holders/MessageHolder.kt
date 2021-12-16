@@ -6,5 +6,7 @@ interface MessageHolder {
 
     fun drawMessage(view: MessageView)
     fun onAttach(view: MessageView)
+    fun getMessageId(): String
+    fun getMessageFrom(): String
     fun onDetach()
 }

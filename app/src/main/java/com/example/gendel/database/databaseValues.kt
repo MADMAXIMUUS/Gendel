@@ -19,6 +19,7 @@ const val NODE_MESSAGES = "messages"
 const val NODE_MAIN_LIST = "main_list"
 const val NODE_CHATS = "chats"
 const val NODE_BILLS = "bills"
+const val NODE_TAGS = "tags"
 
 const val FOLDER_PROFILE_IMAGE = "profile_image"
 const val FOLDER_GROUPS_IMAGE = "groups_image"
