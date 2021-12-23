@@ -80,7 +80,7 @@
     <string name="error_deleting_message">Ошибка при удалении сообщения</string>
     <string name="account_login_error">Ошибка входа в аккаунт</string>
     <string name="new_bill">Новое объявление</string>
-    <string name="choose_end_date">Выберите даьу оконания</string>
+    <string name="choose_end_date">Выберите дату оконания</string>
     <string name="enter_delivery_cost">Введите стоимость доставки</string>
     <string name="сhoose_currency">Выберите валюту</string>
     <string name="count_member_title">Участников - </string>
@@ -99,6 +99,8 @@
     <string name="choose_tags_add_tag">+Добавить тэг</string>
     <string name="choose_tags_save">Сохранить</string>
     <string name="choose_tags_cancel">Отменить</string>
+    <string name="choose_tag_new_tag">Новый тэг</string>
+    <string name="sharp">#</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

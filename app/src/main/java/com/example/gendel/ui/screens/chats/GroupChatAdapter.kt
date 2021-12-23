@@ -61,18 +61,12 @@ class GroupChatAdapter(private val group: CommonModel) :
                                 deleteMessageForAll(
                                     group,
                                     (holder as MessageHolder).getMessageId()
-                                ) {
-                                    listMessagesCache.removeAt(holder.adapterPosition)
-                                    notifyItemRemoved(holder.adapterPosition)
-                                }
+                                )
                             } else {
                                 deleteMessageForSingle(
                                     group.id,
                                     (holder as MessageHolder).getMessageId()
-                                ) {
-                                    listMessagesCache.removeAt(holder.adapterPosition)
-                                    notifyItemRemoved(holder.adapterPosition)
-                                }
+                                )
                             }
                             dialog.dismiss()
                         }
@@ -121,5 +115,11 @@ class GroupChatAdapter(private val group: CommonModel) :
         listHolders.forEach {
             it.onDetach()
         }
+    }
+
+    fun removeValue(item: MessageView){
+        val index = listMessagesCache.indexOf(item)
+        listMessagesCache.remove(item)
+        notifyItemRemoved(index)
     }
 }

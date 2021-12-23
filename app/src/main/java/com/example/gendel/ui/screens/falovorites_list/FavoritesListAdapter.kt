@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -24,6 +25,10 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
         val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
         val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
+        val itemTags: ConstraintLayout = view.findViewById(R.id.main_list_tags)
+        val itemTextTag1: TextView = itemTags.findViewById(R.id.main_list_tag1)
+        val itemTextTag2: TextView = itemTags.findViewById(R.id.main_list_tag2)
+        val itemTextTag3: TextView = itemTags.findViewById(R.id.main_list_tag3)
         var inFavorites = true
         var registered = false
     }
@@ -41,6 +46,14 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
+        if (listItems[position].tags.size >= 1) {
+            holder.itemTextTag1.text = listItems[position].tags["tag 0"].toString()
+            if (listItems[position].tags.size == 2)
+                holder.itemTextTag2.text = listItems[position].tags["tag 1"].toString()
+            if (listItems[position].tags.size >= 3)
+                holder.itemTextTag3.text = listItems[position].tags["tag 2"].toString()
+
+        }
         if (USER.verified == "false") {
             holder.itemRegister.isEnabled = false
             holder.itemFavorites.isEnabled = false
@@ -63,6 +76,9 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
     override fun getItemCount(): Int = listItems.size
 
     override fun onViewAttachedToWindow(holder: FavoritesListHolder) {
+        holder.itemTags.setOnClickListener {
+
+        }
         holder.itemFavorites.setOnClickListener {
             if (!holder.inFavorites) {
                 val mapData = hashMapOf<String, Any>()
@@ -124,6 +140,7 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
     override fun onViewDetachedFromWindow(holder: FavoritesListHolder) {
         holder.itemFavorites.setOnClickListener(null)
         holder.itemRegister.setOnClickListener(null)
+        holder.itemTags.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 }

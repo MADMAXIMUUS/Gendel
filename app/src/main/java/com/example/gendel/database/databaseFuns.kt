@@ -67,28 +67,6 @@ fun DataSnapshot.getCommonModel(): CommonModel =
 fun DataSnapshot.getUserModel(): UserModel =
     this.getValue(UserModel::class.java) ?: UserModel()
 
-fun sendMessage(message: String, receivingUserID: String, typeText: String, function: () -> Unit) {
-    val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserID"
-    val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserID/$CURRENT_UID"
-    val messageKey = REF_DATABASE_ROOT.child(refDialogUser).push().key
-
-    val mapMessage = hashMapOf<String, Any>()
-    mapMessage[CHILD_FROM] = CURRENT_UID
-    mapMessage[CHILD_TYPE] = typeText
-    mapMessage[CHILD_TEXT] = message
-    mapMessage[CHILD_ID] = messageKey.toString()
-    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
-
-    val mapDialog = hashMapOf<String, Any>()
-    mapDialog["$refDialogUser/$messageKey"] = mapMessage
-    mapDialog["$refDialogReceivingUser/$messageKey"] = mapMessage
-
-    REF_DATABASE_ROOT
-        .updateChildren(mapDialog)
-        .addOnSuccessListener { function() }
-        .addOnFailureListener { showToast(it.message.toString()) }
-}
-
 fun setFullnameToDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_NAME)
         .setValue(fullname)
@@ -162,7 +140,7 @@ fun createBillAndPushToDatabase(
     endDate: String,
     cost: String,
     startDate: String,
-    tags: HashMap<String, Any>,
+    tags: MutableList<String>,
     function: (keyBill: String) -> Unit,
 ) {
     val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
@@ -175,9 +153,16 @@ fun createBillAndPushToDatabase(
     mapData[CHILD_START_DATE] = startDate
     mapData[CHILD_MEMBERS_COUNT] = "1"
 
+
     val membersData = hashMapOf<String, Any>()
     membersData["member 0"] = CURRENT_UID
     mapData[CHILD_MEMBERS] = membersData
+
+    val tagsData = hashMapOf<String, Any>()
+    for (i in 0 until tags.size) {
+        tagsData["tag $i"] = tags[i]
+    }
+    mapData[CHILD_TAGS] = tagsData
 
     path.updateChildren(mapData)
         .addOnSuccessListener {
@@ -186,25 +171,24 @@ fun createBillAndPushToDatabase(
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageToGroup(message: String, type: String, group: CommonModel, function: () -> Unit) {
+fun sendMessage(message: String, type: String, group: CommonModel, function: () -> Unit) {
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = type
     mapMessage[CHILD_TEXT] = message
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
-
+    val messageKey = REF_DATABASE_ROOT
+        .child("$NODE_CHATS/$CURRENT_UID/${group.id}/")
+        .push().key
     for (i in 0 until group.memberCount.toInt()) {
         val refMessages = "$NODE_CHATS/${group.members["member $i"]}/${group.id}/"
-        val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
         mapMessage[CHILD_ID] = messageKey.toString()
         REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
             .updateChildren(mapMessage)
             .addOnSuccessListener { function() }
             .addOnFailureListener { showToast(it.message.toString()) }
     }
-
-
 }
 
 fun getMessageKey(cid: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
@@ -312,19 +296,41 @@ fun getBill(
         })
 }
 
-fun deleteMessageForSingle(groupId: String, messageId: String, function: () -> Unit) {
+fun deleteMessageForSingle(groupId: String, messageId: String) {
     REF_DATABASE_ROOT
         .child(NODE_CHATS)
         .child(CURRENT_UID)
         .child(groupId)
         .child(messageId)
         .removeValue()
-        .addOnSuccessListener {
-            function()
-        }
         .addOnFailureListener { showToast(APP_ACTIVITY.getString(R.string.error_deleting_message)) }
 }
 
-fun deleteMessageForAll(group: CommonModel, messageId: String, function: () -> Unit) {
+fun deleteMessageForAll(group: CommonModel, messageId: String) {
+    val map: HashMap<String, Any?> = hashMapOf()
+    group.members.forEach {
+        map["/$NODE_CHATS/${it.value}/${group.id}/$messageId"] = null
+    }
+    REF_DATABASE_ROOT
+        .updateChildren(map)
+}
 
+fun addTagToDatabase(tag: String, function: () -> Unit) {
+    val id = REF_DATABASE_ROOT.child(NODE_TAGS).push().key.toString()
+    REF_DATABASE_ROOT.child(NODE_TAGS).child(id).setValue(tag).addOnSuccessListener {
+        function()
+    }.addOnFailureListener {
+        showToast(it.message.toString())
+    }
+}
+
+fun getTagsFromDatabase(function: (tags: MutableList<String>) -> Unit) {
+    val tags: MutableList<String> = mutableListOf()
+    REF_DATABASE_ROOT.child(NODE_TAGS)
+        .addListenerForSingleValueEvent(AppValueEventListener { dataSnapShot ->
+            dataSnapShot.children.forEach {
+                tags.add(it.value.toString())
+            }
+            function(tags)
+        })
 }

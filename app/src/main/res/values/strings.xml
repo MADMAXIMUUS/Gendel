@@ -99,6 +99,8 @@
     <string name="choose_tags_add_tag">+Add tag</string>
     <string name="choose_tags_save">Save</string>
     <string name="choose_tags_cancel">Cancel</string>
+    <string name="choose_tag_new_tag">New tag</string>
+    <string name="sharp">#</string>
 
     <plurals name="count_members">
         <item quantity="one">%d member</item>

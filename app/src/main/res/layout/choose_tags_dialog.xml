@@ -49,11 +49,76 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/choose_tags_add_tag_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/ripple_effect_add_tags"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/choose_tags_add_tag"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tags_search_root" />
+
+    <LinearLayout
+        android:id="@+id/choose_tags_new_tag_root"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tags_add_tag_button">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="@string/sharp"
+            android:textColor="@color/pink"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/choose_tags_add_new_tag_edt"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@drawable/edittext_selector"
+            android:hint="@string/choose_tag_new_tag"
+            android:textSize="20sp"
+            android:inputType="text"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/pink"
+            android:textColorHint="@color/pink" />
+
+        <ImageButton
+            android:id="@+id/choose_tags_add_new_tag_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/white_pink"
+            android:scaleType="center"
+            android:src="@drawable/ic_create_quiz_add_answer"
+            app:tint="@color/pink"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/choose_tags_container_root"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choose_tags_search_root">
@@ -64,17 +129,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/choose_tags_add_tag_button"
-                android:layout_width="match_parent"
-                android:background="@drawable/ripple_effect"
-                android:layout_height="48dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="@string/choose_tags_add_tag"
-                android:textColor="@color/pink"
-                android:textSize="16sp" />
 
         </LinearLayout>
 

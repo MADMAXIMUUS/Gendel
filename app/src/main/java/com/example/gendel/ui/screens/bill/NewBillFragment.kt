@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Instrumentation
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.CalendarView
-import android.widget.PopupWindow
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentNewBillBinding
@@ -27,7 +27,9 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
 
     private var _binding: FragmentNewBillBinding? = null
     private val binding get() = _binding!!
-    private var tags: HashMap<String, Any> = hashMapOf()
+    private var tags: MutableList<String> = mutableListOf()
+    private var checkBoxes: MutableList<CheckBox> = mutableListOf()
+    private var chosenTags: MutableList<String> = mutableListOf()
     private lateinit var customView: View
     private lateinit var dialogView: View
     private lateinit var popupWindow: PopupWindow
@@ -45,6 +47,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
         APP_ACTIVITY.toolbar.title = getString(R.string.new_bill)
         customView = layoutInflater.inflate(R.layout.end_date_picker, null)
         dialogView = layoutInflater.inflate(R.layout.choose_tags_dialog, null)
+        calendar = customView.findViewById(R.id.calendar)
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.white)
         initFunc()
@@ -70,7 +73,6 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                 binding.newBillEndDateRoot, 20, 0,
                 Gravity.CENTER
             )
-            calendar = customView.findViewById(R.id.calendar)
             var date = calendar.date.toString()
             calendar.minDate = calendar.date
             customView.findViewById<CalendarView>(R.id.calendar)
@@ -108,7 +110,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             else if (cost.isEmpty())
                 showToast(getString(R.string.enter_delivery_cost))
             else {
-                createBillAndPushToDatabase(storeName, date, cost, startDate, tags) { billID ->
+                createBillAndPushToDatabase(storeName, date, cost, startDate, chosenTags) { billID ->
                     val mapData = hashMapOf<String, Any>()
                     mapData[billID] = "1"
                     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
@@ -130,20 +132,98 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             openCurrencyPicker()
         }
         binding.newBillTagsRoot.setOnClickListener {
+            getTagsFromDatabase { tagsList ->
+                tags = tagsList
+                tags.forEach {
+                    val checkBox = CheckBox(APP_ACTIVITY)
+                    checkBox.text = it
+                    checkBox.textSize = 20f
+                    checkBox.setTextColor(ContextCompat.getColor(APP_ACTIVITY, R.color.pink))
+                    checkBox.buttonTintList =
+                        ContextCompat.getColorStateList(APP_ACTIVITY, R.color.pink)
+                    if (it in chosenTags)
+                        checkBox.isChecked = true
+                    dialogView.findViewById<LinearLayout>(R.id.choose_tags_container)
+                        .addView(checkBox, 0)
+                    checkBoxes.add(checkBox)
+                }
+            }
             dialogView.findViewById<TextView>(R.id.choose_tags_add_tag_button).setOnClickListener {
-
+                dialogView.findViewById<LinearLayout>(R.id.choose_tags_new_tag_root)
+                    .visibility = View.VISIBLE
+                dialogView.findViewById<TextView>(R.id.choose_tags_add_tag_button)
+                    .visibility = View.GONE
+                dialogView.findViewById<ImageButton>(R.id.choose_tags_add_new_tag_button)
+                    .setOnClickListener {
+                        val tag = "#" +
+                                dialogView.findViewById<EditText>(R.id.choose_tags_add_new_tag_edt)
+                                    .text.toString()
+                        if (tag !in tags) {
+                            addTagToDatabase(tag) {
+                                tags.add(tag)
+                                dialogView.findViewById<EditText>(R.id.choose_tags_add_new_tag_edt)
+                                    .setText("")
+                                dialogView.findViewById<LinearLayout>(R.id.choose_tags_new_tag_root)
+                                    .visibility = View.GONE
+                                dialogView.findViewById<TextView>(R.id.choose_tags_add_tag_button)
+                                    .visibility = View.VISIBLE
+                                val checkBox = CheckBox(APP_ACTIVITY)
+                                checkBox.text = tag
+                                checkBox.textSize = 20f
+                                checkBox.setTextColor(
+                                    ContextCompat.getColor(
+                                        APP_ACTIVITY,
+                                        R.color.pink
+                                    )
+                                )
+                                checkBox.buttonTintList =
+                                    ContextCompat.getColorStateList(APP_ACTIVITY, R.color.pink)
+                                dialogView.findViewById<LinearLayout>(R.id.choose_tags_container)
+                                    .addView(checkBox, 0)
+                                checkBoxes.add(checkBox)
+                            }
+                        }
+                    }
             }
             AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
-                    .setView(dialogView)
-                    .setCancelable(true)
-                    .setPositiveButton(R.string.choose_tags_save) { dialog, _ ->
+                .setTitle("Выберите тэги")
+                .setView(dialogView)
+                .setPositiveButton(R.string.choose_tags_save) { dialog, _ ->
+                    chosenTags.clear()
+                    checkBoxes.forEach {
+                        if (it.isChecked) {
+                            chosenTags.add(it.text.toString())
+                        }
+                    }
+                    chosenTags.forEach {
+                        Log.e("chosenTags", it)
+                    }
+                    var tags: String = when {
+                        chosenTags.size == 1 -> chosenTags[0]
+                        chosenTags.size == 2 -> chosenTags[0] + " " + chosenTags[1]
+                        chosenTags.size >= 3 -> chosenTags[0] + "" +
+                                " " + chosenTags[1] +
+                                " " + chosenTags[2]
+                        else -> getString(R.string.new_bill_tags_title)
+                    }
+                    if (tags.length>20)
+                       tags = tags.substring(0..16)+"..."
+                    binding.newBillTagsTitle.text = tags
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.calendar_button_cancel) { dialog, _ ->
+                    dialog.cancel()
+                }.setOnDismissListener {
+                    dialogView.findViewById<LinearLayout>(R.id.choose_tags_new_tag_root)
+                        .visibility = View.GONE
+                    dialogView.findViewById<TextView>(R.id.choose_tags_add_tag_button)
+                        .visibility = View.VISIBLE
+                    dialogView.findViewById<LinearLayout>(R.id.choose_tags_container)
+                        .removeAllViews()
+                    checkBoxes.clear()
+                    (dialogView.parent as ViewGroup).removeView(dialogView)
+                }.create().show()
 
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton(R.string.calendar_button_cancel) { dialog, _ ->
-                        dialog.cancel()
-                    }
-                    .create().show()
         }
     }
 

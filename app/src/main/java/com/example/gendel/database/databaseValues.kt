@@ -41,6 +41,7 @@ const val CHILD_COST = "cost"
 const val CHILD_STORE_NAME = "storeName"
 const val CHILD_MEMBERS_COUNT = "memberCount"
 const val CHILD_MEMBERS = "members"
+const val CHILD_TAGS = "tags"
 
 const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"

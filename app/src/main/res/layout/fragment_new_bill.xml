@@ -29,7 +29,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/new_bill_end_date_root"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
@@ -44,7 +44,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:padding="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:text="@string/new_bill_end_date_title"
             android:textColor="@color/pink"
             android:textSize="20sp"
@@ -69,7 +70,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/new_bill_cost_root"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="30dp"
@@ -84,7 +85,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:padding="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:text="@string/new_bill_cost_title"
             android:textColor="@color/pink"
             android:textSize="20sp"
@@ -148,7 +150,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/new_bill_tags_root"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="30dp"
@@ -161,18 +163,21 @@
 
         <TextView
             android:id="@+id/new_bill_tags_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:text="@string/new_bill_tags_title"
             android:textColor="@color/pink"
+            android:maxLength="20"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/new_bill_tags_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/new_bill_tags_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="15dp"
