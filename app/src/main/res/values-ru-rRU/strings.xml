@@ -101,6 +101,7 @@
     <string name="choose_tags_cancel">Отменить</string>
     <string name="choose_tag_new_tag">Новый тэг</string>
     <string name="sharp">#</string>
+    <string name="delete_message">Вы действительно хотите удалить сообщение?</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

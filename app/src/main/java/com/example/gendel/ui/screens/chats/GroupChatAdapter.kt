@@ -2,6 +2,7 @@ package com.example.gendel.ui.screens.chats
 
 import android.app.AlertDialog
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
@@ -60,7 +61,8 @@ class GroupChatAdapter(private val group: CommonModel) :
                             if (checked) {
                                 deleteMessageForAll(
                                     group,
-                                    (holder as MessageHolder).getMessageId()
+                                    (holder as MessageHolder).getMessageId(),
+                                    (holder as MessageHolder).getFileUrl()
                                 )
                             } else {
                                 deleteMessageForSingle(
@@ -75,6 +77,25 @@ class GroupChatAdapter(private val group: CommonModel) :
                         }.create().show()
                     contextMenu.dismiss()
                 }
+                else{
+                    AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
+                        .setTitle(R.string.delete_message_title)
+                        .setMessage(APP_ACTIVITY.getString(R.string.delete_message))
+                        .setPositiveButton(R.string.delete_for_all_dialog_delete) { dialog, _ ->
+                            deleteMessageForSingle(
+                                group.id,
+                                (holder as MessageHolder).getMessageId()
+                            )
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton(R.string.delete_for_all_dialog_cancel) { dialog, _ ->
+                            dialog.cancel()
+                        }.create().show()
+                    contextMenu.dismiss()
+                }
+            }
+            edit!!.setOnClickListener {
+
             }
             contextMenu.show()
         }

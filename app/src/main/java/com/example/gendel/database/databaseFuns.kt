@@ -306,13 +306,30 @@ fun deleteMessageForSingle(groupId: String, messageId: String) {
         .addOnFailureListener { showToast(APP_ACTIVITY.getString(R.string.error_deleting_message)) }
 }
 
-fun deleteMessageForAll(group: CommonModel, messageId: String) {
-    val map: HashMap<String, Any?> = hashMapOf()
-    group.members.forEach {
-        map["/$NODE_CHATS/${it.value}/${group.id}/$messageId"] = null
+fun deleteMessageForAll(group: CommonModel, messageId: String, fileUrl: String) {
+    if (fileUrl == "empty") {
+        val map: HashMap<String, Any?> = hashMapOf()
+        group.members.forEach {
+            map["/$NODE_CHATS/${it.value}/${group.id}/$messageId"] = null
+        }
+        REF_DATABASE_ROOT
+            .updateChildren(map)
+    } else {
+        REF_STORAGE_ROOT
+            .child(FOLDER_GROUPS_FILE)
+            .child(group.id)
+            .child(messageId)
+            .delete()
+            .addOnSuccessListener {
+                val map: HashMap<String, Any?> = hashMapOf()
+                group.members.forEach {
+                    map["/$NODE_CHATS/${it.value}/${group.id}/$messageId"] = null
+                }
+                REF_DATABASE_ROOT
+                    .updateChildren(map)
+            }
     }
-    REF_DATABASE_ROOT
-        .updateChildren(map)
+
 }
 
 fun addTagToDatabase(tag: String, function: () -> Unit) {

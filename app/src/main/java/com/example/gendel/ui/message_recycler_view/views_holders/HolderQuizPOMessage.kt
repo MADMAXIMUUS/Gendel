@@ -71,6 +71,7 @@ class HolderQuizPOMessage(val view: View) : RecyclerView.ViewHolder(view), Messa
 
     override fun getMessageId(): String  = messageView.id
     override fun getMessageFrom(): String  = messageView.from
+    override fun getFileUrl(): String = messageView.fileUrl
 
     override fun onAttach(view: MessageView) {
 

@@ -8,5 +8,6 @@ interface MessageHolder {
     fun onAttach(view: MessageView)
     fun getMessageId(): String
     fun getMessageFrom(): String
+    fun getFileUrl(): String
     fun onDetach()
 }
