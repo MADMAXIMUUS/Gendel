@@ -18,6 +18,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/chat_input_message"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -42,7 +43,7 @@
             android:minLines="1"
             android:paddingStart="@dimen/app_padding"
             android:paddingTop="@dimen/app_padding"
-            android:paddingEnd="@dimen/app_padding"
+            android:paddingEnd="50dp"
             android:paddingBottom="@dimen/app_padding"
             android:textColor="@color/edittext_text_color"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +97,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/chat_input_message"
+            app:tint="@color/pink"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/chat_button_send_edited_message"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/chat_button_background"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:focusable="true"
+            android:padding="@dimen/app_padding"
+            android:visibility="gone"
+            android:src="@drawable/ic_confirm_edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/pink"
             tools:ignore="ContentDescription" />
 

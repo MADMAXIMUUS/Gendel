@@ -113,6 +113,7 @@ class HolderFileMessage(val view: View) : RecyclerView.ViewHolder(view), Message
     override fun getMessageId(): String  = messageView.id
     override fun getMessageFrom(): String  = messageView.from
     override fun getFileUrl(): String = messageView.fileUrl
+    override fun getMessageText(): String = messageView.text
 
     override fun onDetach() {
         chatUserFileDownloadButton.setOnClickListener(null)

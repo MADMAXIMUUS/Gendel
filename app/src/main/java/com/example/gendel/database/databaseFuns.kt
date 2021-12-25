@@ -172,7 +172,6 @@ fun createBillAndPushToDatabase(
 }
 
 fun sendMessage(message: String, type: String, group: CommonModel, function: () -> Unit) {
-
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = type
@@ -211,14 +210,15 @@ fun uploadFileToStorage(
 }
 
 fun sendQuiz(
-    groupID: String,
+    group: CommonModel,
     title: String,
     listAnswer: List<String>,
     multi: Boolean,
     function: () -> Unit
 ) {
-    val refMessages = "$NODE_CHATS/$groupID/$NODE_MESSAGES"
-    val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
+    val messageKey = REF_DATABASE_ROOT
+        .child("/$NODE_CHATS/$CURRENT_UID/${group.id}/")
+        .push().key.toString()
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_FROM] = CURRENT_UID
@@ -227,7 +227,7 @@ fun sendQuiz(
     else
         mapMessage[CHILD_TYPE] = TYPE_MESSAGE_QUIZ
     mapMessage[CHILD_TEXT] = title
-    mapMessage[CHILD_ID] = messageKey.toString()
+    mapMessage[CHILD_ID] = messageKey
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
     val mapAnswers = hashMapOf<String, Any>()
@@ -236,8 +236,12 @@ fun sendQuiz(
     }
     mapMessage[CHILD_ANSWERS] = mapAnswers
 
-    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
-        .updateChildren(mapMessage)
+    val map: HashMap<String, Any?> = hashMapOf()
+    group.members.forEach {
+        map["/$NODE_CHATS/${it.value}/${group.id}/$messageKey"] = mapMessage
+    }
+    REF_DATABASE_ROOT
+        .updateChildren(map)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
@@ -350,4 +354,13 @@ fun getTagsFromDatabase(function: (tags: MutableList<String>) -> Unit) {
             }
             function(tags)
         })
+}
+
+fun updateMessage(
+    message: String,
+    typeText: String,
+    group: CommonModel,
+    function: () -> Unit
+) {
+
 }

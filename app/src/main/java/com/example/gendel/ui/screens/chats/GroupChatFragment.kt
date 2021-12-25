@@ -246,7 +246,7 @@ class GroupChatFragment(private val group: CommonModel) :
                 listAnswer.add(it.findViewById<EditText>(R.id.create_quiz_answer_text).text.toString())
         }
 
-        sendQuiz(group.id, title, listAnswer, isPeekMulti) {
+        sendQuiz(group, title, listAnswer, isPeekMulti) {
             bottomSheetBehaviourQuiz.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehaviourQuiz.peekHeight = 0
         }
@@ -312,7 +312,7 @@ class GroupChatFragment(private val group: CommonModel) :
     }*/
 
     private fun initRecycleView() {
-        adapter = GroupChatAdapter(group)
+        adapter = GroupChatAdapter(group, binding)
         refMessages = REF_DATABASE_ROOT
             .child(NODE_CHATS)
             .child(CURRENT_UID)
@@ -385,10 +385,20 @@ class GroupChatFragment(private val group: CommonModel) :
         binding.chatButtonSendMessage.setOnClickListener {
             smoothScrollToPosition = true
             val message = binding.chatInputMessage.text.toString()
-            if (message.isNotEmpty())
+            if (message.isNotEmpty()) {
                 sendMessage(message, TYPE_TEXT, group) {
                     binding.chatInputMessage.setText("")
                 }
+            }
+        }
+        binding.chatButtonSendEditedMessage.setOnClickListener {
+            smoothScrollToPosition = true
+            val message = binding.chatInputMessage.text.toString()
+            if (message.isNotEmpty()) {
+                sendMessage(message, TYPE_TEXT, group) {
+                    binding.chatInputMessage.setText("")
+                }
+            }
         }
     }
 

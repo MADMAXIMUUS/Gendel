@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="actionMenu" parent="Theme.AppCompat.DayNight">
         <item name="background">@color/white</item>
@@ -95,6 +95,13 @@
         <item name="android:background">@color/white_pink</item>
         <item name="android:textColor">@color/pink</item>
         <item name="colorAccent">@color/pink</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Buttonbar</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Buttonbar</item>
+        <item name="android:textColorAlertDialogListItem">@color/pink</item>
+    </style>
+
+    <style name="Buttonbar" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/pink</item>
     </style>
 
 </resources>

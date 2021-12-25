@@ -1,6 +1,7 @@
 package com.example.gendel.ui.screens.chats
 
 import android.app.AlertDialog
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,6 +10,7 @@ import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
 import com.example.gendel.database.deleteMessageForAll
 import com.example.gendel.database.deleteMessageForSingle
+import com.example.gendel.databinding.FragmentChatBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.ui.message_recycler_view.views_holders.AppHolderFactory
@@ -17,7 +19,7 @@ import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class GroupChatAdapter(private val group: CommonModel) :
+class GroupChatAdapter(private val group: CommonModel, private val binding: FragmentChatBinding) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listMessagesCache = mutableListOf<MessageView>()
@@ -95,7 +97,9 @@ class GroupChatAdapter(private val group: CommonModel) :
                 }
             }
             edit!!.setOnClickListener {
-
+                binding.chatInputMessage.setText((holder as MessageHolder).getMessageText())
+                binding.chatButtonSendMessage.visibility = View.GONE
+                binding.chatButtonSendEditedMessage.visibility = View.VISIBLE
             }
             contextMenu.show()
         }
