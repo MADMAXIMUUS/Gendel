@@ -9,8 +9,7 @@ import com.example.gendel.database.*
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.ui.screens.chats.ChatsFragment
-import com.example.gendel.ui.screens.falovorites_list.FavoritesListFragment
-import com.example.gendel.ui.screens.main_list.MainListFragment
+import com.example.gendel.ui.screens.main_list.ListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
 import com.example.gendel.utilities.APP_ACTIVITY
@@ -50,9 +49,9 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         }
         binding.bottomNavigationMenu.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_home -> replaceFragment(MainListFragment(), true)
+                R.id.ic_home -> replaceFragment(ListFragment(isMain = true), true)
                 R.id.ic_profile -> replaceFragment(ProfileFragment(), true)
-                R.id.ic_favorite -> replaceFragment(FavoritesListFragment(), true)
+                R.id.ic_favorite -> replaceFragment(ListFragment(isMain = false), true)
                 R.id.ic_chats -> replaceFragment(ChatsFragment(), true)
             }
             true
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
                     .addOnFailureListener { }*/
             }
             binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
-            replaceFragment(MainListFragment(), false)
+            replaceFragment(ListFragment(), false)
         } else {
             binding.bottomNavigationMenuRoot.visibility = View.GONE
             replaceFragment(RegisterSignInFragment(), false)

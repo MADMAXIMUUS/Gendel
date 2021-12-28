@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.falovorites_list
+package com.example.gendel.ui.screens.main_list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,34 +13,34 @@ import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.FavoritesListHolder>() {
+class ListAdapter() : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
 
     private var listItems = mutableListOf<CommonModel>()
 
-    class FavoritesListHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class MainListHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemStoreName: TextView = view.findViewById(R.id.main_list_store_name)
         val itemStartDate: TextView = view.findViewById(R.id.main_list_start_date_value)
         val itemEndDate: TextView = view.findViewById(R.id.main_list_end_date_value)
         val itemCost: TextView = view.findViewById(R.id.main_list_shipping_cost_value)
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
-        val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
-        val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
         val itemTags: ConstraintLayout = view.findViewById(R.id.main_list_tags)
         val itemTextTag1: TextView = itemTags.findViewById(R.id.main_list_tag1)
         val itemTextTag2: TextView = itemTags.findViewById(R.id.main_list_tag2)
         val itemTextTag3: TextView = itemTags.findViewById(R.id.main_list_tag3)
-        var inFavorites = true
+        val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
+        val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
+        var inFavorites = false
         var registered = false
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesListHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
 
-        return FavoritesListHolder(view)
+        return MainListHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FavoritesListHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainListHolder, position: Int) {
         holder.itemStoreName.text = listItems[position].storeName
         holder.itemCost.text = listItems[position].cost
         holder.itemStartDate.text = listItems[position].startDate
@@ -58,7 +58,13 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
             holder.itemRegister.isEnabled = false
             holder.itemFavorites.isEnabled = false
         }
-        holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
+        for (i in 0 until USER.favorites.size) {
+            if (listItems[holder.position].id in USER.favorites.keys) {
+                holder.inFavorites = true
+                holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
+                break
+            }
+        }
         for (i in 0 until USER.registered.size) {
             if (listItems[holder.position].id in USER.registered.keys) {
                 holder.registered = true
@@ -75,7 +81,7 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
 
     override fun getItemCount(): Int = listItems.size
 
-    override fun onViewAttachedToWindow(holder: FavoritesListHolder) {
+    override fun onViewAttachedToWindow(holder: MainListHolder) {
         holder.itemTags.setOnClickListener {
 
         }
@@ -107,19 +113,19 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
             if (!holder.registered) {
                 val mapData = hashMapOf<String, Any>()
                 mapData[listItems[holder.adapterPosition].id] = "1"
-                getBill(listItems[holder.adapterPosition].id) {
-                    val members = it.members
-                    members["member ${it.memberCount.toInt()}"] = CURRENT_UID
-                    val newMemberCount = (it.memberCount.toInt() + 1).toString()
+                getBill(listItems[holder.adapterPosition].id) { bill ->
+                    val members = bill.members
+                    members["member ${bill.memberCount.toInt()}"] = CURRENT_UID
+                    val newMemberCount = (bill.memberCount.toInt() + 1).toString()
                     val mapDataBills = hashMapOf<String, Any>()
-                    mapDataBills[CHILD_ID] = it.id
-                    mapDataBills[CHILD_COST] = it.cost
+                    mapDataBills[CHILD_ID] = bill.id
+                    mapDataBills[CHILD_COST] = bill.cost
                     mapDataBills[CHILD_MEMBERS] = members
                     mapDataBills[CHILD_MEMBERS_COUNT] = newMemberCount
-                    mapDataBills[CHILD_END_DATE] = it.endDate
-                    mapDataBills[CHILD_START_DATE] = it.startDate
-                    mapDataBills[CHILD_STORE_NAME] = it.storeName
-                    REF_DATABASE_ROOT.child(NODE_BILLS).child(it.id).updateChildren(mapDataBills)
+                    mapDataBills[CHILD_END_DATE] = bill.endDate
+                    mapDataBills[CHILD_START_DATE] = bill.startDate
+                    mapDataBills[CHILD_STORE_NAME] = bill.storeName
+                    REF_DATABASE_ROOT.child(NODE_BILLS).child(bill.id).updateChildren(mapDataBills)
                         .addOnSuccessListener {
                             REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
                                 .child(CHILD_REGISTERED)
@@ -128,6 +134,9 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
                                     holder.registered = true
                                     holder.itemRegister.setImageResource(R.drawable.ic_unregister)
                                     USER.registered[listItems[holder.adapterPosition].id] = "1"
+                                    getBill(bill.id) { bill1 ->
+                                        holder.itemMember.text = bill1.memberCount
+                                    }
                                 }.addOnFailureListener { showToast(it.message.toString()) }
                         }.addOnFailureListener { showToast(it.message.toString()) }
                 }
@@ -137,7 +146,7 @@ class FavoritesListAdapter : RecyclerView.Adapter<FavoritesListAdapter.Favorites
         super.onViewAttachedToWindow(holder)
     }
 
-    override fun onViewDetachedFromWindow(holder: FavoritesListHolder) {
+    override fun onViewDetachedFromWindow(holder: MainListHolder) {
         holder.itemFavorites.setOnClickListener(null)
         holder.itemRegister.setOnClickListener(null)
         holder.itemTags.setOnClickListener(null)

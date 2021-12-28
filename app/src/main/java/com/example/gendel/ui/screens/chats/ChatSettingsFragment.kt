@@ -11,7 +11,7 @@ import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentChatSettingsBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.main_list.MainListFragment
+import com.example.gendel.ui.screens.main_list.ListFragment
 import com.example.gendel.utilities.*
 
 
@@ -70,7 +70,7 @@ class ChatSettingsFragment(private val group: CommonModel) :
                                 APP_ACTIVITY.binding.bottomNavigationMenuRoot.visibility = View.VISIBLE
                                 APP_ACTIVITY.binding.bottomNavigationMenu.selectedItemId = R.id.ic_home
                                 APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                                replaceFragment(MainListFragment())
+                                replaceFragment(ListFragment())
                             }
                             .addOnFailureListener { showToast(it.message.toString()) }
                     }
