@@ -222,7 +222,7 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_list_tags"
+        android:id="@+id/main_list_tags_root"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_margin="5dp"
@@ -235,48 +235,24 @@
         app:layout_constraintTop_toTopOf="@id/main_list_favorite_button">
 
         <TextView
-            android:id="@+id/main_list_tag1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/main_list_tags"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
             android:textColor="@color/violet"
             android:textSize="16sp"
+            android:maxLength="20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/main_list_tags_all_button"
             tools:text="#tag1" />
 
-        <TextView
-            android:id="@+id/main_list_tag2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/violet"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_list_tag1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#tag2" />
-
-        <TextView
-            android:id="@+id/main_list_tag3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/violet"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_list_tag2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#tag3" />
-
         <ImageView
+            android:id="@+id/main_list_tags_all_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="15dp"

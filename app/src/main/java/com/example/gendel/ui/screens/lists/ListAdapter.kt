@@ -1,10 +1,13 @@
 package com.example.gendel.ui.screens.lists
 
+import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.*
@@ -13,7 +16,8 @@ import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
+class ListAdapter(private val isFavorites: Boolean) :
+    RecyclerView.Adapter<ListAdapter.MainListHolder>() {
 
     private var listItems = mutableListOf<CommonModel>()
 
@@ -23,10 +27,7 @@ class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.M
         val itemEndDate: TextView = view.findViewById(R.id.main_list_end_date_value)
         val itemCost: TextView = view.findViewById(R.id.main_list_shipping_cost_value)
         val itemMember: TextView = view.findViewById(R.id.main_list_member_count_value)
-        val itemTags: ConstraintLayout = view.findViewById(R.id.main_list_tags)
-        val itemTextTag1: TextView = itemTags.findViewById(R.id.main_list_tag1)
-        val itemTextTag2: TextView = itemTags.findViewById(R.id.main_list_tag2)
-        val itemTextTag3: TextView = itemTags.findViewById(R.id.main_list_tag3)
+        val itemTags: TextView = view.findViewById(R.id.main_list_tags)
         val itemFavorites: FloatingActionButton = view.findViewById(R.id.main_list_favorite_button)
         val itemRegister: FloatingActionButton = view.findViewById(R.id.main_list_register_button)
         var inFavorites = false
@@ -34,8 +35,9 @@ class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.M
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.main_list_item, parent, false)
 
         return MainListHolder(view)
     }
@@ -46,14 +48,18 @@ class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.M
         holder.itemStartDate.text = listItems[position].startDate
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
-        if (listItems[position].tags.size >= 1) {
-            holder.itemTextTag1.text = listItems[position].tags["tag 0"].toString()
-            if (listItems[position].tags.size == 2)
-                holder.itemTextTag2.text = listItems[position].tags["tag 1"].toString()
-            if (listItems[position].tags.size >= 3)
-                holder.itemTextTag3.text = listItems[position].tags["tag 2"].toString()
-
+        var tags: String = when {
+            listItems[position].tags.size == 1 -> listItems[position].tags["tag 0"].toString()
+            listItems[position].tags.size == 2 -> listItems[position].tags["tag 0"].toString() +
+                    " " + listItems[position].tags["tag 1"].toString()
+            listItems[position].tags.size >= 3 -> listItems[position].tags["tag 0"].toString() + " " +
+                    " " + listItems[position].tags["tag 1"].toString() +
+                    " " + listItems[position].tags["tag 2"].toString()
+            else -> ""
         }
+        if (tags.length > 20)
+            tags = tags.substring(0..16) + "..."
+        holder.itemTags.text = tags
         if (USER.verified == "false") {
             holder.itemRegister.isEnabled = false
             holder.itemFavorites.isEnabled = false
@@ -79,7 +85,7 @@ class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.M
         notifyItemInserted(0)
     }
 
-    fun removeFromList(item: CommonModel) {
+    private fun removeFromList(item: CommonModel) {
         val index = listItems.indexOf(item)
         listItems.removeAt(index)
         notifyItemRemoved(index)
@@ -89,7 +95,40 @@ class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.M
 
     override fun onViewAttachedToWindow(holder: MainListHolder) {
         holder.itemTags.setOnClickListener {
+            val dialogView: View = LayoutInflater
+                .from(APP_ACTIVITY)
+                .inflate(R.layout.list_tags_viewer, null)
+            listItems[holder.adapterPosition].tags.forEach {
+                Log.e("tags", it.value.toString())
+                val textView = TextView(APP_ACTIVITY)
+                textView.text = it.value.toString()
+                textView.textSize = 20f
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        APP_ACTIVITY,
+                        R.color.pink
+                    )
+                )
+                val layoutParams = LinearLayout
+                    .LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                layoutParams.setMargins(0, 0, 0, 10)
+                textView.layoutParams = layoutParams
+                dialogView.findViewById<LinearLayout>(R.id.list_tags_container)
+                    .addView(textView)
+            }
+            AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
+                .setTitle(R.string.new_bill_tags_title)
+                .setView(dialogView)
+                .setPositiveButton(APP_ACTIVITY.getString(R.string.list_tag_viewer_ok)) { dialog, _ ->
 
+                }.setOnDismissListener {
+                    dialogView.findViewById<LinearLayout>(R.id.list_tags_container)
+                        .removeAllViews()
+                    (dialogView.parent as ViewGroup).removeView(dialogView)
+                }.create().show()
         }
         holder.itemFavorites.setOnClickListener {
             if (!holder.inFavorites) {

@@ -103,6 +103,7 @@
     <string name="sharp">#</string>
     <string name="delete_message">Вы действительно хотите удалить сообщение?</string>
     <string name="added_to_clipboard">Скопированно в буфер обмена</string>
+    <string name="list_tag_viewer_ok">Ок</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>
