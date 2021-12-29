@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
 import com.example.gendel.database.CURRENT_UID
 import com.example.gendel.database.getReceivedName
+import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.message_recycler_view.views.MessageView
+import com.example.gendel.utilities.TYPE_MESSAGE_IMAGE
+import com.example.gendel.utilities.TYPE_MESSAGE_VOICE
 import com.example.gendel.utilities.asTime
 import com.example.gendel.utilities.downloadAndSetImage
 
@@ -51,10 +54,16 @@ class HolderImageMessage(val view: View) : RecyclerView.ViewHolder(view), Messag
         }
     }
 
-    override fun getMessageId(): String  = messageView.id
-    override fun getMessageFrom(): String  = messageView.from
-    override fun getFileUrl(): String = messageView.fileUrl
-    override fun getMessageText(): String = messageView.text
+    override fun getMessage(): CommonModel =
+        CommonModel(
+            id = messageView.id,
+            from = messageView.from,
+            fileUrl = messageView.fileUrl,
+            text = messageView.text,
+            type = TYPE_MESSAGE_IMAGE,
+            timeStamp = messageView.timeStamp,
+            answers = messageView.answers
+        )
 
     override fun onAttach(view: MessageView) {
 

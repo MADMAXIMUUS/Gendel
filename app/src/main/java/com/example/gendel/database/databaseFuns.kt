@@ -357,10 +357,28 @@ fun getTagsFromDatabase(function: (tags: MutableList<String>) -> Unit) {
 }
 
 fun updateMessage(
-    message: String,
-    typeText: String,
+    message: CommonModel,
     group: CommonModel,
+    newMessage: String,
     function: () -> Unit
 ) {
-
+    val map: HashMap<String, Any?> = hashMapOf()
+    val mapMessage = hashMapOf<String, Any?>()
+    mapMessage[CHILD_TEXT] = newMessage
+    mapMessage[CHILD_TYPE] = message.type
+    mapMessage[CHILD_FROM] = message.from
+    mapMessage[CHILD_TIMESTAMP] = message.timeStamp
+    mapMessage[CHILD_ID] = message.id
+    when (message.type) {
+        TYPE_MESSAGE_VOICE, TYPE_MESSAGE_IMAGE, TYPE_MESSAGE_FIlE ->
+            mapMessage[CHILD_FILE_URL] = message.fileUrl
+        else ->
+            mapMessage[CHILD_FILE_URL] = null
+    }
+    group.members.forEach {
+        map["/$NODE_CHATS/${it.value}/${group.id}/${message.id}"] = mapMessage
+    }
+    REF_DATABASE_ROOT
+        .updateChildren(map)
+        .addOnSuccessListener { function() }
 }

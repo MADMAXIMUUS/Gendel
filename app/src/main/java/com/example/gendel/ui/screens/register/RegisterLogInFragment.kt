@@ -59,14 +59,14 @@ class RegisterLogInFragment : Fragment(R.layout.fragment_login) {
             binding.registerLoginEditTextPasswordHidePassword.visibility = View.VISIBLE
             binding.registerLoginEditTextPassword.inputType =
                 InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length());
+            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length())
         }
         binding.registerLoginEditTextPasswordHidePassword.setOnClickListener {
             it.visibility = View.GONE
             binding.registerLoginEditTextPasswordShowPassword.visibility = View.VISIBLE
             binding.registerLoginEditTextPassword.inputType =
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length());
+            binding.registerLoginEditTextPassword.setSelection(binding.registerLoginEditTextPassword.length())
         }
     }
 }

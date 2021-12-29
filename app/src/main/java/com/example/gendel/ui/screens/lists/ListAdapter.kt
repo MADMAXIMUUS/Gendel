@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.main_list
+package com.example.gendel.ui.screens.lists
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import com.example.gendel.utilities.APP_ACTIVITY
 import com.example.gendel.utilities.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ListAdapter() : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
+class ListAdapter(val isFavorites: Boolean) : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
 
     private var listItems = mutableListOf<CommonModel>()
 
@@ -79,6 +79,12 @@ class ListAdapter() : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
         notifyItemInserted(0)
     }
 
+    fun removeFromList(item: CommonModel) {
+        val index = listItems.indexOf(item)
+        listItems.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     override fun getItemCount(): Int = listItems.size
 
     override fun onViewAttachedToWindow(holder: MainListHolder) {
@@ -104,6 +110,8 @@ class ListAdapter() : RecyclerView.Adapter<ListAdapter.MainListHolder>() {
                         holder.inFavorites = false
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
                         USER.favorites.remove(listItems[holder.adapterPosition].id)
+                        if (isFavorites)
+                            removeFromList(listItems[holder.adapterPosition])
                         showToast(APP_ACTIVITY.getString(R.string.bill_remove_favorites))
                     }
                     .addOnFailureListener { showToast(it.message.toString()) }

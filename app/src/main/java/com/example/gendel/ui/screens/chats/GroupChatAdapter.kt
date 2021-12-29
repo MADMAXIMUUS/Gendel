@@ -1,9 +1,11 @@
 package com.example.gendel.ui.screens.chats
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
@@ -16,6 +18,7 @@ import com.example.gendel.ui.message_recycler_view.views.MessageView
 import com.example.gendel.ui.message_recycler_view.views_holders.AppHolderFactory
 import com.example.gendel.ui.message_recycler_view.views_holders.MessageHolder
 import com.example.gendel.utilities.APP_ACTIVITY
+import com.example.gendel.utilities.TYPE_MESSAGE_TEXT
 import com.example.gendel.utilities.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -24,6 +27,8 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
 
     private var listMessagesCache = mutableListOf<MessageView>()
     private val listHolders = mutableListOf<MessageHolder>()
+    var clicked: CommonModel = CommonModel()
+    private var clickedId: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AppHolderFactory.getHolder(parent, viewType)
@@ -52,7 +57,7 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
             val delete = contextMenu
                 .findViewById<ConstraintLayout>(R.id.chat_context_menu_delete_root)
             delete!!.setOnClickListener {
-                if (holder.getMessageFrom() == CURRENT_UID) {
+                if (holder.getMessage().from == CURRENT_UID) {
                     var checked = false
                     AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
                         .setTitle(R.string.delete_message_title)
@@ -63,13 +68,13 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
                             if (checked) {
                                 deleteMessageForAll(
                                     group,
-                                    (holder as MessageHolder).getMessageId(),
-                                    (holder as MessageHolder).getFileUrl()
+                                    (holder as MessageHolder).getMessage().id,
+                                    (holder as MessageHolder).getMessage().fileUrl
                                 )
                             } else {
                                 deleteMessageForSingle(
                                     group.id,
-                                    (holder as MessageHolder).getMessageId()
+                                    (holder as MessageHolder).getMessage().id
                                 )
                             }
                             dialog.dismiss()
@@ -86,7 +91,7 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
                         .setPositiveButton(R.string.delete_for_all_dialog_delete) { dialog, _ ->
                             deleteMessageForSingle(
                                 group.id,
-                                (holder as MessageHolder).getMessageId()
+                                (holder as MessageHolder).getMessage().id
                             )
                             dialog.dismiss()
                         }
@@ -97,10 +102,26 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
                 }
             }
             edit!!.setOnClickListener {
-                binding.chatInputMessage.setText((holder as MessageHolder).getMessageText())
-                binding.chatButtonSendMessage.visibility = View.GONE
-                binding.chatButtonSendEditedMessage.visibility = View.VISIBLE
+                if ((holder as MessageHolder).getMessage().type == TYPE_MESSAGE_TEXT) {
+                    binding.chatInputMessage.setText((holder as MessageHolder).getMessage().text)
+                    binding.chatButtonSendMessage.visibility = View.GONE
+                    binding.chatButtonSendEditedMessage.visibility = View.VISIBLE
+                    binding.chatInputMessage.setSelection(binding.chatInputMessage.length())
+                }
+                clicked = (holder as MessageHolder).getMessage()
+                clickedId = holder.adapterPosition
+                contextMenu.dismiss()
             }
+            copy!!.setOnClickListener {
+                val clipboardManager =
+                    APP_ACTIVITY.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip =
+                    ClipData.newPlainText("Gendel", (holder as MessageHolder).getMessage().text)
+                clipboardManager.setPrimaryClip(clip)
+                contextMenu.dismiss()
+                showToast(APP_ACTIVITY.getString(R.string.added_to_clipboard))
+            }
+
             contextMenu.show()
         }
         super.onViewAttachedToWindow(holder)
@@ -125,6 +146,15 @@ class GroupChatAdapter(private val group: CommonModel, private val binding: Frag
             notifyItemInserted(listMessagesCache.size)
         }
         onSuccess()
+    }
+
+    fun updateItem(item: MessageView, onSuccess: (Int) -> Unit) {
+        if (clickedId != -1) {
+            listMessagesCache[clickedId] = item
+            notifyItemChanged(clickedId)
+            onSuccess(clickedId)
+            clickedId = -1
+        }
     }
 
     fun addItemToTop(item: MessageView, onSuccess: () -> Unit) {

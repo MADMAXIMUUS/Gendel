@@ -39,7 +39,7 @@ class GroupChatFragment(private val group: CommonModel) :
     private lateinit var refMessages: DatabaseReference
     private lateinit var adapter: GroupChatAdapter
     private lateinit var messagesListener: AppChildEventListener
-    private var countMessages = 15
+    private var countMessages = 100
     private var isScrolling = false
     private var smoothScrollToPosition = true
     private lateinit var layoutManager: LinearLayoutManager
@@ -321,25 +321,32 @@ class GroupChatFragment(private val group: CommonModel) :
         binding.chatRecycleView.setHasFixedSize(true)
         binding.chatRecycleView.isNestedScrollingEnabled = false
         binding.chatRecycleView.layoutManager = layoutManager
-        messagesListener = AppChildEventListener { snapshot, isDeleted ->
-            if (!isDeleted) {
-                val message = snapshot.getCommonModel()
-                if (smoothScrollToPosition) {
-                    adapter.addItemToBottom(AppViewFactory.getView(message)) {
-                        binding.chatRecycleView.smoothScrollToPosition(adapter.itemCount)
-                    }
+        messagesListener = AppChildEventListener { snapshot, mode ->
+            val message = snapshot.getCommonModel()
+            when (mode) {
+                0 -> {
+                    if (smoothScrollToPosition) {
+                        adapter.addItemToBottom(AppViewFactory.getView(message)) {
+                            binding.chatRecycleView.smoothScrollToPosition(adapter.itemCount)
+                        }
 
-                } else {
-                    adapter.addItemToTop(AppViewFactory.getView(message)) {
-                        binding.chatSwipeRefresh.isRefreshing = false
-                    }
+                    } else {
+                        adapter.addItemToTop(AppViewFactory.getView(message)) {
+                            binding.chatSwipeRefresh.isRefreshing = false
+                        }
 
+                    }
+                }
+                1 -> {
+                    adapter.updateItem(AppViewFactory.getView(message)) { index ->
+                        binding.chatRecycleView.smoothScrollToPosition(index)
+                    }
+                }
+                2 -> {
+                    adapter.removeValue(AppViewFactory.getView(message))
                 }
             }
-            else{
-                val message = snapshot.getCommonModel()
-                adapter.removeValue(AppViewFactory.getView(message))
-            }
+
         }
 
         refMessages.limitToLast(countMessages).addChildEventListener(messagesListener)
@@ -395,8 +402,9 @@ class GroupChatFragment(private val group: CommonModel) :
             smoothScrollToPosition = true
             val message = binding.chatInputMessage.text.toString()
             if (message.isNotEmpty()) {
-                sendMessage(message, TYPE_TEXT, group) {
+                updateMessage(adapter.clicked, group, message) {
                     binding.chatInputMessage.setText("")
+                    binding.chatButtonSendEditedMessage.visibility = View.GONE
                 }
             }
         }

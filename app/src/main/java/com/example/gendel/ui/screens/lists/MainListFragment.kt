@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.main_list
+package com.example.gendel.ui.screens.lists
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.utilities.*
 
-class ListFragment(val isMain: Boolean = true) : Fragment(R.layout.fragment_main_list) {
+class MainListFragment() : Fragment(R.layout.fragment_main_list) {
 
     private var _binding: FragmentMainListBinding? = null
     private val binding get() = _binding!!
@@ -58,8 +58,7 @@ class ListFragment(val isMain: Boolean = true) : Fragment(R.layout.fragment_main
     }
 
     private fun initRecyclerView() {
-        adapter = ListAdapter()
-        if (isMain) {
+        adapter = ListAdapter(false)
             refMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
                 listItems = dataSnapshot.children.map { it.getCommonModel() }
                 listItems.forEach { model ->
@@ -70,15 +69,6 @@ class ListFragment(val isMain: Boolean = true) : Fragment(R.layout.fragment_main
                         })
                 }
             })
-        } else {
-            USER.favorites.forEach { (key, _) ->
-                REF_DATABASE_ROOT.child(NODE_BILLS).child(key)
-                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
-                        val newModel = dataSnapshot1.getCommonModel()
-                        adapter.updateListItems(newModel)
-                    })
-            }
-        }
         binding.mainListRecycleView.adapter = adapter
         binding.mainListRecycleView.addItemDecoration(ListsItemDecoration(30,60))
     }
