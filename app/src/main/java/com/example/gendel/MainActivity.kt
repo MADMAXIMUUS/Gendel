@@ -13,10 +13,7 @@ import com.example.gendel.ui.screens.lists.FavoritesListFragment
 import com.example.gendel.ui.screens.lists.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
-import com.example.gendel.utilities.APP_ACTIVITY
-import com.example.gendel.utilities.AppStates
-import com.example.gendel.utilities.DRAW_FRAGMENT
-import com.example.gendel.utilities.replaceFragment
+import com.example.gendel.utilities.*
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 
 
@@ -30,10 +27,12 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         APP_ACTIVITY = this
-        initFirebase()
-        initUser {
-            initFields()
-            initFunc()
+        downloadNewVersion(){
+            initFirebase()
+            initUser {
+                initFields()
+                initFunc()
+            }
         }
 
         binding.bottomNavigationMenu.background = null

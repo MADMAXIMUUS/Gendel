@@ -1,16 +1,23 @@
 package com.example.gendel.utilities
 
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.util.TypedValue
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import com.example.gendel.BuildConfig
 import com.example.gendel.MainActivity
 import com.example.gendel.R
 import com.squareup.picasso.Picasso
@@ -95,11 +102,68 @@ fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int
     }
 }
 
-fun setBottomNavigationBarColor(color: Int){
+fun setBottomNavigationBarColor(color: Int) {
     val window = APP_ACTIVITY.window
     window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     window.navigationBarColor = ContextCompat.getColor(APP_ACTIVITY, color)
     if (Build.VERSION.SDK_INT >= 29)
         window.isNavigationBarContrastEnforced = true
+}
+
+fun downloadNewVersion(function: () -> Unit) {
+    enqueueDownload {
+        function()
+    }
+}
+
+fun enqueueDownload(function: () -> Unit) {
+    val version = "0.6"
+    if (version.toFloat() <= BuildConfig.VERSION_NAME.toFloat()) {
+        function()
+    } else {
+        var destination =
+            APP_ACTIVITY.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/"
+        destination += "app-debug.apk"
+        val uri =
+            Uri.parse("https://github.com/MADMAXIMUUS/Gendel-releases/releases/download/v$version/app-debug.apk")
+        val file = File(destination)
+        if (file.exists()) file.delete()
+        val downloadManager =
+            APP_ACTIVITY.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(uri)
+        request.setMimeType("application/vnd.android.package-archive")
+        request.setTitle("app-debug.apk")
+        request.setDestinationUri(uri)
+        showInstallOption(destination)
+        downloadManager.enqueue(request)
+    }
+}
+
+private fun showInstallOption(
+    destination: String
+) {
+    val onComplete = object : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            val contentUri = FileProvider.getUriForFile(
+                context,
+                BuildConfig.APPLICATION_ID + ".provider",
+                File(destination)
+            )
+            val install = Intent(Intent.ACTION_VIEW)
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            install.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+            install.data = contentUri
+            context.startActivity(install)
+            context.unregisterReceiver(this)
+        }
+    }
+    APP_ACTIVITY.registerReceiver(
+        onComplete,
+        IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+    )
 }
