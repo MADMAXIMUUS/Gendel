@@ -1,7 +1,7 @@
 package com.example.gendel.utilities
 
 import com.example.gendel.MainActivity
-import com.example.gendel.ui.screens.draw.DrawFragment
+import com.example.gendel.ui.screens.chats.DrawFragment
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var DRAW_FRAGMENT: DrawFragment

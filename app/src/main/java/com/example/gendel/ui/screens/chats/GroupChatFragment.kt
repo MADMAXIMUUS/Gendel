@@ -4,10 +4,9 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.view.children
+import android.widget.AbsListView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gendel.R
@@ -17,12 +16,9 @@ import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.ui.message_recycler_view.views.AppViewFactory
 import com.example.gendel.ui.screens.base.BaseChatFragment
-import com.example.gendel.ui.screens.draw.DrawFragment
 import com.example.gendel.utilities.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +41,6 @@ class GroupChatFragment(private val group: CommonModel) :
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var appVoiceRecorder: AppVoiceRecorder
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<*>
-    private lateinit var bottomSheetBehaviourQuiz: BottomSheetBehavior<*>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,8 +74,6 @@ class GroupChatFragment(private val group: CommonModel) :
         appVoiceRecorder = AppVoiceRecorder()
         bottomSheetBehaviour = BottomSheetBehavior
             .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_choice))
-        bottomSheetBehaviourQuiz = BottomSheetBehavior
-            .from(binding.coordinatorLayout.findViewById(R.id.bottom_sheet_create_quiz))
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         binding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val string = binding.chatInputMessage.text.toString()
@@ -140,130 +133,19 @@ class GroupChatFragment(private val group: CommonModel) :
     private fun attachQuiz() {
         hideKeyboard()
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-        bottomSheetBehaviourQuiz.peekHeight = 800
-        bottomSheetBehaviourQuiz.state = BottomSheetBehavior.STATE_COLLAPSED
-        bottomSheetBehaviourQuiz.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                val quiz =
-                    binding.coordinatorLayout.findViewById<ScrollView>(R.id.bottom_sheet_create_quiz)
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-
-                    quiz.findViewById<View>(R.id.create_quiz_handle).visibility = View.GONE
-                    quiz.findViewById<ConstraintLayout>(R.id.create_quiz_header).background =
-                        ContextCompat.getDrawable(
-                            APP_ACTIVITY, R.drawable.bg_bottom_radius
-                        )
-                    quiz.background = ContextCompat.getDrawable(
-                        APP_ACTIVITY, R.drawable.placeholder_image
-                    )
-                }
-                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    quiz.findViewById<View>(R.id.create_quiz_handle).visibility = View.VISIBLE
-                    quiz.findViewById<ConstraintLayout>(R.id.create_quiz_header).background =
-                        ContextCompat.getDrawable(
-                            APP_ACTIVITY, R.drawable.bg_all_radius
-                        )
-                    quiz.background = ContextCompat.getDrawable(
-                        APP_ACTIVITY, R.drawable.bg_top_radius
-                    )
-                }
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    quiz.findViewById<EditText>(R.id.create_quiz_title)
-                    quiz.findViewById<LinearLayout>(R.id.create_quiz_answers).removeAllViews()
-                    quiz.findViewById<LinearLayout>(R.id.create_quiz_answers)
-                        .addView(
-                            layoutInflater.inflate(R.layout.create_quiz_answer_element, null)
-                        )
-                    quiz.findViewById<TextView>(R.id.create_quiz_add_answer_count)
-                        .text = getPlurals(
-                        R.plurals.count_answers,
-                        10 - binding.coordinatorLayout
-                            .findViewById<LinearLayout>(R.id.create_quiz_answers).childCount
-                    )
-                    quiz.findViewById<SwitchMaterial>(R.id.create_quiz_settings_multi_switch)
-                        .isChecked = false
-                }
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-
-            }
-
-        })
-        createQuizSetClicker()
+        replaceFragment(QuizFragment(group))
     }
 
     @SuppressLint("SetTextI18n", "CutPasteId")
     private fun createQuizSetClicker() {
-        val answers = binding.coordinatorLayout.findViewById<LinearLayout>(R.id.create_quiz_answers)
-        answers.setOnClickListener {
-            deleteAnswer(0)
-        }
-        binding.coordinatorLayout
-            .findViewById<LinearLayout>(R.id.create_quiz_add_answer_big_button)
-            .setOnClickListener {
-                if (answers.childCount < 10) {
-                    val answerView =
-                        layoutInflater.inflate(R.layout.create_quiz_answer_element, null)
 
-                    answerView.tag = "answer ${answers.childCount}"
-                    answerView.findViewById<ImageView>(R.id.create_quiz_answer_delete)
-                        .setOnClickListener {
-                            val index = answers.indexOfChild(answerView)
-                            deleteAnswer(index)
-                        }
-                    answers.addView(answerView)
-                    binding.coordinatorLayout
-                        .findViewById<TextView>(R.id.create_quiz_add_answer_count).text =
-                        getPlurals(R.plurals.count_answers, 10 - answers.childCount)
-                } else {
-                    showToast(getString(R.string.max_answers))
-                }
-            }
-        binding.coordinatorLayout.findViewById<FloatingActionButton>(R.id.create_quiz_create_button)
-            .setOnClickListener { createQuiz(answers) }
-        binding.coordinatorLayout.findViewById<ConstraintLayout>(R.id.create_quiz_choose_answer_type)
-            .setOnClickListener {
-                val switch =
-                    binding.coordinatorLayout.findViewById<SwitchMaterial>(R.id.create_quiz_settings_multi_switch)
-                switch.isChecked = !switch.isChecked
-            }
     }
 
-    private fun createQuiz(answers: LinearLayout) {
-        val title = binding.coordinatorLayout
-            .findViewById<EditText>(R.id.create_quiz_title).text.toString()
 
-        val isPeekMulti: Boolean = binding.coordinatorLayout
-            .findViewById<SwitchMaterial>(R.id.create_quiz_settings_multi_switch).isChecked
-
-        val listAnswer = mutableListOf<String>()
-
-        answers.children.forEach {
-            if (it.findViewById<EditText>(R.id.create_quiz_answer_text).text.toString() != "")
-                listAnswer.add(it.findViewById<EditText>(R.id.create_quiz_answer_text).text.toString())
-        }
-
-        sendQuiz(group, title, listAnswer, isPeekMulti) {
-            bottomSheetBehaviourQuiz.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetBehaviourQuiz.peekHeight = 0
-        }
-    }
-
-    private fun deleteAnswer(id: Int) {
-        binding.coordinatorLayout.findViewById<LinearLayout>(R.id.create_quiz_answers)
-            .removeViewAt(id)
-        binding.coordinatorLayout.findViewById<TextView>(R.id.create_quiz_add_answer_count).text =
-            getPlurals(
-                R.plurals.count_answers,
-                10 - binding.coordinatorLayout
-                    .findViewById<LinearLayout>(R.id.create_quiz_answers).childCount
-            )
-    }
 
     private fun attachGraffiti() {
+        hideKeyboard()
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         replaceFragment(DrawFragment(group))
     }
 

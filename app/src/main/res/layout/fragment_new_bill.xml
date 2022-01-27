@@ -191,20 +191,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/new_bill_button_create"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
         android:layout_margin="30dp"
-        android:backgroundTint="@color/pink"
-        android:foregroundTint="@color/white_pink"
-        android:src="@drawable/ic_confirm"
-        app:borderWidth="0dp"
-        app:fabCustomSize="80dp"
+        android:background="@drawable/ripple_effect_register_button"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

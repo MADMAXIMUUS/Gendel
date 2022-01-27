@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.draw
+package com.example.gendel.ui.screens.chats
 
 import android.annotation.SuppressLint
 import android.app.Instrumentation

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screens.chats.QuizFragment">
+
+    <ScrollView
+        android:id="@+id/create_quiz_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/white_pink"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/create_quiz_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_bottom_radius"
+                android:backgroundTint="@color/blue_pink"
+                android:elevation="5dp"
+                android:paddingBottom="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <EditText
+                    android:id="@+id/create_quiz_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/create_quiz_edittext_selector"
+                    android:hint="@string/create_quiz_title_hint"
+                    android:inputType="text|textCapSentences"
+                    android:padding="@dimen/app_padding"
+                    android:textColor="?attr/colorPrimary"
+                    android:textColorHint="@color/violet"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Название" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/chat_settings_block_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_margin"
+                android:background="@drawable/bg_all_radius"
+                android:backgroundTint="@color/blue_pink"
+                android:elevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/create_quiz_header">
+
+                <TextView
+                    android:id="@+id/create_quiz_block_answer_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/app_small_margin"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:text="@string/create_quiz_block_answer_title"
+                    android:textColor="@color/pink"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/create_quiz_answers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/create_quiz_block_answer_title">
+
+                    <include layout="@layout/create_quiz_answer_element" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/create_quiz_add_answer_big_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/create_quiz_bottom_radius_ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/app_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/create_quiz_answers"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/create_quiz_add_answer"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="115dp"
+                        android:src="@drawable/ic_create_quiz_add_answer"
+                        app:tint="@color/violet"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/create_quiz_add_answer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center"
+                        android:text="@string/create_quiz_add_answer_title"
+                        android:textColor="@color/violet"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/create_quiz_add_answer_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_margin"
+                android:layout_marginTop="@dimen/app_small_margin"
+                android:text="@string/create_quiz_add_answer_count"
+                android:textColor="@color/violet"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chat_settings_block_settings" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/create_quiz_block_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_small_margin"
+                android:background="@drawable/bg_all_radius"
+                android:backgroundTint="@color/blue_pink"
+                android:elevation="5dp"
+                android:paddingBottom="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/create_quiz_add_answer_count">
+
+                <TextView
+                    android:id="@+id/create_quiz_block_settings_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/app_small_margin"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:text="@string/create_quiz_block_settings_title"
+                    android:textColor="@color/pink"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/create_quiz_choose_answer_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/create_quiz_ripple_effect_2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings_title">
+
+                    <TextView
+                        android:id="@+id/create_quiz_settings_multi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_margin="@dimen/app_small_margin"
+                        android:text="@string/create_quiz_settings_multi"
+                        android:textColor="@color/violet"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/create_quiz_settings_multi_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="@dimen/app_small_margin"
+                        android:layout_marginEnd="@dimen/app_margin"
+                        android:layout_marginBottom="@dimen/app_small_margin"
+                        android:enabled="true"
+                        android:thumb="@drawable/ic_create_quiz_handle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:thumbTint="@color/violet"
+                        app:trackTint="@color/switch_track_color" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/create_quiz_create_button"
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/app_margin"
+                android:background="@drawable/ripple_effect_register_button"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/create_quiz_block_settings">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

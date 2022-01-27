@@ -8,28 +8,29 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        style="@style/mainToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            style="@style/mainToolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/toolbar_info"
-            layout="@layout/toolbar_info"
-            android:visibility="gone" />
+            <include
+                android:id="@+id/toolbar_info"
+                layout="@layout/toolbar_info"
+                android:visibility="gone" />
 
-        <include
-            android:id="@+id/toolbar_search"
-            layout="@layout/search_layout" />
+            <include
+                android:id="@+id/toolbar_search"
+                layout="@layout/search_layout" />
 
-        <include
-            android:id="@+id/settings_exit"
-            layout="@layout/profile_exit_layout"
-            android:visibility="gone" />
+            <include
+                android:id="@+id/settings_exit"
+                layout="@layout/profile_exit_layout"
+                android:visibility="gone" />
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/verification_text"

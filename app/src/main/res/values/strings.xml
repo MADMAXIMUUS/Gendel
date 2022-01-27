@@ -104,6 +104,7 @@
     <string name="delete_message">Are you sure you want to delete the message?</string>
     <string name="added_to_clipboard">Copied to clipboard</string>
     <string name="list_tag_viewer_ok">Ок</string>
+    <string name="create">Create</string>
 
     <plurals name="count_members">
         <item quantity="one">%d member</item>
