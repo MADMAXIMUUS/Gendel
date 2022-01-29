@@ -105,6 +105,9 @@
     <string name="added_to_clipboard">Скопированно в буфер обмена</string>
     <string name="list_tag_viewer_ok">Ок</string>
     <string name="create">Создать</string>
+    <string name="download_menu_confirm">Скачать и установить</string>
+    <string name="new_version_is_available">Доступна новая версия</string>
+    <string name="download_menu_version">Версия - %1$s</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

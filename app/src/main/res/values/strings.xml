@@ -105,6 +105,9 @@
     <string name="added_to_clipboard">Copied to clipboard</string>
     <string name="list_tag_viewer_ok">Ок</string>
     <string name="create">Create</string>
+    <string name="download_menu_confirm">Download and install</string>
+    <string name="new_version_is_available">New version is available</string>
+    <string name="download_menu_version">Version - %1$s</string>
 
     <plurals name="count_members">
         <item quantity="one">%d member</item>

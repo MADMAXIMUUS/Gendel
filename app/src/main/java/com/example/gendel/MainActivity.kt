@@ -3,6 +3,7 @@ package com.example.gendel
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.gendel.database.*
@@ -14,8 +15,8 @@ import com.example.gendel.ui.screens.lists.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
 import com.example.gendel.utilities.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
-
 
 class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
 
@@ -27,14 +28,21 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         APP_ACTIVITY = this
-        downloadNewVersion(){
-            initFirebase()
-            initUser {
-                initFields()
-                initFunc()
-            }
+        initFirebase()
+        initUser {
+            initFields()
+            initFunc()
         }
-
+        isNewVersionAvailable { newVersion ->
+            val downloadMenu = BottomSheetDialog(APP_ACTIVITY, R.style.SheetDialog)
+            downloadMenu.setContentView(R.layout.download_menu)
+            val version = downloadMenu.findViewById<TextView>(R.id.download_menu_version)
+            version!!.text = String.format(getString(R.string.download_menu_version),newVersion.version)
+            val description = downloadMenu.findViewById<TextView>(R.id.download_menu_description)
+            description!!.text = newVersion.description
+            downloadMenu.show()
+            //downloadNewVersion()
+        }
         binding.bottomNavigationMenu.background = null
         binding.bottomNavigationMenu.menu.getItem(2).isEnabled = false
     }

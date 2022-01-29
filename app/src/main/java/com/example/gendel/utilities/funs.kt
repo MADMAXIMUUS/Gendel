@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.gendel.BuildConfig
 import com.example.gendel.MainActivity
 import com.example.gendel.R
+import com.example.gendel.models.NewVersionModel
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.text.SimpleDateFormat
@@ -49,7 +50,6 @@ fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
                 fragment
             ).commit()
     }
-
 }
 
 fun hideKeyboard() {
@@ -111,6 +111,14 @@ fun setBottomNavigationBarColor(color: Int) {
         window.isNavigationBarContrastEnforced = true
 }
 
+fun isNewVersionAvailable(function: (NewVersionModel) -> Unit) {
+    function(NewVersionModel(
+        id = "1",
+        version = "0.7.1",
+        description = "Изменения в данной версии:\n-Исправление ошибок и прочие улучшения"
+    ))
+}
+
 fun downloadNewVersion(function: () -> Unit) {
     enqueueDownload {
         function()
@@ -118,7 +126,7 @@ fun downloadNewVersion(function: () -> Unit) {
 }
 
 fun enqueueDownload(function: () -> Unit) {
-    val version = "0.6"
+    val version = "0.6.2"
     if (version.toFloat() <= BuildConfig.VERSION_NAME.toFloat()) {
         function()
     } else {
