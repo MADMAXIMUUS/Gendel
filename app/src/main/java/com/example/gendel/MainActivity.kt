@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gendel.database.*
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
@@ -33,18 +34,37 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener {
             initFields()
             initFunc()
         }
-        isNewVersionAvailable { newVersion ->
-            val downloadMenu = BottomSheetDialog(APP_ACTIVITY, R.style.SheetDialog)
-            downloadMenu.setContentView(R.layout.download_menu)
-            val version = downloadMenu.findViewById<TextView>(R.id.download_menu_version)
-            version!!.text = String.format(getString(R.string.download_menu_version),newVersion.version)
-            val description = downloadMenu.findViewById<TextView>(R.id.download_menu_description)
-            description!!.text = newVersion.description
-            downloadMenu.show()
-            //downloadNewVersion()
-        }
+
         binding.bottomNavigationMenu.background = null
         binding.bottomNavigationMenu.menu.getItem(2).isEnabled = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isNewVersionAvailable { newVersion, needToDownload ->
+            if (needToDownload) {
+                val downloadMenu = BottomSheetDialog(APP_ACTIVITY, R.style.SheetDialog)
+                downloadMenu.setContentView(R.layout.download_menu)
+                downloadMenu.dismiss()
+                val version = downloadMenu.findViewById<TextView>(R.id.download_menu_version)
+                version!!.text =
+                    String.format(getString(R.string.download_menu_version), newVersion.version)
+                val description =
+                    downloadMenu.findViewById<TextView>(R.id.download_menu_description)
+                description!!.text = newVersion.description
+                val cancel = downloadMenu.findViewById<TextView>(R.id.download_menu_cancel)
+                cancel!!.setOnClickListener {
+                    downloadMenu.dismiss()
+                }
+                val confirm =
+                    downloadMenu.findViewById<ConstraintLayout>(R.id.download_menu_confirm)
+                confirm!!.setOnClickListener {
+                    downloadMenu.dismiss()
+                    downloadNewVersion(newVersion)
+                }
+                downloadMenu.show()
+            }
+        }
     }
 
     private fun initFunc() {

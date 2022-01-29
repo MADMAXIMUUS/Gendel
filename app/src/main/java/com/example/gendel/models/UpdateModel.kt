@@ -1,6 +1,6 @@
 package com.example.gendel.models
 
-class NewVersionModel(
+class UpdateModel(
     val id: String ="",
     val version: String="",
     val description:String="",

@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.gendel.BuildConfig
 import com.example.gendel.MainActivity
 import com.example.gendel.R
-import com.example.gendel.models.NewVersionModel
+import com.example.gendel.models.UpdateModel
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.text.SimpleDateFormat
@@ -111,67 +111,19 @@ fun setBottomNavigationBarColor(color: Int) {
         window.isNavigationBarContrastEnforced = true
 }
 
-fun isNewVersionAvailable(function: (NewVersionModel) -> Unit) {
-    function(NewVersionModel(
-        id = "1",
-        version = "0.7.1",
-        description = "Изменения в данной версии:\n-Исправление ошибок и прочие улучшения"
-    ))
-}
-
-fun downloadNewVersion(function: () -> Unit) {
-    enqueueDownload {
-        function()
-    }
-}
-
-fun enqueueDownload(function: () -> Unit) {
-    val version = "0.6.2"
-    if (version.toFloat() <= BuildConfig.VERSION_NAME.toFloat()) {
-        function()
-    } else {
-        var destination =
-            APP_ACTIVITY.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/"
-        destination += "app-debug.apk"
-        val uri =
-            Uri.parse("https://github.com/MADMAXIMUUS/Gendel-releases/releases/download/v$version/app-debug.apk")
-        val file = File(destination)
-        if (file.exists()) file.delete()
-        val downloadManager =
-            APP_ACTIVITY.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(uri)
-        request.setMimeType("application/vnd.android.package-archive")
-        request.setTitle("app-debug.apk")
-        request.setDestinationUri(uri)
-        showInstallOption(destination)
-        downloadManager.enqueue(request)
-    }
-}
-
-private fun showInstallOption(
-    destination: String
-) {
-    val onComplete = object : BroadcastReceiver() {
-        override fun onReceive(
-            context: Context,
-            intent: Intent
-        ) {
-            val contentUri = FileProvider.getUriForFile(
-                context,
-                BuildConfig.APPLICATION_ID + ".provider",
-                File(destination)
-            )
-            val install = Intent(Intent.ACTION_VIEW)
-            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            install.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
-            install.data = contentUri
-            context.startActivity(install)
-            context.unregisterReceiver(this)
-        }
-    }
-    APP_ACTIVITY.registerReceiver(
-        onComplete,
-        IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+fun isNewVersionAvailable(function: (UpdateModel, Boolean) -> Unit) {
+    function(
+        UpdateModel(
+            id = "1",
+            version = "0.7.1",
+            description = "Изменения в данной версии:\n-Исправление ошибок и прочие улучшения",
+            fileUrl = "https://github.com/MADMAXIMUUS/Gendel-releases/releases/download/v0.7.1/app-debug.apk"
+        ),
+        false
     )
+}
+
+fun downloadNewVersion(update: UpdateModel) {
+    val downloadController = DownloadController(APP_ACTIVITY, update.fileUrl)
+    downloadController.enqueueDownload()
 }

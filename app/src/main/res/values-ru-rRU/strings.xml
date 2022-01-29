@@ -108,6 +108,9 @@
     <string name="download_menu_confirm">Скачать и установить</string>
     <string name="new_version_is_available">Доступна новая версия</string>
     <string name="download_menu_version">Версия - %1$s</string>
+    <string name="download_menu_cancel">Пропустить</string>
+    <string name="downloading">Загрузка</string>
+
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>
