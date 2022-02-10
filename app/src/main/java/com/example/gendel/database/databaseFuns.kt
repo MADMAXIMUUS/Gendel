@@ -245,8 +245,8 @@ fun sendQuiz(
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun createNewAccount(name:String, email:String, password: String, function: () -> Unit) {
-    AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+fun createNewAccount(name: String, email: String, password: String, function: () -> Unit) {
+    /*AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
         if (task.isSuccessful) {
             AUTH.currentUser?.sendEmailVerification()?.addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -267,18 +267,18 @@ fun createNewAccount(name:String, email:String, password: String, function: () -
                 } else showToast(it.exception?.message.toString())
             }
         } else showToast(task.exception?.message.toString())
-    }
+    }*/
 }
 
-fun logInAccount(email:String, password:String, function: () -> Unit) {
-    AUTH.signInWithEmailAndPassword(email, password)
+fun logInAccount(email: String, password: String, function: () -> Unit) {
+    /*AUTH.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener {
             if (it.isSuccessful) {
                 function()
             } else {
                 showToast(APP_ACTIVITY.getString(R.string.account_login_error))
             }
-        }
+        }*/
 }
 
 fun getReceivedName(id: String, function: (name: String) -> Unit) {

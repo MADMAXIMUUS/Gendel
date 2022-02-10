@@ -48,12 +48,13 @@ class RegisterSignInFragment() : Fragment(R.layout.fragment_signin) {
             password = binding.registerSignInEditTextPassword.text.toString()
             cpassword = binding.registerSignInEditTextConfirmPassword.text.toString()
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && cpassword.isNotEmpty()) {
-                if (password == cpassword)
-                    createNewAccount(name, email, password){
+                if (password == cpassword) {
+                    password.sha256()
+                    createNewAccount(name, email, password) {
                         showToast(getString(R.string.signin_welcome))
                         restartActivity()
                     }
-                else
+                } else
                     showToast(getString(R.string.password_mismatch))
             } else {
                 showToast(getString(R.string.register_not_all_field))

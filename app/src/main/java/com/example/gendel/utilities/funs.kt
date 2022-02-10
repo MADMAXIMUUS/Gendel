@@ -1,28 +1,22 @@
 package com.example.gendel.utilities
 
-import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.util.TypedValue
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.example.gendel.BuildConfig
 import com.example.gendel.MainActivity
 import com.example.gendel.R
 import com.example.gendel.models.UpdateModel
 import com.squareup.picasso.Picasso
 import java.io.File
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -125,4 +119,19 @@ fun isNewVersionAvailable(function: (UpdateModel, Boolean) -> Unit) {
 fun downloadNewVersion(update: UpdateModel) {
     val downloadController = DownloadController(APP_ACTIVITY, update.fileUrl)
     downloadController.enqueueDownload()
+}
+
+fun String.md5(): String {
+    return hashString(this, "MD5")
+}
+
+fun String.sha256(): String {
+    return hashString(this, "SHA-256")
+}
+
+private fun hashString(input: String, algorithm: String): String {
+    return MessageDigest
+        .getInstance(algorithm)
+        .digest(input.toByteArray())
+        .fold("") { str, it -> str + "%02x".format(it) }
 }
