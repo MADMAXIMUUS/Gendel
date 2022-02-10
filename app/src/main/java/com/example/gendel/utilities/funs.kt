@@ -114,9 +114,8 @@ fun setBottomNavigationBarColor(color: Int) {
 fun isNewVersionAvailable(function: (UpdateModel, Boolean) -> Unit) {
     function(
         UpdateModel(
-            id = "1",
             version = "0.7.1",
-            description = "Изменения в данной версии:\n-Исправление ошибок и прочие улучшения",
+            description = "Исправление ошибок и прочие улучшения",
             fileUrl = "https://github.com/MADMAXIMUUS/Gendel-releases/releases/download/v0.7.1/app-debug.apk"
         ),
         false

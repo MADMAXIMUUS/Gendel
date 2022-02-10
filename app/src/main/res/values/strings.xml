@@ -110,6 +110,8 @@
     <string name="download_menu_version">Version - %1$s</string>
     <string name="download_menu_cancel">Cancel</string>
     <string name="downloading">downloading</string>
+    <string name="new_quiz">New quiz</string>
+    <string name="add_answer_hint">Please enter at least 1 answer</string>
 
     <plurals name="count_members">
         <item quantity="one">%d member</item>

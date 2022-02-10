@@ -15,7 +15,7 @@ import java.io.File
 class DownloadController(private val context: Context, private val url: String) {
 
     companion object {
-        private const val FILE_NAME = "CodeplayonApp.apk"
+        private const val FILE_NAME = "gendel.apk"
         private const val FILE_BASE_PATH = "file://"
         private const val MIME_TYPE = "application/vnd.android.package-archive"
         private const val PROVIDER_PATH = ".provider"

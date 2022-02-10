@@ -62,4 +62,9 @@ dependencies {
     implementation 'com.jaredrummler:colorpicker:1.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     implementation 'com.github.midorikocak:currency-picker-android:1.2.1'
+
+    //REST
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

@@ -16,7 +16,6 @@ import java.io.File
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
-    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference

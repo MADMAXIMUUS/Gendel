@@ -9,14 +9,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
 import com.example.gendel.R
 import com.example.gendel.database.sendQuiz
 import com.example.gendel.databinding.FragmentQuizBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.base.BaseFragment
 import com.example.gendel.utilities.*
 
-class QuizFragment(private val dialog: CommonModel) : BaseFragment(R.layout.fragment_quiz) {
+class QuizFragment(private val dialog: CommonModel) : Fragment(R.layout.fragment_quiz) {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
 
@@ -26,19 +26,19 @@ class QuizFragment(private val dialog: CommonModel) : BaseFragment(R.layout.frag
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
-        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        APP_ACTIVITY.toolbar.visibility = View.VISIBLE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.toolbar_search).visibility = View.GONE
+        APP_ACTIVITY.toolbar.findViewById<View>(R.id.settings_exit).visibility = View.GONE
+        APP_ACTIVITY.toolbar.title = getString(R.string.new_quiz)
+        APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.white_pink)
+        initFunction()
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        initFunction()
     }
 
     private fun initFunction() {
@@ -68,7 +68,15 @@ class QuizFragment(private val dialog: CommonModel) : BaseFragment(R.layout.frag
                 }
             }
         binding.createQuizCreateButton
-            .setOnClickListener { createQuiz(binding.createQuizAnswers) }
+            .setOnClickListener {
+                if (binding.createQuizTitle.text.isEmpty())
+                    showToast(getString(R.string.create_quiz_title_hint))
+                else if (binding.createQuizAnswers.childCount < 1)
+                    showToast(getString(R.string.add_answer_hint))
+                else
+                    createQuiz(binding.createQuizAnswers)
+
+            }
         binding.createQuizChooseAnswerType
             .setOnClickListener {
                 binding.createQuizSettingsMultiSwitch.isChecked =
@@ -87,10 +95,12 @@ class QuizFragment(private val dialog: CommonModel) : BaseFragment(R.layout.frag
             if (it.findViewById<EditText>(R.id.create_quiz_answer_text).text.toString() != "")
                 listAnswer.add(it.findViewById<EditText>(R.id.create_quiz_answer_text).text.toString())
         }
-
-        sendQuiz(dialog, title, listAnswer, isPeekMulti) {
-            replaceFragment(GroupChatFragment(dialog))
-        }
+        if (listAnswer.size == 0) {
+            showToast(getString(R.string.add_answer_hint))
+        } else
+            sendQuiz(dialog, title, listAnswer, isPeekMulti) {
+                replaceFragment(GroupChatFragment(dialog))
+            }
     }
 
     private fun deleteAnswer(id: Int) {

@@ -110,6 +110,8 @@
     <string name="download_menu_version">Версия - %1$s</string>
     <string name="download_menu_cancel">Пропустить</string>
     <string name="downloading">Загрузка</string>
+    <string name="new_quiz">Новый опрос</string>
+    <string name="add_answer_hint">Введите хотя бы 1 ответ</string>
 
 
     <plurals name="count_members">

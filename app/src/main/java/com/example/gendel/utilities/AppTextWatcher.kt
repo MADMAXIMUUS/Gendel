@@ -13,5 +13,7 @@ class AppTextWatcher(val onSuccess: (Editable?) -> Unit) : TextWatcher {
 
     }
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+    }
 }

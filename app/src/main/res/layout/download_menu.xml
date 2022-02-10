@@ -47,16 +47,29 @@
         tools:text="Версия - 0.7.1" />
 
     <TextView
-        android:id="@+id/download_menu_description"
+        android:id="@+id/download_menu_description_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/pink"
         android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="@dimen/app_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/download_menu_version"
-        tools:text="Изменения в данной версии:\n-Исправление ошибок и прочие улучшения" />
+        tools:text="Изменения в данной версии:" />
+
+    <TextView
+        android:id="@+id/download_menu_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/download_menu_description_title"
+        tools:text="-Исправление ошибок и прочие улучшения" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/download_menu_confirm"
