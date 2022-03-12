@@ -6,7 +6,7 @@
     <string name="title_profile">Профиль</string>
     <string name="title_settings">Настройки</string>
     <string name="title_group">Беседы</string>
-    <string name="title_change_paswword">Сменить пароль</string>
+    <string name="title_change_password">Сменить пароль</string>
     <string name="settings_hint_input_name">Имя/никнейм</string>
     <string name="settings_toast_name_is_empty">Имя/никнейм не может быть пустым!</string>
     <string name="settings_toast_email_is_empty">Email не может быть пустым!</string>
@@ -112,7 +112,10 @@
     <string name="downloading">Загрузка</string>
     <string name="new_quiz">Новый опрос</string>
     <string name="add_answer_hint">Введите хотя бы 1 ответ</string>
-
+    <string name="bill_load_error">Ошибка при загрузке объявлений</string>
+    <string name="connection_error">Ошибка соединения</string>
+    <string name="add_new_bill_error">Ошибка при добавлении нового объявления</string>
+    <string name="choose_tag_dialog_title">Выберите тэги</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

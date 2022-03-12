@@ -1,11 +1,10 @@
-package com.example.gendel.models
+package com.example.gendel.dto
 
 data class BillModel(
-    val id: String = "",
     var storeName: String = "",
     var cost: String = "",
     var endDate: String = "",
     var startDate: String = "",
-    var chatId: String = "",
-    var tags: HashMap<String, Any> = hashMapOf()
+    var memberCount: Int = 1,
+    var tags: List<String> = listOf()
 )

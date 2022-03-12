@@ -7,22 +7,18 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.gendel.R
-import com.example.gendel.database.NODE_BILLS
-import com.example.gendel.database.REF_DATABASE_ROOT
-import com.example.gendel.database.USER
-import com.example.gendel.database.getCommonModel
+import com.example.gendel.database.services.interfaces.BillService
+import com.example.gendel.database.services.objects.ServiceBuilder
 import com.example.gendel.databinding.FragmentMainListBinding
 import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.utilities.*
 
-class MainListFragment() : Fragment(R.layout.fragment_main_list) {
+class MainListFragment : Fragment(R.layout.fragment_main_list) {
 
     private var _binding: FragmentMainListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ListAdapter
-    private val refMainList = REF_DATABASE_ROOT.child(NODE_BILLS)
-    private var listItems = listOf<CommonModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,17 +55,19 @@ class MainListFragment() : Fragment(R.layout.fragment_main_list) {
 
     private fun initRecyclerView() {
         adapter = ListAdapter(false)
-            refMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-                listItems = dataSnapshot.children.map { it.getCommonModel() }
-                listItems.forEach { model ->
-                    REF_DATABASE_ROOT.child(NODE_BILLS).child(model.id)
-                        .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
-                            val newModel = dataSnapshot1.getCommonModel()
-                            adapter.updateListItems(newModel)
-                        })
+        val billService = ServiceBuilder.buildService(BillService::class.java)
+        val requestCall = billService.getBills()
+        requestCall.enqueue(AppCallBack<List<CommonModel>> { response ->
+            if (response.isSuccessful) {
+                val billList = response.body()!!
+                billList.forEach {
+                    adapter.updateListItems(it)
                 }
-            })
+            } else {
+                showToast(getString(R.string.bill_load_error))
+            }
+        })
         binding.mainListRecycleView.adapter = adapter
-        binding.mainListRecycleView.addItemDecoration(ListsItemDecoration(30,60))
+        binding.mainListRecycleView.addItemDecoration(ListsItemDecoration(30, 60))
     }
 }

@@ -49,12 +49,12 @@ class ListAdapter(private val isFavorites: Boolean) :
         holder.itemEndDate.text = listItems[position].endDate
         holder.itemMember.text = listItems[position].memberCount
         var tags: String = when {
-            listItems[position].tags.size == 1 -> listItems[position].tags["tag 0"].toString()
-            listItems[position].tags.size == 2 -> listItems[position].tags["tag 0"].toString() +
-                    " " + listItems[position].tags["tag 1"].toString()
-            listItems[position].tags.size >= 3 -> listItems[position].tags["tag 0"].toString() + " " +
-                    " " + listItems[position].tags["tag 1"].toString() +
-                    " " + listItems[position].tags["tag 2"].toString()
+            listItems[position].tags.size == 1 -> listItems[position].tags[0]
+            listItems[position].tags.size == 2 -> listItems[position].tags[0] +
+                    " " + listItems[position].tags[1]
+            listItems[position].tags.size >= 3 -> listItems[position].tags[0] + " " +
+                    " " + listItems[position].tags[1] +
+                    " " + listItems[position].tags[2]
             else -> ""
         }
         if (tags.length > 20)
@@ -99,9 +99,8 @@ class ListAdapter(private val isFavorites: Boolean) :
                 .from(APP_ACTIVITY)
                 .inflate(R.layout.list_tags_viewer, null)
             listItems[holder.adapterPosition].tags.forEach {
-                Log.e("tags", it.value.toString())
                 val textView = TextView(APP_ACTIVITY)
-                textView.text = it.value.toString()
+                textView.text = it
                 textView.textSize = 20f
                 textView.setTextColor(
                     ContextCompat.getColor(

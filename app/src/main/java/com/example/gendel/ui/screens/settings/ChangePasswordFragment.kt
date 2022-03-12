@@ -24,7 +24,7 @@ class ChangePasswordFragment : BaseChangeFragment(R.layout.fragment_change_passw
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
-        APP_ACTIVITY.toolbar.title = getString(R.string.title_change_paswword)
+        APP_ACTIVITY.toolbar.title = getString(R.string.title_change_password)
         APP_ACTIVITY.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         setBottomNavigationBarColor(R.color.white)
         return binding.root

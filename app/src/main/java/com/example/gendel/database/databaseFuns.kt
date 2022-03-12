@@ -2,6 +2,9 @@ package com.example.gendel.database
 
 import android.net.Uri
 import com.example.gendel.R
+import com.example.gendel.database.services.interfaces.BillService
+import com.example.gendel.database.services.objects.ServiceBuilder
+import com.example.gendel.dto.BillModel
 import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.utilities.*
@@ -140,9 +143,24 @@ fun createBillAndPushToDatabase(
     cost: String,
     startDate: String,
     tags: MutableList<String>,
-    function: (keyBill: String) -> Unit,
+    function: (/*keyBill: String*/) -> Unit,
 ) {
-    val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
+    val newBill = BillModel()
+    newBill.storeName = storeName
+    newBill.endDate = endDate
+    newBill.cost = cost
+    newBill.startDate = startDate
+    newBill.tags = tags
+    val billService = ServiceBuilder.buildService(BillService::class.java)
+    val requestCall = billService.addBill(newBill)
+    requestCall.enqueue(AppCallBack<BillModel> { response ->
+        if (response.isSuccessful) {
+            function()
+        } else {
+            showToast(APP_ACTIVITY.getString(R.string.add_new_bill_error))
+        }
+    })
+    /*val keyBill = REF_DATABASE_ROOT.child(NODE_BILLS).push().key.toString()
     val path = REF_DATABASE_ROOT.child(NODE_BILLS).child(keyBill)
     val mapData = hashMapOf<String, Any>()
     mapData[CHILD_ID] = keyBill
@@ -167,7 +185,7 @@ fun createBillAndPushToDatabase(
         .addOnSuccessListener {
             function(keyBill)
         }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnFailureListener { showToast(it.message.toString()) }*/
 }
 
 fun sendMessage(message: String, type: String, group: CommonModel, function: () -> Unit) {

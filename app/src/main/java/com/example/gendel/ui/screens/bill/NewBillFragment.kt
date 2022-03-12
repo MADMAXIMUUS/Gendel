@@ -110,7 +110,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
             else if (cost.isEmpty())
                 showToast(getString(R.string.enter_delivery_cost))
             else {
-                createBillAndPushToDatabase(storeName, date, cost, startDate, chosenTags) { billID ->
+                createBillAndPushToDatabase(storeName, date, cost, startDate, chosenTags) { /*billID ->
                     val mapData = hashMapOf<String, Any>()
                     mapData[billID] = "1"
                     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
@@ -121,7 +121,11 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                                     inst = Instrumentation()
                                     inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
                                 }
-                            }.addOnFailureListener { showToast(it.message.toString()) }
+                            }.addOnFailureListener { showToast(it.message.toString()) }*/
+                    CoroutineScope(Dispatchers.IO).launch {
+                        inst = Instrumentation()
+                        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                    }
                 }
             }
         }
@@ -186,7 +190,7 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                     }
             }
             AlertDialog.Builder(APP_ACTIVITY, R.style.MyDialogTheme)
-                .setTitle("Выберите тэги")
+                .setTitle(getString(R.string.choose_tag_dialog_title))
                 .setView(dialogView)
                 .setPositiveButton(R.string.choose_tags_save) { dialog, _ ->
                     chosenTags.clear()
@@ -194,9 +198,6 @@ class NewBillFragment : BaseFragment(R.layout.fragment_new_bill) {
                         if (it.isChecked) {
                             chosenTags.add(it.text.toString())
                         }
-                    }
-                    chosenTags.forEach {
-                        Log.e("chosenTags", it)
                     }
                     var tags: String = when {
                         chosenTags.size == 1 -> chosenTags[0]
