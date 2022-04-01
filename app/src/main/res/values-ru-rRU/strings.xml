@@ -116,6 +116,7 @@
     <string name="connection_error">Ошибка соединения</string>
     <string name="add_new_bill_error">Ошибка при добавлении нового объявления</string>
     <string name="choose_tag_dialog_title">Выберите тэги</string>
+    <string name="registration_error">Ошибка при регистрации</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

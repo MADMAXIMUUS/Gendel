@@ -1,7 +1,6 @@
-package com.example.gendel.ui.screens.lists
+package com.example.gendel.ui.screens.bill_list
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +63,7 @@ class ListAdapter(private val isFavorites: Boolean) :
             holder.itemRegister.isEnabled = false
             holder.itemFavorites.isEnabled = false
         }
-        for (i in 0 until USER.favorites.size) {
+        /*for (i in 0 until USER.favorites.size) {
             if (listItems[holder.position].id in USER.favorites.keys) {
                 holder.inFavorites = true
                 holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
@@ -77,7 +76,7 @@ class ListAdapter(private val isFavorites: Boolean) :
                 holder.itemRegister.setImageResource(R.drawable.ic_unregister)
                 break
             }
-        }
+        }*/
     }
 
     fun updateListItems(item: CommonModel) {
@@ -138,7 +137,7 @@ class ListAdapter(private val isFavorites: Boolean) :
                     .addOnSuccessListener {
                         holder.inFavorites = true
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_color)
-                        USER.favorites[listItems[holder.adapterPosition].id] = "1"
+                        //USER.favorites[listItems[holder.adapterPosition].id] = "1"
                         showToast(APP_ACTIVITY.getString(R.string.bill_in_favorites))
                     }.addOnFailureListener { showToast(it.message.toString()) }
             } else {
@@ -147,7 +146,7 @@ class ListAdapter(private val isFavorites: Boolean) :
                     .removeValue().addOnSuccessListener {
                         holder.inFavorites = false
                         holder.itemFavorites.setImageResource(R.drawable.ic_favorite_outline)
-                        USER.favorites.remove(listItems[holder.adapterPosition].id)
+                        //USER.favorites.remove(listItems[holder.adapterPosition].id)
                         if (isFavorites)
                             removeFromList(listItems[holder.adapterPosition])
                         showToast(APP_ACTIVITY.getString(R.string.bill_remove_favorites))
@@ -179,7 +178,7 @@ class ListAdapter(private val isFavorites: Boolean) :
                                 .addOnSuccessListener {
                                     holder.registered = true
                                     holder.itemRegister.setImageResource(R.drawable.ic_unregister)
-                                    USER.registered[listItems[holder.adapterPosition].id] = "1"
+                                    //USER.registered[listItems[holder.adapterPosition].id] = "1"
                                     getBill(bill.id) { bill1 ->
                                         holder.itemMember.text = bill1.memberCount
                                     }

@@ -8,7 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceBuilder {
     private const val URL = "https://gendelserverapi.azure-api.net/"
 
-
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     private val okHttp = OkHttpClient.Builder().addInterceptor(logger)

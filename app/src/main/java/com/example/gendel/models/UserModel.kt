@@ -7,7 +7,5 @@ data class UserModel(
     var email: String = "",
     var photoUrl: String = "empty",
     var verified: String = "false",
-    var token: String = "",
-    var favorites: HashMap<String, Any> = hashMapOf(),
-    var registered: HashMap<String, Any> = hashMapOf()
+    var token: String = ""
 )

@@ -59,13 +59,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats_list) {
 
     private fun initRecyclerView() {
         adapter = ChatsListAdapter()
-        USER.registered.forEach { (key, _) ->
+        /*USER.registered.forEach { (key, _) ->
             REF_DATABASE_ROOT.child(NODE_BILLS).child(key)
                 .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
                     val newModel = dataSnapshot1.getCommonModel()
                     showGroup(newModel)
                 })
-        }
+        }*/
         binding.chatsListRecycleView.adapter = adapter
         binding.chatsListRecycleView.addItemDecoration(ChatsListsItemDecoration(1))
     }

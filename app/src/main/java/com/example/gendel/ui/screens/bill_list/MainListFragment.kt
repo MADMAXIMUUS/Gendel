@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.lists
+package com.example.gendel.ui.screens.bill_list
 
 import android.os.Bundle
 import android.view.LayoutInflater

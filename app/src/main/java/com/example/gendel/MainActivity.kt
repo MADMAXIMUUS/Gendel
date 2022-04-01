@@ -11,8 +11,8 @@ import com.example.gendel.database.*
 import com.example.gendel.databinding.ActivityMainBinding
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.ui.screens.chats.ChatsFragment
-import com.example.gendel.ui.screens.lists.FavoritesListFragment
-import com.example.gendel.ui.screens.lists.MainListFragment
+import com.example.gendel.ui.screens.bill_list.FavoritesListFragment
+import com.example.gendel.ui.screens.bill_list.MainListFragment
 import com.example.gendel.ui.screens.register.RegisterSignInFragment
 import com.example.gendel.ui.screens.settings.ProfileFragment
 import com.example.gendel.utilities.*

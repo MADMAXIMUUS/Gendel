@@ -2,9 +2,11 @@ package com.example.gendel.database
 
 import android.net.Uri
 import com.example.gendel.R
+import com.example.gendel.database.services.interfaces.AuthService
 import com.example.gendel.database.services.interfaces.BillService
 import com.example.gendel.database.services.objects.ServiceBuilder
 import com.example.gendel.dto.BillModel
+import com.example.gendel.dto.RegisterModel
 import com.example.gendel.models.CommonModel
 import com.example.gendel.models.UserModel
 import com.example.gendel.utilities.*
@@ -264,6 +266,18 @@ fun sendQuiz(
 }
 
 fun createNewAccount(name: String, email: String, password: String, function: () -> Unit) {
+    val authService = ServiceBuilder.buildService(AuthService::class.java)
+    val registerModel = RegisterModel(name, email, password.sha256())
+    val requestCall = authService.registerUser(registerModel)
+    requestCall.enqueue(AppCallBack<UserModel> { response ->
+        if (response.isSuccessful) {
+            val userModel = response.body()!!
+            USER = userModel
+            function()
+        } else {
+            showToast(APP_ACTIVITY.getString(R.string.registration_error))
+        }
+    })
     /*AUTH.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
         if (task.isSuccessful) {
             AUTH.currentUser?.sendEmailVerification()?.addOnCompleteListener {
@@ -289,14 +303,14 @@ fun createNewAccount(name: String, email: String, password: String, function: ()
 }
 
 fun logInAccount(email: String, password: String, function: () -> Unit) {
-    /*AUTH.signInWithEmailAndPassword(email, password)
+    AUTH.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener {
             if (it.isSuccessful) {
                 function()
             } else {
                 showToast(APP_ACTIVITY.getString(R.string.account_login_error))
             }
-        }*/
+        }
 }
 
 fun getReceivedName(id: String, function: (name: String) -> Unit) {

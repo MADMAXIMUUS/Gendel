@@ -11,7 +11,7 @@ import com.example.gendel.R
 import com.example.gendel.database.*
 import com.example.gendel.databinding.FragmentChatSettingsBinding
 import com.example.gendel.models.CommonModel
-import com.example.gendel.ui.screens.lists.MainListFragment
+import com.example.gendel.ui.screens.bill_list.MainListFragment
 import com.example.gendel.utilities.*
 
 
@@ -51,7 +51,7 @@ class ChatSettingsFragment(private val group: CommonModel) :
                 REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_REGISTERED)
                     .child(group.id)
                     .removeValue().addOnSuccessListener {
-                        USER.registered.remove(group.id)
+                        //USER.registered.remove(group.id)
                         val mapData = hashMapOf<String, Any>()
                         mapData[CHILD_ID] = group.id
                         mapData[CHILD_MEMBERS_COUNT] = "${group.memberCount.toInt() - 1}"

@@ -1,4 +1,4 @@
-package com.example.gendel.ui.screens.lists
+package com.example.gendel.ui.screens.bill_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,10 @@ import com.example.gendel.database.NODE_BILLS
 import com.example.gendel.database.REF_DATABASE_ROOT
 import com.example.gendel.database.USER
 import com.example.gendel.database.getCommonModel
+import com.example.gendel.database.services.interfaces.BillService
+import com.example.gendel.database.services.objects.ServiceBuilder
 import com.example.gendel.databinding.FragmentFavoritesListBinding
+import com.example.gendel.models.CommonModel
 import com.example.gendel.ui.screens.bill.NewBillFragment
 import com.example.gendel.utilities.*
 
@@ -57,13 +60,25 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list) {
 
     private fun initRecyclerView() {
         adapter = ListAdapter(true)
-        USER.favorites.forEach { (key, _) ->
+        /*USER.favorites.forEach { (key, _) ->
             REF_DATABASE_ROOT.child(NODE_BILLS).child(key)
                 .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
                     val newModel = dataSnapshot1.getCommonModel()
                     adapter.updateListItems(newModel)
                 })
-        }
+        }*/
+        val billService = ServiceBuilder.buildService(BillService::class.java)
+        val requestCall = billService.getBills()
+        requestCall.enqueue(AppCallBack<List<CommonModel>> { response ->
+            if (response.isSuccessful) {
+                val billList = response.body()!!
+                billList.forEach {
+                    adapter.updateListItems(it)
+                }
+            } else {
+                showToast(getString(R.string.bill_load_error))
+            }
+        })
         binding.favoritesListRecycleView.adapter = adapter
         binding.favoritesListRecycleView.addItemDecoration(ListsItemDecoration(30, 60))
     }

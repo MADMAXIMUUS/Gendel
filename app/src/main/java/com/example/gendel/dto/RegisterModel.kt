@@ -1,6 +1,7 @@
 package com.example.gendel.dto
 
-data class AuthModel(
+data class RegisterModel(
+    val name: String = "",
     val email: String = "",
     val password: String = ""
 )

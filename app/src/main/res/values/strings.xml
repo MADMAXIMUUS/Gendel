@@ -116,6 +116,7 @@
     <string name="connection_error">Connection error</string>
     <string name="add_new_bill_error">Error when adding a new bill</string>
     <string name="choose_tag_dialog_title">Chose tags</string>
+    <string name="registration_error">Registration error</string>
 
     <plurals name="count_members">
         <item quantity="one">%d member</item>

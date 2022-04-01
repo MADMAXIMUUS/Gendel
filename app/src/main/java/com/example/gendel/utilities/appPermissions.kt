@@ -2,7 +2,6 @@ package com.example.gendel.utilities
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
